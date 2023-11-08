@@ -1,0 +1,7 @@
+9781785785719,Yasha Levine,Surveillance Valley,Icon Books, Politics,2019,02-01-2020,read
+9780241976630,John Maeda,How to Speak Machine,Portfolio UK,Artificial Intelligence,2019,02-01-2020,to-read
+9781119055808,Andre De Vries,R For Dummies,John Wiley,Programming,2015,12-08-2016,read
+9780062018205,Dan Ariely,Predictably Irrational,Harper Collins,Psychology,2010,03-06-2019,read
+9780008327613,John Walsh,The Globalist,Harper Collins, Biography & Autobiography,2019, 11-05-2021,to-read
+9780525538349,John Doerr,Measure What Matters,Penguin LCC,Management,2018, 21-09-2022,to-read
+9780807092156,Viktor Frankl,Man's Search for Meaning,Random House,Philosophy,2019, 30-08-2021,to-read
