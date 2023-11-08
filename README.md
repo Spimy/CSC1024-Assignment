@@ -40,6 +40,8 @@ Create a New Branch via the Git CLI: `git checkout -b <branch_name>`
   <img src="https://static.spimy.dev/screenshots/Code_TIRHCHXOEF.gif" alt="vscode branch creation instruction" />
 </details>
 
+In case anyone is working on the same branch as you to help you out on your task, please make sure to **always** push your code to the repo before calling it a day. Similarly, before you start working on your task again, **always** pull your code from the repo. This also applies to whoever is helping out on your task.
+
 ### Switching Back to Main Branch
 
 Generally, you should only need to do this after you are done working on your own branch and after your branch has been merged with the main branch.
