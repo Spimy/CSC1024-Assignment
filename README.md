@@ -12,6 +12,7 @@ Development of A Personal Book Management System using Python
     - [Switching Back to Main Branch](#switching-back-to-main-branch)
     - [Opening a Pull Request (PR)](#opening-a-pull-request--pr-)
   - [Comments](#comments)
+  - [Code Styling](#code-styling)
   - [Error Handling](#error-handling)
   - [Task Delegation](#task-delegation)
 
@@ -56,6 +57,12 @@ You open the pull request directly at the GitHub repository.
 ## Comments
 
 Please comment on what your code does as much as possible so that it is documented and can be easily understood. This will ultimately help the entire group during the presentation phase.
+
+## Code Styling
+
+Please follow [PEP8](https://peps.python.org/pep-0008/) syntax styling guidelines. In VSCode, you can install the [Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python) for better syntax highlighting experience and enable 'Format on Save' in your VSCode settings using [autopep8](https://marketplace.visualstudio.com/items?itemName=ms-python.autopep8) as the formatter. It should also automatically highlight syntax errors for you.
+
+Once again, I am not able to provide any instructions for PyCharm.
 
 ## Error Handling
 
