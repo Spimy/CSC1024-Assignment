@@ -88,3 +88,7 @@ except IndexError as err:
 Please view the [Projects](https://github.com/Spimy/CSC1024-Assignment/projects) page. Your task has been delegated there in the TODO board.
 
 If you are working on the task, please drag it from 'Todo' to 'In Progress'. Similarly, if you are done, drag it to 'Done'.
+
+Click the 3 dots to open a menu and click on 'Open in new tab' to view your task in more detail:
+
+![Instruction for more details](https://static.spimy.dev/screenshots/firefox_J2FTKdqwus.png)
