@@ -6,6 +6,9 @@ class BaseMenu:
     # Used to determine whether to display the exit option or not
     root = False
 
+    # Save the previous menu used as a back option
+    previous_menu = None
+
     # Title of the menu used to be displayed in top-level menu
     title = None
 
@@ -54,9 +57,12 @@ class BaseMenu:
             [f'[{i+1}] {menu.title}' for i, menu in enumerate(self.sub_menus)]
         ))
 
-        # If this is the root menu, display the exit option
         if self.root:
+            # If this is the root menu, display the exit option
             print(f'[{len(self.sub_menus) + 1}] Exit')
+        else:
+            # Otherwise display the back option
+            print(f'[{len(self.sub_menus) + 1}] Back')
 
         # Return self so method calls can be chained
         return self
@@ -64,12 +70,19 @@ class BaseMenu:
     def option_selection(self):
         option = int(input('Select menu: '))
 
-        if self.root and option == len(self.sub_menus) + 1:
-            # Exit the program with exit code 0 to indicate successful exit with no errors
-            exit(code=0)
+        if option == len(self.sub_menus) + 1:
+            # Exit the program with exit code 0 to indicate successful exit with no errors if root menu
+            if self.root:
+                exit(code=0)
+
+            # If it is not a root menu, go back to previous menu
+            self.previous_menu.display().option_selection()
+
+        # Set the previous menu of the selected menu to current menu
+        self.sub_menus[option - 1].previous = self
 
         # Display the selected menu
-        self.sub_menus[option - 1].display()
+        self.sub_menus[option - 1].display().option_selection()
 
         # Return self so method calls can be chained
         return self
