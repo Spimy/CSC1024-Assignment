@@ -14,7 +14,7 @@ class ExampleMenu(BaseMenu):
 
     def __init__(self, root=None):
         BaseMenu.__init__(self, title='Example Menu',
-                          header=self.header, root=root)
+                          header=self.header, root=root, functional=True)
 
     def selection(self):
         print('test')
