@@ -98,7 +98,11 @@ class BaseMenu:
 
         return option
 
-    def option_selection(self):
+    def selection(self):
+        '''
+        Used to select submenus by default. 
+        Can be overridden in child classes to be functional instead of further selection
+        '''
         option = self._option_input('Select option: ')
 
         if option == len(self.sub_menus) + 1:
@@ -107,13 +111,13 @@ class BaseMenu:
                 exit(code=0)
 
             # If it is not a root menu, go back to previous menu
-            self.previous_menu.display().option_selection()
+            self.previous_menu.display().selection()
 
         # Set the previous menu of the selected menu to current menu
         self.sub_menus[option - 1].previous_menu = self
 
         # Display the selected menu
-        self.sub_menus[option - 1].display().option_selection()
+        self.sub_menus[option - 1].display().selection()
 
         # Return self so method calls can be chained
         return self
