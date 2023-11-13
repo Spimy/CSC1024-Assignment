@@ -2,9 +2,9 @@ import os
 
 
 class BaseMenu:
-    # Whether or not this is the root (main) menu
-    # Used to determine whether to display the exit option or not
-    root = False
+    # Instance of the root (main) menu
+    # Should be set by dependency injection
+    root = None
 
     # Save the previous menu used as a back option
     previous_menu = None
@@ -22,13 +22,13 @@ class BaseMenu:
     # Whether or not this menu is a functional menu
     functional = False
 
-    def __init__(self, title, root=False, header='', sub_menus=[], functional=False):
+    def __init__(self, title, root=None, header='', sub_menus=[], functional=False):
         '''
         Initialise the base menu object with provided arguments
         Only the title argument is required
         '''
 
-        self.root = root
+        self.root = root if root is not None else None
         self.title = title
         self.header = header
         self.sub_menus = sub_menus
@@ -65,7 +65,8 @@ class BaseMenu:
             [f'[{i+1}] {menu.title}' for i, menu in enumerate(self.sub_menus)]
         ))
 
-        if self.root:
+        # The only time root is None is when the current menu is the root itself
+        if self.root is None:
             # If this is the root menu, display the exit option
             print(f'[{len(self.sub_menus) + 1}] Exit')
         else:
@@ -123,8 +124,9 @@ class BaseMenu:
         option = self._option_input('Select option: ')
 
         if option == len(self.sub_menus) + 1:
-            # Exit the program with exit code 0 to indicate successful exit with no errors if root menu
-            if self.root:
+            # The only time root is None is when the current menu is the root itself
+            if self.root is None:
+                # Exit the program with exit code 0 to indicate successful exit with no errors
                 exit(code=0)
 
             # If it is not a root menu, go back to previous menu
