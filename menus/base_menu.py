@@ -1,3 +1,6 @@
+import os
+
+
 class BaseMenu:
     # Whether or not this is the root (main) menu
     # Used to determine whether to display the exit option or not
@@ -23,3 +26,31 @@ class BaseMenu:
         self.title = title
         self.header = header
         self.sub_menus = sub_menus
+
+    def _clear(self):
+        '''
+        Protected method used to clear the console
+        This method can be used by child classes inherting from BaseMenu
+        '''
+
+        # If the user's computer is windows, then run the cls command
+        # If the user's computer is UNIX based, then run the clear command
+        # nt stands for New Technology (Windows NT)
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+    def display(self):
+        '''
+        Display the submenus that the parent menu has
+        '''
+
+        # Clear the console before displaying
+        self._clear()
+
+        # Map the sub menus list into a string with format: '[menu_number] menu_title'
+        print('\n'.join(
+            [f'[{i+1}] {menu.title}' for i, menu in enumerate(self.sub_menus)]
+        ))
+
+        # If this is the root menu, display the exit option
+        if self.root:
+            print(f'[{len(self.sub_menus) + 1}] Exit')
