@@ -60,3 +60,16 @@ class BaseMenu:
 
         # Return self so method calls can be chained
         return self
+
+    def option_selection(self):
+        option = int(input('Select menu: '))
+
+        if self.root and option == len(self.sub_menus) + 1:
+            # Exit the program with exit code 0 to indicate successful exit with no errors
+            exit(code=0)
+
+        # Display the selected menu
+        self.sub_menus[option - 1].display()
+
+        # Return self so method calls can be chained
+        return self
