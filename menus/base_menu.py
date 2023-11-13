@@ -67,8 +67,39 @@ class BaseMenu:
         # Return self so method calls can be chained
         return self
 
+    def _option_input(self, display_string):
+        '''
+        Private method used to handle option inputs, making sure that the user
+        inputs only integers and only within the allowed range
+        '''
+
+        # Option set to an invalid value by default to start the while loop
+        option = 0
+
+        # Flag to check if it has errored before to avoid displaying the same error message multiple times
+        errored = False
+
+        while option < 1 or option > len(self.sub_menus) + 1:
+            try:
+                # Try converting the input into an integer
+                option = int(input(display_string))
+            except ValueError:
+                # If it failed to convert then handle the error
+                if not errored:
+                    # Set the errored flag to indicate that it had already errored
+                    errored = True
+                    # Update the display string to show the error message
+                    display_string = f'[Must be an integer] {display_string}'
+                continue
+
+            # Update display string to show the range
+            # This will only show if the input was out ouf range as if it is within range, the loop will not restart
+            display_string = f'[Must be within 1-{len(self.sub_menus) + 1}] {display_string}'
+
+        return option
+
     def option_selection(self):
-        option = int(input('Select menu: '))
+        option = self._option_input('Select option: ')
 
         if option == len(self.sub_menus) + 1:
             # Exit the program with exit code 0 to indicate successful exit with no errors if root menu
