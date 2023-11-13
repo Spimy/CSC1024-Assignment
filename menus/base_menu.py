@@ -79,7 +79,7 @@ class BaseMenu:
             self.previous_menu.display().option_selection()
 
         # Set the previous menu of the selected menu to current menu
-        self.sub_menus[option - 1].previous = self
+        self.sub_menus[option - 1].previous_menu = self
 
         # Display the selected menu
         self.sub_menus[option - 1].display().option_selection()
