@@ -19,7 +19,10 @@ class BaseMenu:
     # This list should contain only objects that inherit BaseMenu
     sub_menus = []
 
-    def __init__(self, title, root=False, header='', sub_menus=[]):
+    # Whether or not this menu is a functional menu
+    functional = False
+
+    def __init__(self, title, root=False, header='', sub_menus=[], functional=False):
         '''
         Initialise the base menu object with provided arguments
         Only the title argument is required
@@ -29,6 +32,7 @@ class BaseMenu:
         self.title = title
         self.header = header
         self.sub_menus = sub_menus
+        self.functional = functional
 
     def _clear(self):
         '''
@@ -51,6 +55,10 @@ class BaseMenu:
 
         # Print the header of the menu
         print(self.header)
+
+        # Only print the header if the menu is functional
+        if self.functional:
+            return self
 
         # Map the sub menus list into a string with format: '[menu_number] menu_title'
         print('\n'.join(
@@ -103,6 +111,13 @@ class BaseMenu:
         Used to select submenus by default. 
         Can be overridden in child classes to be functional instead of further selection
         '''
+
+        # If the menu is funtional, then do nothing except mention that the method is not implemented
+        if self.functional:
+            print('Method not implemented yet...')
+            return self  # Return self so method calls can be chained
+
+        # Ask for user input to select option
         option = self._option_input('Select option: ')
 
         if option == len(self.sub_menus) + 1:
