@@ -115,6 +115,8 @@ class BaseMenu:
         # If the menu is funtional, then do nothing except mention that the method is not implemented
         if self.functional:
             print('Method not implemented yet...')
+            input('Hit enter to go back to the previous menu...')
+            self.previous_menu.display().selection()
             return self  # Return self so method calls can be chained
 
         # Ask for user input to select option
