@@ -46,6 +46,9 @@ class BaseMenu:
         # Clear the console before displaying
         self._clear()
 
+        # Print the header of the menu
+        print(self.header)
+
         # Map the sub menus list into a string with format: '[menu_number] menu_title'
         print('\n'.join(
             [f'[{i+1}] {menu.title}' for i, menu in enumerate(self.sub_menus)]
@@ -54,3 +57,6 @@ class BaseMenu:
         # If this is the root menu, display the exit option
         if self.root:
             print(f'[{len(self.sub_menus) + 1}] Exit')
+
+        # Return self so method calls can be chained
+        return self
