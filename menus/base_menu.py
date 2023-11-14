@@ -41,6 +41,13 @@ class BaseMenu:
         # nt stands for New Technology (Windows NT)
         os.system('cls' if os.name == 'nt' else 'clear')
 
+    def _exit(self, code=0):
+        '''
+        Protected method to exit the program with exit code 0 to indicate
+        successful exit with no errors
+        '''
+        exit(code=code)
+
     def display(self):
         '''
         Display the submenus that the parent menu has
@@ -125,7 +132,7 @@ class BaseMenu:
             # The only time root is None is when the current menu is the root itself
             if self.root is None:
                 # Exit the program with exit code 0 to indicate successful exit with no errors
-                exit(code=0)
+                self._exit(code=0)
 
             # If it is not a root menu, go back to previous menu
             self.previous_menu.display().selection()
