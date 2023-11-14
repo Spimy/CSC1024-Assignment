@@ -19,10 +19,7 @@ class BaseMenu:
     # This list should contain only objects that inherit BaseMenu
     sub_menus = []
 
-    # Whether or not this menu is a functional menu
-    functional = False
-
-    def __init__(self, title, root=None, header='', sub_menus=[], functional=False):
+    def __init__(self, title, root=None, header='', sub_menus=[]):
         '''
         Initialise the base menu object with provided arguments
         Only the title argument is required
@@ -32,7 +29,6 @@ class BaseMenu:
         self.title = title
         self.header = header
         self.sub_menus = sub_menus
-        self.functional = functional
 
     def _clear(self):
         '''
@@ -57,7 +53,8 @@ class BaseMenu:
         print(self.header)
 
         # Only print the header if the menu is functional
-        if self.functional:
+        # Menu is considered functional if it has no sub menus
+        if len(self.sub_menus) == 0:
             return self
 
         # Map the sub menus list into a string with format: '[menu_number] menu_title'
@@ -114,7 +111,8 @@ class BaseMenu:
         '''
 
         # If the menu is funtional, then do nothing except mention that the method is not implemented
-        if self.functional:
+        # Menu is considered functional if it has no sub menus
+        if len(self.sub_menus) == 0:
             print('Method not implemented yet...')
             input('Hit enter to go back to the previous menu...')
             self.previous_menu.display().selection()
