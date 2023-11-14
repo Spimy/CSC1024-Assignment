@@ -28,8 +28,7 @@ class MainMenu(BaseMenu):
     book_list = []
 
     def __init__(self):
-        BaseMenu.__init__(
-            self,
+        super().__init__(
             title='Main Menu',
             header=self.header,
             sub_menus=[

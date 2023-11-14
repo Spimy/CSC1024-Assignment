@@ -13,8 +13,7 @@ class ExampleMenu(BaseMenu):
         '''
 
     def __init__(self, root=None):
-        BaseMenu.__init__(self, title='Example Menu',
-                          header=self.header, root=root)
+        super().__init__(title='Example Menu', header=self.header, root=root)
 
     def selection(self):
         print('test')
