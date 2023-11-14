@@ -43,4 +43,16 @@ class MainMenu(BaseMenu):
         Load books from the text file into the book_list list
         '''
         with open('books_23020043.txt', 'r') as file:
-            book_list = file.read().splitlines()
+            self.book_list = file.read().splitlines()
+
+        self.book_list.append(
+            "9780807092156,Viktor Frankl,Man's Search for Meaning,Random House,Philosophy,2019, 30-08-2021,to-read"
+        )
+
+    def _exit(self, code):
+        '''
+        Override the exit method to save the books back to the text file before exiting
+        '''
+        with open('books_23020043.txt', 'w') as file:
+            file.write('\n'.join(self.book_list))
+        super(MainMenu, self)._exit(code=code)
