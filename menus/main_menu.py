@@ -42,12 +42,36 @@ class MainMenu(BaseMenu):
         Load books from the text file into the book_list list
         '''
         with open('books_23020043.txt', 'r') as file:
-            self.book_list = file.read().splitlines()
+            self.book_list = list(
+                # Convert book into a dictionary so it is easier to work with
+                map(self._book_to_dict, file.read().splitlines())
+            )
 
     def _exit(self, code):
         '''
         Override the exit method to save the books back to the text file before exiting
         '''
         with open('books_23020043.txt', 'w') as file:
-            file.write('\n'.join(self.book_list))
+            file.write('\n'.join(
+                [','.join(book.values()) for book in self.book_list]
+            ))
         super(MainMenu, self)._exit(code=code)
+
+    def _book_to_dict(self, book):
+        '''
+        Private method to convert the read books read from the text file into a
+        dictionary so that they are easier to work with
+        '''
+
+        book = book.split(',')
+
+        return {
+            'isbn': book[0],
+            'author': book[1],
+            'title': book[2],
+            'publisher': book[3],
+            'genre': book[4],
+            'year_published': book[5],
+            'data_purchased': book[6],
+            'status': book[7],
+        }
