@@ -1,4 +1,4 @@
-from .base_menu import BaseMenu
+from utils import BaseMenu
 
 
 class ExampleMenu(BaseMenu):

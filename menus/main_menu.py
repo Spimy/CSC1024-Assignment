@@ -1,6 +1,5 @@
-from .base_menu import BaseMenu
+from utils import Book, BaseMenu
 from .example_menu import ExampleMenu
-from utils.book import Book
 
 
 class MainMenu(BaseMenu):
