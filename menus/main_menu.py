@@ -25,7 +25,7 @@ class MainMenu(BaseMenu):
 
     # Books from the text file should be loaded into this list when the program starts
     # This list should be written to the file when the program ends
-    book_list = [] # List of Book objects
+    book_list = []  # List of Book objects
 
     def __init__(self):
         super().__init__(
