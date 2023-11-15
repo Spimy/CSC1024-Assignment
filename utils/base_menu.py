@@ -2,6 +2,9 @@ import os
 
 
 class BaseMenu:
+    '''
+    This should be considered as an abstract class and should never be instantiated directly
+    '''
     # Instance of the root (main) menu
     # Should be set by dependency injection
     root = None
