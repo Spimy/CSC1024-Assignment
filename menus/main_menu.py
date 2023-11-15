@@ -1,5 +1,6 @@
 from .base_menu import BaseMenu
 from .example_menu import ExampleMenu
+from utils.book import Book
 
 
 class MainMenu(BaseMenu):
@@ -25,7 +26,7 @@ class MainMenu(BaseMenu):
 
     # Books from the text file should be loaded into this list when the program starts
     # This list should be written to the file when the program ends
-    book_list = []
+    book_list = [] # List of Book objects
 
     def __init__(self):
         super().__init__(
@@ -44,7 +45,7 @@ class MainMenu(BaseMenu):
         with open('books_23020043.txt', 'r') as file:
             self.book_list = list(
                 # Convert book into a dictionary so it is easier to work with
-                map(self._book_to_dict, file.read().splitlines())
+                map(Book.from_string, file.read().splitlines())
             )
 
     def _exit(self, code):
@@ -52,26 +53,7 @@ class MainMenu(BaseMenu):
         Override the exit method to save the books back to the text file before exiting
         '''
         with open('books_23020043.txt', 'w') as file:
-            file.write('\n'.join(
-                [','.join(book.values()) for book in self.book_list]
-            ))
+            file.write(
+                '\n'.join([book.to_string() for book in self.book_list])
+            )
         super(MainMenu, self)._exit(code=code)
-
-    def _book_to_dict(self, book):
-        '''
-        Private method to convert the read books read from the text file into a
-        dictionary so that they are easier to work with
-        '''
-
-        book = book.split(',')
-
-        return {
-            'isbn': book[0],
-            'author': book[1],
-            'title': book[2],
-            'publisher': book[3],
-            'genre': book[4],
-            'year_published': book[5],
-            'data_purchased': book[6],
-            'status': book[7],
-        }
