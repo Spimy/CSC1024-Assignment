@@ -31,3 +31,18 @@ class Validator:
             return False
 
         return True
+
+    def is_valid_year(self, year_string):
+        '''
+        Check if string is a valid year
+        Year cannot be greater than current year
+        '''
+        try:
+            date = datetime.strptime(year_string, '%Y')
+        except ValueError:
+            return False
+
+        if date.year > datetime.now().year:
+            return False
+
+        return True
