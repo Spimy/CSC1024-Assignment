@@ -1,4 +1,4 @@
-from utils import Book, BaseMenu
+from utils import Book, BaseMenu, InputHelper
 from .example_menu import ExampleMenu
 
 
@@ -26,6 +26,9 @@ class MainMenu(BaseMenu):
     # Books from the text file should be loaded into this list when the program starts
     # This list should be written to the file when the program ends
     book_list = []  # List of Book objects
+
+    # Input helpers used to validate user inputs
+    input_helper = InputHelper()
 
     def __init__(self):
         super().__init__(
