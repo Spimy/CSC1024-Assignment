@@ -1,4 +1,4 @@
-from utils import Book, BaseMenu, InputHelper
+from utils import Book, BaseMenu, Validator
 from .example_menu import ExampleMenu
 
 
@@ -27,8 +27,8 @@ class MainMenu(BaseMenu):
     # This list should be written to the file when the program ends
     book_list = []  # List of Book objects
 
-    # Input helpers used to validate user inputs
-    input_helper = InputHelper()
+    # Validator instanced used to validate user inputs
+    validator = Validator()
 
     def __init__(self):
         super().__init__(
