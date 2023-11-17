@@ -1,0 +1,2 @@
+class InputHelper:
+    pass
