@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 class Validator:
     def _contains_comma(self, string):
         '''
@@ -13,3 +16,18 @@ class Validator:
 
         if len(isbn) != 10 or len(isbn) != 13:
             return False
+
+    def is_valid_date(self, date_string):
+        '''
+        Check if string is a valid date in the format: DD-MM-YYYY
+        Date cannot be greater than current date
+        '''
+        try:
+            date = datetime.strptime(date_string, '%d-%m-%Y')
+        except ValueError:
+            return False
+
+        if date.date() > datetime.now().date():
+            return False
+
+        return True
