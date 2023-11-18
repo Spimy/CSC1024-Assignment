@@ -20,7 +20,33 @@ class AddMenu(BaseMenu):
         self.root = root
 
     def selection(self):
-    
+        '''
+        Allow user to input all book details and add it to the list
+        Check for errors and allow user to re-input details if needed
+        '''
+
+        # User input isbn and check validity
+        isbn = int(input("Enter the International Standard Book Number (ISBN): "))
+        
+        '''
+        User may input isbn with dashes or spaces
+        This should be removed before function is run
+        '''
+        isbn = isbn.replace("-", "").replace(" ", "").upper()
+
+        # Function from validator.py should check validity of isbn
+        isbn_validator = self.root.validator.is_isbn(isbn)
+
+        '''
+        Error checking
+        Give user insight into why input is invalid
+        Return allowing user to try again
+        '''
+        if not isbn_validator['valid']:
+            # Continuously ask user to reinput isbn if it is not valid
+            print(isbn_validator['message'])
+            return
+        
             
 
         input('Hit enter to go back to main menu...')
