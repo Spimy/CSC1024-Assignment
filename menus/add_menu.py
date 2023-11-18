@@ -28,26 +28,42 @@ class AddMenu(BaseMenu):
         # User input isbn and check validity
         isbn = int(input("Enter the International Standard Book Number (ISBN): "))
         
-        '''
-        User may input isbn with dashes or spaces
-        This should be removed before function is run
-        '''
+        # User may input isbn with dashes or spaces
+        # This should be removed before function is run
         isbn = isbn.replace("-", "").replace(" ", "").upper()
 
         # Function from validator.py should check validity of isbn
         isbn_validator = self.root.validator.is_isbn(isbn)
 
-        '''
-        Error checking
-        Give user insight into why input is invalid
-        Return allowing user to try again
-        '''
+        # Error checking
+        # Give user insight into why input is invalid
+        # Return allowing user to try again
         if not isbn_validator['valid']:
             # Continuously ask user to reinput isbn if it is not valid
             print(isbn_validator['message'])
             return
         
-            
+        # Allow user to input name of Author
+        # For consistency prompt for first name first
+        first_name = input("Enter the Author's First Name: ")
+
+        # Function from validator.py should check validity of first name
+        # Should not contain comma(s)
+        self.root.validator.contains_comma(first_name)
+
+        # For consistency prompt for surname second
+        surname = input("Enter the Author's Surname: ")
+
+        # Function from validator.py should check validity of surname
+        # Should not contain comma(s)
+        self.root.validator.contains_comma(surname)
+
+        # Allow user to input name of Title
+        title = input("Enter the Title of the Book: ")
+
+        # Function from validator.py should check validity of Title
+        # Should not contain comma(s)
+        self.root.validator.contains_comma(title)    
 
         input('Hit enter to go back to main menu...')
         self.root.display().selection()
