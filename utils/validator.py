@@ -60,7 +60,9 @@ class Validator:
             # If there is a remainder, isbn is invalid
             # Return boolean
             if sum % 11 == 0:
-               return True
+               return {'valid': True,
+                       'message': ''
+                        }    
             else:
                return {
                     'valid': False, 
@@ -71,7 +73,7 @@ class Validator:
         # Check if isbn is equal to 13
         # If true check validity of isbn and return boolean
         if len(isbn) == 13:
-
+            
             # Consider the first 12 digits
             # Multiply each consecutive digit by 1
             # Multiply each second consecutive digit by 3
@@ -88,7 +90,9 @@ class Validator:
             # If x equals to the last digit of the isbn then its valid
             # Return boolean
             if x == isbn[12]:
-               return True
+               return {'valid': True,
+                       'message': ''
+                        }    
             else:
                 return {
                     'valid': False, 
