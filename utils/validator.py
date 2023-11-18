@@ -11,11 +11,98 @@ class Validator:
         return len(string.split(',')) > 1
 
     def is_isbn(self, isbn):
-        if self._contains_comma(isbn):
-            return False
 
+        ''' 
+        Check if string contains comma
+        If string contains comma print error message and return boolean False
+        Ask user to type a valid isbn
+        '''
+        if self._contains_comma(isbn):
+            return {
+                'valid': False, 
+                'message' : "ISBN is invalid! ISBN should not contain a comma. Please try again!"
+                }
+        
+        '''
+        ISBN can only be 10 or 13 digits long
+        Check if isbn is NOT equal to a valid 10 or 13 digit number
+        Return boolean False
+        Allow user to re-input valid isbn
+        '''
         if len(isbn) != 10 or len(isbn) != 13:
-            return False
+            print("ISBN is invalid!")
+            print("Please enter a valid ISBN consisting of either 10 or 13 digits.")
+            return {
+                'valid': False, 
+                'message' : "ISBN is invalid! ISBN should only contain 10 or 13 digits. Please try again!"
+                }
+        
+        '''
+        Check if isbn is equal to 10
+        If true check validity of isbn and return boolean
+        '''
+        if len(isbn) == 10:
+            sum = 0
+
+            # Multiply first 9 digits by a decreasing number starting from 10
+            for i in range (9):
+                sum = sum + isbn[i] * (10 - i)
+            
+            '''
+            Last character of an ISBN 10 Numbers can be an X
+            X is considered to have the value of 10
+            '''
+            if isbn[9].lower() == 'X':
+                sum += 10
+            else:
+                sum += int(isbn[9])
+
+            '''
+            Check for a remainder 
+            If there is a remainder, isbn is invalid
+            Return boolean
+            '''
+            if sum % 11 == 0:
+               return True
+            else:
+               return {
+                    'valid': False, 
+                    'message' : "ISBN is invalid! Your 10 digit number is not an ISBN. Please try again!"
+                    } 
+        
+        '''
+        Check if isbn is equal to 13
+        If true check validity of isbn and return boolean
+        '''
+        if len(isbn) == 13:
+
+            '''
+            Consider the first 12 digits
+            Multiply each consecutive digit by 1
+            Multiply each second consecutive digit by 3
+            '''
+            result1 = isbn[0] * 1 + isbn[2] * 1 + isbn[4] * 1 + isbn[6] * 1 + isbn[8] * 1 + isbn[10] * 1
+            result2 = isbn[1] * 3 + isbn[3] * 3 + isbn[5] * 3 + isbn[7] * 3 + isbn[9] * 3 + isbn[11] * 3
+
+            # Add both results of the sum of the multiplications
+            sum = result1 + result2
+
+            # Divide the sum to obtain remainder and substract 10
+            x = 10 - (sum % 10)
+
+            '''
+            If x equals to the last digit of the isbn then its valid
+            Return boolean
+            '''
+            if x == isbn[12]:
+               return True
+            else:
+                return {
+                    'valid': False, 
+                    'message' : "ISBN is invalid! Your 13 digit number is not an ISBN. Please try again!"
+                    } 
+            
+
 
     def is_valid_date(self, date_string):
         '''
