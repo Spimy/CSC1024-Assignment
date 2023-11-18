@@ -79,5 +79,20 @@ class AddMenu(BaseMenu):
         # Should not contain comma(s)
         self.root.validator.contains_comma(genre) 
 
+        # Allow user to input Year Published
+        year_published = input("Enter the Year Published: ")
+
+        # Function from validator.py should check validity of Year Published
+        # Should not contain comma(s)
+        self.root.validator.is_valid_year(year_published) 
+
+        # Allow user to input Date Purchased
+        date_purchased = input("Enter the Date Purchased: ")
+
+        # Function from validator.py should check validity of Date Purchased
+        # Should not contain comma(s)
+        self.root.validator.is_valid_date(date_purchased) 
+
+
         input('Hit enter to go back to main menu...')
         self.root.display().selection()
