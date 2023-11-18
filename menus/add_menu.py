@@ -68,9 +68,16 @@ class AddMenu(BaseMenu):
         # Allow user to input Publisher 
         publisher = input("Enter the Publisher: ")
 
-        # Function from validator.py should check validity of Title
+        # Function from validator.py should check validity of Publisher
         # Should not contain comma(s)
-        self.root.validator.contains_comma(publisher)    
+        self.root.validator.contains_comma(publisher)   
+
+        # Allow user to input Genre 
+        genre = input("Enter the Genre: ")
+
+        # Function from validator.py should check validity of Genre
+        # Should not contain comma(s)
+        self.root.validator.contains_comma(genre) 
 
         input('Hit enter to go back to main menu...')
         self.root.display().selection()
