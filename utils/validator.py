@@ -2,7 +2,7 @@ from datetime import datetime
 
 
 class Validator:
-    def _contains_comma(self, string):
+    def contains_comma(self, string):
         '''
         Check if string contains a comma
         If a string contains a comma then splitting it with a comma should return
@@ -23,7 +23,7 @@ class Validator:
 
         # Check for commas
         # Return a boolean
-        if self._contains_comma(isbn):
+        if self.contains_comma(isbn):
             return {
                 'valid': False, 
                 'message' : "ISBN is invalid! ISBN should not contain a comma. Please try again!"
@@ -68,12 +68,12 @@ class Validator:
                     'valid': False, 
                     'message' : "ISBN is invalid! Your 10 digit number is not an ISBN. Please try again!"
                     } 
-        
+            
         
         # Check if isbn is equal to 13
         # If true check validity of isbn and return boolean
         if len(isbn) == 13:
-            
+
             # Consider the first 12 digits
             # Multiply each consecutive digit by 1
             # Multiply each second consecutive digit by 3
@@ -98,8 +98,7 @@ class Validator:
                     'valid': False, 
                     'message' : "ISBN is invalid! Your 13 digit number is not an ISBN. Please try again!"
                     } 
-            
-
+    
 
     def is_valid_date(self, date_string):
         '''
