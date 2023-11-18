@@ -58,12 +58,19 @@ class AddMenu(BaseMenu):
         # Should not contain comma(s)
         self.root.validator.contains_comma(surname)
 
-        # Allow user to input name of Title
+        # Allow user to input Title name
         title = input("Enter the Title of the Book: ")
 
         # Function from validator.py should check validity of Title
         # Should not contain comma(s)
-        self.root.validator.contains_comma(title)    
+        self.root.validator.contains_comma(title)  
+
+        # Allow user to input Publisher 
+        publisher = input("Enter the Publisher: ")
+
+        # Function from validator.py should check validity of Title
+        # Should not contain comma(s)
+        self.root.validator.contains_comma(publisher)    
 
         input('Hit enter to go back to main menu...')
         self.root.display().selection()
