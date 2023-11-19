@@ -11,7 +11,6 @@ class Validator:
         return len(string.split(',')) > 1
 
     def is_isbn(self, isbn):
-
         ''' 
         Check validity of string 
         Should not contain comma(s)
@@ -25,20 +24,19 @@ class Validator:
         # Return a boolean
         if self.contains_comma(isbn):
             return {
-                'valid': False, 
-                'message' : "ISBN is invalid! ISBN should not contain a comma. Please try again!"
+                'valid': False,
+                'message': "ISBN is invalid! ISBN should not contain a comma. Please try again!"
             }
-        
+
         # ISBN can only be 10 or 13 digits long
         # Check if isbn is NOT equal to a valid 10 or 13 digit number
         # Return boolean False
         if len(isbn) != 10 and len(isbn) != 13:
             return {
-                'valid': False, 
-                'message' : "ISBN is invalid! ISBN should only contain 10 or 13 digits. Please try again!"
+                'valid': False,
+                'message': "ISBN is invalid! ISBN should only contain 10 or 13 digits. Please try again!"
             }
-        
-        
+
         # Check if isbn is equal to 10
         # If true check validity of isbn and return boolean
         if len(isbn) == 10:
@@ -47,7 +45,7 @@ class Validator:
             # Multiply first 9 digits by a decreasing number starting from 10
             for i in range(len(isbn) - 1):
                 sum = sum + int(isbn[i]) * (10 - i)
-            
+
             # Last character of an ISBN 10 Numbers can be an X
             # X is considered to have the value of 10
             if isbn[-1].lower() == 'X':
@@ -55,16 +53,15 @@ class Validator:
             else:
                 sum += int(isbn[-1])
 
-            
-            # Check for a remainder 
+            # Check for a remainder
             # If there is a remainder, isbn is invalid
             # Return boolean
             if sum % 11 != 0:
-               return {
-                    'valid': False, 
-                    'message' : "ISBN is invalid! Your 10 digit number is not an ISBN. Please try again!"
-                } 
-               
+                return {
+                    'valid': False,
+                    'message': "ISBN is invalid! Your 10 digit number is not an ISBN. Please try again!"
+                }
+
         # Check if isbn is equal to 13
         # If true check validity of isbn and return boolean
         else:
@@ -92,15 +89,14 @@ class Validator:
             # Return boolean
             if x != int(isbn[len(isbn) - 1]):
                 return {
-                    'valid': False, 
-                    'message' : "ISBN is invalid! Your 13 digit number is not an ISBN. Please try again!"
+                    'valid': False,
+                    'message': "ISBN is invalid! Your 13 digit number is not an ISBN. Please try again!"
                 }
-                
+
         return {
             'valid': True,
             'message': ''
         }
-    
 
     def is_valid_date(self, date_string):
         '''
@@ -110,12 +106,21 @@ class Validator:
         try:
             date = datetime.strptime(date_string, '%d-%m-%Y')
         except ValueError:
-            return False
+            return {
+                'valid': False,
+                'message': 'Date should be in the format: DD-MM-YYYY'
+            }
 
         if date.date() > datetime.now().date():
-            return False
+            return {
+                'valid': False,
+                'message': 'Date cannot be greater than current date'
+            }
 
-        return True
+        return {
+            'valid': True,
+            'message': ''
+        }
 
     def is_valid_year(self, year_string):
         '''
@@ -125,9 +130,18 @@ class Validator:
         try:
             date = datetime.strptime(year_string, '%Y')
         except ValueError:
-            return False
+            return {
+                'valid': False,
+                'message': 'Year should be in the format: YYYY'
+            }
 
         if date.year > datetime.now().year:
-            return False
+            return {
+                'valid': False,
+                'message': 'Year cannot be greater than current year'
+            }
 
-        return True
+        return {
+            'valid': True,
+            'message': ''
+        }
