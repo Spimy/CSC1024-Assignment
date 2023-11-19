@@ -22,11 +22,13 @@ class AddMenu(BaseMenu):
         'title': False,
         'publisher': False,
         'genre': False,
-        'year_published': {'valid': False,
-                           'message': ''
+        'year_published': {
+            'valid': False,
+            'message': ''
         },
-        'date_purchased': {'valid': False,
-                           'message': ''
+        'date_purchased': {
+            'valid': False,
+            'message': ''
         },
         'status': False
     }
@@ -142,10 +144,15 @@ class AddMenu(BaseMenu):
             # Should not contain comma(s)
             # Function from validator.py should check validity of isbn
             self.error_flags['date_purchased'] = self.root.validator.is_valid_date(date_purchased) 
-            
+
             # If valid then no need to ask for inout again
             if self.error_flags['date_purchased']['valid']:
-                break
+                if int(date_purchased[6:len(date_purchased)]) < int(year_published):
+                    self.error_flags['date_purchased']['valid'] = False
+                    self.error_flags['date_purchased']['message'] = 'Year purchased cannot be less than the year published'
+                    continue
+                else:
+                    break
 
         # Allow user to input whether they have read, are reading or still need to read the book
         while True:
