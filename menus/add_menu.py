@@ -13,7 +13,10 @@ class AddMenu(BaseMenu):
         '''
     
     error_flags = {
-        'isbn': False,
+        'isbn': {
+            'valid': False,
+            'message': ''
+        },
         'first_name': False,
         'surname': False,
         'title': False,
@@ -38,34 +41,28 @@ class AddMenu(BaseMenu):
         '''
 
         # User input isbn and check validity
-        isbn = input("Enter the International Standard Book Number (ISBN): ")
-        
-        # User may input isbn with dashes or spaces
-        # This should be removed before function is run
-        isbn = isbn.replace("-", "").replace(" ", "").upper()
+        while True:
+            isbn = input(f"[{self.error_flags['isbn']['message'] if not self.error_flags['isbn']['valid'] else ''}] Enter the International Standard Book Number (ISBN): ")
+            
+            # User may input isbn with dashes or spaces
+            # This should be removed before function is run
+            isbn = isbn.replace("-", "").replace(" ", "").upper()
 
-        # Function from validator.py should check validity of isbn
-        isbn_validator = self.root.validator.is_isbn(isbn)
+            # Function from validator.py should check validity of isbn
+            self.error_flags['isbn'] = self.root.validator.is_isbn(isbn)
 
-        # Error checking
-        # Give user insight into why input is invalid
-        # Return allowing user to try again
-        if not isbn_validator['valid']:
-            # Continuously ask user to reinput isbn if it is not valid
-            print(isbn_validator['message'])
-            return self.selection()
+            if self.error_flags['isbn']['valid']:
+                break
         
         
         # Allow user to input name of Author
         # For consistency prompt for first name first
-        first_name = None
-
         while True:
             first_name = input(f"{'[First Name should not consist a comma(s)] ' if self.error_flags['first_name'] else ''}Enter the Author's First Name: ")
             
             # Guard Clause - if first_name is valid then break
             # If not valid - set error_flag to true
-            if first_name is not None and not self.root.validator.contains_comma(first_name):
+            if not self.root.validator.contains_comma(first_name):
                 break
 
             self.error_flags['first_name'] = True
