@@ -111,7 +111,6 @@ class AddMenu(BaseMenu):
 
 
         # Allow user to input Genre 
-        genre = input("Enter the Genre: ")
         while True:
             genre = input(f"{'[Genre should not consist a comma(s)] ' if self.error_flags['genre'] else ''}Enter the Genre: ")
             
@@ -148,9 +147,6 @@ class AddMenu(BaseMenu):
             if self.error_flags['date_purchased']['valid']:
                 break
 
-            input('Hit enter to go back to main menu...')
-            self.root.display().selection()
-        
         # Allow user to input whether they have read, are reading or still need to read the book
         while True:
             status = input(f"{'[Invalid Status] ' if self.error_flags['status'] else ''}Enter Book Status ('to-read', 'reading', 'read'): ")
