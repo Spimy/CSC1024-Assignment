@@ -27,16 +27,16 @@ class Validator:
             return {
                 'valid': False, 
                 'message' : "ISBN is invalid! ISBN should not contain a comma. Please try again!"
-                }
+            }
         
         # ISBN can only be 10 or 13 digits long
         # Check if isbn is NOT equal to a valid 10 or 13 digit number
         # Return boolean False
-        if len(isbn) != 10 or len(isbn) != 13:
+        if len(isbn) != 10 and len(isbn) != 13:
             return {
                 'valid': False, 
                 'message' : "ISBN is invalid! ISBN should only contain 10 or 13 digits. Please try again!"
-                }
+            }
         
         
         # Check if isbn is equal to 10
@@ -45,8 +45,8 @@ class Validator:
             sum = 0
 
             # Multiply first 9 digits by a decreasing number starting from 10
-            for i in range (len(isbn)):
-                sum = sum + isbn[i] * (10 - i)
+            for i in range(len(isbn) - 1):
+                sum = sum + int(isbn[i]) * (10 - i)
             
             # Last character of an ISBN 10 Numbers can be an X
             # X is considered to have the value of 10
@@ -61,34 +61,40 @@ class Validator:
             # Return boolean
             if sum % 11 != 0:
                return {
-                'valid': False, 
-                'message' : "ISBN is invalid! Your 10 digit number is not an ISBN. Please try again!"
+                    'valid': False, 
+                    'message' : "ISBN is invalid! Your 10 digit number is not an ISBN. Please try again!"
                 } 
                
         # Check if isbn is equal to 13
         # If true check validity of isbn and return boolean
         else:
 
-                # Consider the first 12 digits
-                # Multiply each consecutive digit by 1
-                # Multiply each second consecutive digit by 3
-                result1 = isbn[0] * 1 + isbn[2] * 1 + isbn[4] * 1 + isbn[6] * 1 + isbn[8] * 1 + isbn[10] * 1
-                result2 = isbn[1] * 3 + isbn[3] * 3 + isbn[5] * 3 + isbn[7] * 3 + isbn[9] * 3 + isbn[11] * 3
+            # Consider the first 12 digits
+            # Multiply each consecutive digit by 1
+            # Multiply each second consecutive digit by 3
+            result1 = 0
+            result2 = 0
 
-                # Add both results of the sum of the multiplications
-                sum = result1 + result2
+            for i in range(len(isbn) - 1):
+                if i % 2 == 0:
+                    result1 += int(isbn[i]) * 1
+                else:
+                    result2 += int(isbn[i]) * 3
 
-                # Divide the sum to obtain remainder and substract 10
-                x = 10 - (sum % 10)
+            # Add both results of the sum of the multiplications
+            sum = result1 + result2
 
-                
-                # If x equals to the last digit of the isbn then its valid
-                # Return boolean
-                if x != isbn[12]:
-                    return {
-                        'valid': False, 
-                        'message' : "ISBN is invalid! Your 13 digit number is not an ISBN. Please try again!"
-                    }
+            # Divide the sum to obtain remainder and substract 10
+            remainder = sum % 10
+            x = 10 - remainder if remainder != 0 else 0
+
+            # If x equals to the last digit of the isbn then its valid
+            # Return boolean
+            if x != int(isbn[len(isbn) - 1]):
+                return {
+                    'valid': False, 
+                    'message' : "ISBN is invalid! Your 13 digit number is not an ISBN. Please try again!"
+                }
                 
         return {
             'valid': True,
