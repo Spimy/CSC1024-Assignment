@@ -145,3 +145,10 @@ class Validator:
             'valid': True,
             'message': ''
         }
+    
+    
+    def is_allowed_status(self,status):
+        status_list = ('to-read','reading','read')
+        return status.lower() in status_list
+    
+        
