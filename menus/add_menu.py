@@ -166,6 +166,13 @@ class AddMenu(BaseMenu):
             self.error_flags['status'] = True
 
     
+        # Capitalise first letters of some lettered attributes
+        first_name = first_name[0].upper() + first_name[1:]
+        surname = surname[0].upper() + surname[1:]
+        title = title[0].upper() + title[1:]
+        publisher = publisher[0].upper() + publisher[1:]
+        genre = genre[0].upper() + genre[1:]
+        
         # Create new book
         # Concatenate first_name and surname using f string
         book = Book(isbn, f"{first_name} {surname}", title, publisher, genre, year_published, date_purchased, status)
