@@ -150,3 +150,16 @@ class AddMenu(BaseMenu):
 
             input('Hit enter to go back to main menu...')
             self.root.display().selection()
+        
+        # Allow user to input whether they have read, are reading or still need to read the book
+        while True:
+            status = input(f"{'[Invalid Status] ' if self.error_flags['status'] else ''}Enter Book Status ('to-read', 'reading', 'read'): ")
+       
+            # Guard Clause - if status is valid then break
+            # If not valid - set error_flag to true
+            if not self.root.validator.is_allowed_status(status):
+                break
+
+            self.error_flags['status'] = True
+
+
