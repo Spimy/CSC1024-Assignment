@@ -168,3 +168,19 @@ class AddMenu(BaseMenu):
         book = Book(isbn, f"{first_name} {surname}", title, publisher, genre, year_published, date_purchased, status)
         self.root.book_list.append(book)
 
+        # Reassure user that book has been added
+        print("Book has successfully been added!")
+        print()
+
+        # Allow user to add anther book or go back to main menu
+        while True:
+            cont = input("Do you wish to add another book (Y/N)?: ")
+
+            if cont.upper() == "Y":
+                return self.selection()
+            elif cont.upper() == "N":
+                return self.root.display().selection()
+            
+
+
+
