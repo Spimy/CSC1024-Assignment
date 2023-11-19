@@ -151,9 +151,9 @@ class AddMenu(BaseMenu):
         while True:
             status = input(f"{'[Invalid Status] ' if self.error_flags['status'] else ''}Enter Book Status ('to-read', 'reading', 'read'): ")
        
-            # Guard Clause - if status is valid then break
-            # If not valid - set error_flag to true
-            if not self.root.validator.is_allowed_status(status):
+            # Guard Clause - if status is allowed then break
+            # If not allowed - set error_flag to true
+            if self.root.validator.is_allowed_status(status):
                 break
 
             self.error_flags['status'] = True
@@ -168,7 +168,27 @@ class AddMenu(BaseMenu):
         print("Book has successfully been added!")
         print()
 
-        # Allow user to add anther book or go back to main menu
+        # Reset flags so error codes are not initially run
+        self.error_flags = {
+            'isbn': {
+                'valid': False,
+                'message': ''
+            },
+            'first_name': False,
+            'surname': False,
+            'title': False,
+            'publisher': False,
+            'genre': False,
+            'year_published': {'valid': False,
+                            'message': ''
+            },
+            'date_purchased': {'valid': False,
+                            'message': ''
+            },
+            'status': False
+        }
+
+        # Allow user to add another book or go back to main menu
         while True:
             cont = input("Do you wish to add another book (Y/N)?: ")
 
