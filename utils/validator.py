@@ -25,7 +25,7 @@ class Validator:
         if self.contains_comma(isbn):
             return {
                 'valid': False,
-                'message': "ISBN is invalid! ISBN should not contain a comma. Please try again!"
+                'message': "ISBN is invalid! ISBN should not contain a comma"
             }
 
         # ISBN can only be 10 or 13 digits long
@@ -34,7 +34,7 @@ class Validator:
         if len(isbn) != 10 and len(isbn) != 13:
             return {
                 'valid': False,
-                'message': "ISBN is invalid! ISBN should only contain 10 or 13 digits. Please try again!"
+                'message': "ISBN is invalid! ISBN should only contain 10 or 13 digits"
             }
 
         # Check if isbn is equal to 10
@@ -59,7 +59,7 @@ class Validator:
             if sum % 11 != 0:
                 return {
                     'valid': False,
-                    'message': "ISBN is invalid! Your 10 digit number is not an ISBN. Please try again!"
+                    'message': "ISBN is invalid! Your 10 digit number is not an ISBN"
                 }
 
         # Check if isbn is equal to 13
@@ -90,7 +90,7 @@ class Validator:
             if x != int(isbn[len(isbn) - 1]):
                 return {
                     'valid': False,
-                    'message': "ISBN is invalid! Your 13 digit number is not an ISBN. Please try again!"
+                    'message': "ISBN is invalid! Your 13 digit number is not an ISBN"
                 }
 
         return {
