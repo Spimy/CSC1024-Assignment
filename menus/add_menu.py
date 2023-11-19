@@ -22,8 +22,12 @@ class AddMenu(BaseMenu):
         'title': False,
         'publisher': False,
         'genre': False,
-        'year_published': False,
-        'date_purchased': False,
+        'year_published': {'valid': False,
+                           'message': ''
+        },
+        'date_purchased': {'valid': False,
+                           'message': ''
+        },
         'status': False
     }
 
@@ -51,6 +55,7 @@ class AddMenu(BaseMenu):
             # Function from validator.py should check validity of isbn
             self.error_flags['isbn'] = self.root.validator.is_isbn(isbn)
 
+            # If valid then no need to ask for inout again
             if self.error_flags['isbn']['valid']:
                 break
         
@@ -67,49 +72,81 @@ class AddMenu(BaseMenu):
 
             self.error_flags['first_name'] = True
     
-
+    
         # For consistency prompt for surname second
-        surname = input("Enter the Author's Surname: ")
+        while True:
+            surname = input(f"{'[Surname should not consist a comma(s)] ' if self.error_flags['surname'] else ''}Enter the Author's Surname: ")
+            
+            # Guard Clause - if surname is valid then break
+            # If not valid - set error_flag to true
+            if not self.root.validator.contains_comma(surname):
+                break
 
-        # Function from validator.py should check validity of surname
-        # Should not contain comma(s)
-        self.root.validator.contains_comma(surname)
+            self.error_flags['surname'] = True
+
 
         # Allow user to input Title name
-        title = input("Enter the Title of the Book: ")
+        while True:
+            title = input(f"{'[Title should not consist a comma(s)] ' if self.error_flags['title'] else ''}Enter the Title of the Book: ")
+            
+            # Guard Clause - if title is valid then break
+            # If not valid - set error_flag to true
+            if not self.root.validator.contains_comma(title):
+                break
 
-        # Function from validator.py should check validity of Title
-        # Should not contain comma(s)
-        self.root.validator.contains_comma(title)  
+            self.error_flags['title'] = True
+    
+
 
         # Allow user to input Publisher 
-        publisher = input("Enter the Publisher: ")
+        while True:
+            publisher = input(f"{'[Publisher should not consist a comma(s)] ' if self.error_flags['publisher'] else ''}Enter the Publisher: ")
+            
+            # Guard Clause - if publisher is valid then break
+            # If not valid - set error_flag to true
+            if not self.root.validator.contains_comma(publisher):
+                break
 
-        # Function from validator.py should check validity of Publisher
-        # Should not contain comma(s)
-        self.root.validator.contains_comma(publisher)   
+            self.error_flags['publisher'] = True
+
 
         # Allow user to input Genre 
         genre = input("Enter the Genre: ")
+        while True:
+            genre = input(f"{'[Genre should not consist a comma(s)] ' if self.error_flags['genre'] else ''}Enter the Genre: ")
+            
+            # Guard Clause - if genre is valid then break
+            # If not valid - set error_flag to true
+            if not self.root.validator.contains_comma(genre):
+                break
 
-        # Function from validator.py should check validity of Genre
-        # Should not contain comma(s)
-        self.root.validator.contains_comma(genre) 
+            self.error_flags['genre'] = True
 
         # Allow user to input Year Published
-        year_published = input("Enter the Year Published: ")
+        while True:
+            year_published = input(f"[{self.error_flags['year_published']['message'] if not self.error_flags['year_published']['valid'] else ''}]Enter the Year Published: ")
 
-        # Function from validator.py should check validity of Year Published
-        # Should not contain comma(s)
-        self.root.validator.is_valid_year(year_published) 
+            # Function from validator.py should check validity of Year Published
+            # Should not contain comma(s)
+            # Function from validator.py should check validity of isbn
+            self.error_flags['year_published'] = self.root.validator.is_valid_year(year_published)
+            
+            # If valid then no need to ask for inout again
+            if self.error_flags['year_published']['valid']:
+                break
 
         # Allow user to input Date Purchased
-        date_purchased = input("Enter the Date Purchased: ")
+        while True:
+            date_purchased = input(f"[{self.error_flags['date_purchased']['message'] if not self.error_flags['date_purchased']['valid'] else ''}]Enter the Date Purchased: ")
 
-        # Function from validator.py should check validity of Date Purchased
-        # Should not contain comma(s)
-        self.root.validator.is_valid_date(date_purchased) 
+            # Function from validator.py should check validity of Date Purchased
+            # Should not contain comma(s)
+            # Function from validator.py should check validity of isbn
+            self.error_flags['date_purchased'] = self.root.validator.is_valid_date(date_purchased) 
+            
+            # If valid then no need to ask for inout again
+            if self.error_flags['date_purchased']['valid']:
+                break
 
-
-        input('Hit enter to go back to main menu...')
-        self.root.display().selection()
+            input('Hit enter to go back to main menu...')
+            self.root.display().selection()
