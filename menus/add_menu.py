@@ -60,11 +60,15 @@ class AddMenu(BaseMenu):
         # For consistency prompt for first name first
         first_name = None
 
-        while first_name is None or self.root.validator.contains_comma(first_name):
+        while True:
             first_name = input(f"{'[First Name should not consist a comma(s)] ' if self.error_flags['first_name'] else ''}Enter the Author's First Name: ")
+            
+            # Guard Clause - if first_name is valid then break
+            # If not valid - set error_flag to true
+            if first_name is not None and not self.root.validator.contains_comma(first_name):
+                break
 
-            if first_name is None or self.root.validator.contains_comma(first_name):
-                self.error_flags['first_name'] = True
+            self.error_flags['first_name'] = True
     
 
         # For consistency prompt for surname second
