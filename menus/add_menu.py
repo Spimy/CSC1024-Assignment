@@ -11,6 +11,18 @@ class AddMenu(BaseMenu):
         |_____/_/\_\__,_|_| |_| |_| .__/|_|\___| |_|  |_|\___|_| |_|\__,_|
                                   |_|                                     
         '''
+    
+    error_flags = {
+        'isbn': False,
+        'first_name': False,
+        'surname': False,
+        'title': False,
+        'publisher': False,
+        'genre': False,
+        'year_published': False,
+        'date_purchased': False,
+        'status': False
+    }
 
     def __init__(self, root):
         super().__init__(title='Add Books', header=self.header, root=root)
@@ -26,7 +38,7 @@ class AddMenu(BaseMenu):
         '''
 
         # User input isbn and check validity
-        isbn = int(input("Enter the International Standard Book Number (ISBN): "))
+        isbn = input("Enter the International Standard Book Number (ISBN): ")
         
         # User may input isbn with dashes or spaces
         # This should be removed before function is run
@@ -41,15 +53,19 @@ class AddMenu(BaseMenu):
         if not isbn_validator['valid']:
             # Continuously ask user to reinput isbn if it is not valid
             print(isbn_validator['message'])
-            return
+            return self.selection()
+        
         
         # Allow user to input name of Author
         # For consistency prompt for first name first
-        first_name = input("Enter the Author's First Name: ")
+        first_name = None
 
-        # Function from validator.py should check validity of first name
-        # Should not contain comma(s)
-        self.root.validator.contains_comma(first_name)
+        while first_name is None or self.root.validator.contains_comma(first_name):
+            first_name = input(f"{'[First Name should not consist a comma(s)] ' if self.error_flags['first_name'] else ''}Enter the Author's First Name: ")
+
+            if first_name is None or self.root.validator.contains_comma(first_name):
+                self.error_flags['first_name'] = True
+    
 
         # For consistency prompt for surname second
         surname = input("Enter the Author's Surname: ")
