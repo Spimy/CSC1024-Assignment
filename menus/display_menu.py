@@ -4,13 +4,14 @@ from utils import BaseMenu
 class DisplayMenu(BaseMenu):
     header = \
         '''
-         _____                           _        __  __                  
-        | ____|_  ____ _ _ __ ___  _ __ | | ___  |  \/  | ___ _ __  _   _ 
-        |  _| \ \/ / _` | '_ ` _ \| '_ \| |/ _ \ | |\/| |/ _ \ '_ \| | | |
-        | |___ >  < (_| | | | | | | |_) | |  __/ | |  | |  __/ | | | |_| |
-        |_____/_/\_\__,_|_| |_| |_| .__/|_|\___| |_|  |_|\___|_| |_|\__,_|
-                                  |_|                                     
-        '''
+__________               __     .____    ._____.                               
+\______   \ ____   ____ |  | __ |    |   |__\_ |______________ _______ ___.__. 
+ |    |  _//  _ \ /  _ \|  |/ / |    |   |  || __ \_  __ \__  \\_  __ <   |  | 
+ |    |   (  <_> |  <_> )    <  |    |___|  || \_\ \  | \// __ \|  | \/\___  | 
+ |______  /\____/ \____/|__|_ \ |_______ \__||___  /__|  (____  /__|   / ____| 
+        \/                   \/         \/       \/           \/       \/                                  
+       
+         '''
 
     def __init__(self, root):
         super().__init__(title='Display Books', header=self.header, root=root)
@@ -29,10 +30,16 @@ class BookDisplay:
         self.book_file = 'books_23020043.txt'
 
     def display_book(self):
-        with open(self.book_file, 'r') as file:
-            lines = file.readlines()
-            for i, line in enumerate(lines, start = 1):
-                print(f"{i}. {line.strip()}")
+        try:
+            with open(self.book_file, 'r') as file:
+                lines = file.readlines()
+                for i, line in enumerate(lines, start = 1):
+                    print(f"{i}. {line.strip()}")
+        except FileNotFoundError:
+            print('File Not Found!')
+        except Exception as e:
+            print("An error has occurred")
+
 
         input('Hit enter to go back to main menu...')
         self.root.display().selection()
