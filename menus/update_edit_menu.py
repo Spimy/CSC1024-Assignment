@@ -22,9 +22,23 @@ class UpdateMenu(BaseMenu):
     def selection(self):
         # Start coding from here
         '''
-        for i in range(len(self.root.book_list)):
-            print(f'[{i + 1}] Book: {self.root.book_list[i].title}')
+        Check the ISBN or Author & Title 
+
+        > If matching records are found, the user is prompted to enter
+         new information for the book 
+
+        > User shouls be able to handle either single or multiple books at once
+
+        ** Use while loop to allow user to be able to change value again 
         '''
+
+        # Prompt user for the ISBN or Author + Title 
+        # Check the ISBN or Author + Title 
+
+
+        # System for the user to edit and update information 
+
+        
         
 
         # To return to the main menu 
