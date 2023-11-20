@@ -35,7 +35,6 @@ class UpdateMenu(BaseMenu):
         # Prompt user for the ISBN or Author + Title 
         # Check the ISBN or Author + Title 
 
-
         # System for the user to edit and update information 
 
         
