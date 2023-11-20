@@ -1,3 +1,4 @@
+from sqlite3 import Cursor
 from utils import BaseMenu
 
 
@@ -22,6 +23,14 @@ class DeleteMenu(BaseMenu):
     def selection(self):
         for i in range(len(self.root.book_list)):
             print(f'[{i + 1}] Book: {self.root.book_list[i].title}')
+
+    def delete_book(book):
+        c = Cursor()
+        with c.connection:
+            c.execute("DELETE FROM books WHERE title=? and list=?", (book.list, book.title))
+            rows = c.rowcount
+            c.connection.close
+            return rows
 
         input('Hit enter to go back to main menu...')
         self.root.display().selection()
