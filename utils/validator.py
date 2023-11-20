@@ -40,23 +40,23 @@ class Validator:
         # Check if isbn is equal to 10
         # If true check validity of isbn and return boolean
         if len(isbn) == 10:
-            sum = 0
+            total = 0
 
             # Multiply first 9 digits by a decreasing number starting from 10
             for i in range(len(isbn) - 1):
-                sum = sum + int(isbn[i]) * (10 - i)
+                total = total + int(isbn[i]) * (10 - i)
 
             # Last character of an ISBN 10 Numbers can be an X
             # X is considered to have the value of 10
             if isbn[-1].lower() == 'X':
-                sum += 10
+                total += 10
             else:
-                sum += int(isbn[-1])
+                total += int(isbn[-1])
 
             # Check for a remainder
             # If there is a remainder, isbn is invalid
             # Return boolean
-            if sum % 11 != 0:
+            if total % 11 != 0:
                 return {
                     'valid': False,
                     'message': "[ISBN is invalid! Your 10 digit number is not an ISBN] "
@@ -78,11 +78,11 @@ class Validator:
                 else:
                     result2 += int(isbn[i]) * 3
 
-            # Add both results of the sum of the multiplications
-            sum = result1 + result2
+            # Add both results of the total of the multiplications
+            total = result1 + result2
 
-            # Divide the sum to obtain remainder and substract 10
-            remainder = sum % 10
+            # Divide the total to obtain remainder and substract 10
+            remainder = total % 10
             x = 10 - remainder if remainder != 0 else 0
 
             # If x equals to the last digit of the isbn then its valid
