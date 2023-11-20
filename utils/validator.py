@@ -25,7 +25,7 @@ class Validator:
         if self.contains_comma(isbn):
             return {
                 'valid': False,
-                'message': "ISBN is invalid! ISBN should not contain a comma"
+                'message': "[ISBN is invalid! ISBN should not contain a comma] "
             }
 
         # ISBN can only be 10 or 13 digits long
@@ -34,7 +34,7 @@ class Validator:
         if len(isbn) != 10 and len(isbn) != 13:
             return {
                 'valid': False,
-                'message': "ISBN is invalid! ISBN should only contain 10 or 13 digits"
+                'message': "[ISBN is invalid! ISBN should only contain 10 or 13 digits] "
             }
 
         # Check if isbn is equal to 10
@@ -59,7 +59,7 @@ class Validator:
             if sum % 11 != 0:
                 return {
                     'valid': False,
-                    'message': "ISBN is invalid! Your 10 digit number is not an ISBN"
+                    'message': "[ISBN is invalid! Your 10 digit number is not an ISBN] "
                 }
 
         # Check if isbn is equal to 13
@@ -90,7 +90,7 @@ class Validator:
             if x != int(isbn[len(isbn) - 1]):
                 return {
                     'valid': False,
-                    'message': "ISBN is invalid! Your 13 digit number is not an ISBN"
+                    'message': "[ISBN is invalid! Your 13 digit number is not an ISBN] "
                 }
 
         return {
@@ -108,13 +108,13 @@ class Validator:
         except ValueError:
             return {
                 'valid': False,
-                'message': 'Date should be in the format: DD-MM-YYYY'
+                'message': '[Date should be in the format: DD-MM-YYYY] '
             }
 
         if date.date() > datetime.now().date():
             return {
                 'valid': False,
-                'message': 'Date cannot be greater than current date'
+                'message': '[Date cannot be greater than current date] '
             }
 
         return {
@@ -132,23 +132,20 @@ class Validator:
         except ValueError:
             return {
                 'valid': False,
-                'message': 'Year should be in the format: YYYY'
+                'message': '[Year should be in the format: YYYY] '
             }
 
         if date.year > datetime.now().year:
             return {
                 'valid': False,
-                'message': 'Year cannot be greater than current year'
+                'message': '[Year cannot be greater than current year] '
             }
 
         return {
             'valid': True,
             'message': ''
         }
-    
-    
-    def is_allowed_status(self,status):
-        status_list = ('to-read','reading','read')
+
+    def is_allowed_status(self, status):
+        status_list = ('to-read', 'reading', 'read')
         return status.lower() in status_list
-    
-        
