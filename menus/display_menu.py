@@ -21,8 +21,8 @@ __________               __     .____    ._____.
         self.root = root
 
     def selection(self):
-        print("|  ISBN  |  Author  |  Title  |   Publisher  |  Genre  |  Year Published  |  Date Purchased  |  Status  |")
-        book_list = []
+        headers = ["ISBN", "Author", "Title", "Publisher", "Genre", "Year Published", "Date Purchased", "Status"]
+        print("|  " + "  |  ".join(headers) + "  |")
         for idx, i in enumerate(range(1, len(self.root.book_list))):
             isbn = self.root.book_list[i].isbn
             title = self.root.book_list[i].title
@@ -36,54 +36,4 @@ __________               __     .____    ._____.
             print()
 
         
-    # [isbn1, title1, ..., isbn2, title2]
-        
-
-
-# class BookDisplay:
-#     def __init__(self):
-#         self.book_file = 'books_23020043.txt'
-
-#     def display_book(self):
-#         try:
-#             with open(self.book_f, 'r') as file:
-#                 lines = file.readlines()
-#                 for i, line in enumerate(lines, start = 1):
-#                     print(f"{i}. {line.strip()}")
-#         except FileNotFoundError:
-#             print('File Not Found!')
-#         except Exception as e:
-#             print("An error has occurred")
-
-#         input('Hit enter to go back to main menu...')
-#         self.root.display().selection()
-
-# class search_book:
-#     def search_by_isbn(self, isbn):
-#         results = [book for book in self.books if book.isbn == isbn]
-#         return results
-
-#     def search_by_author(self, author):
-#         results = [book for book in self.books if book.author == author]
-#         return results
-
-#     def search_by_title(self, title):
-#         results = [book for book in self.books if book.title == title]
-#         return results
-
-# if __name__ == "__main__":
-#     display = BookDisplay()
-#     display.display_book()
-#     search_term = input("Search for books by [ISBN, Title, or Author]:  ")
-#     display2 = search_book()
-#     display2.search_book(search_term)
-
-
-
-
-
-
-
-
-
-
+    
