@@ -61,7 +61,7 @@ class Validator:
             if total % 11 != 0:
                 return {
                     'valid': False,
-                    'message': "[ISBN is invalid! Your 10 digit number is not an ISBN] "
+                    'message': "[Your 10 digit number is not an ISBN] "
                 }
 
         # Check if isbn is equal to 13
@@ -92,7 +92,7 @@ class Validator:
             if x != int(isbn[len(isbn) - 1]):
                 return {
                     'valid': False,
-                    'message': "[ISBN is invalid! Your 13 digit number is not an ISBN] "
+                    'message': "[Your 13 digit number is not an ISBN] "
                 }
 
         return {
