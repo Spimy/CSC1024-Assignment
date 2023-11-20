@@ -2,30 +2,32 @@ from datetime import datetime
 
 
 class Validator:
-    def contains_comma(self, string):
+    def is_valid_string(self, string):
         '''
+        Check if string is empty
         Check if string contains a comma
         If a string contains a comma then splitting it with a comma should return
         an array with a length greater than 1  
         '''
-        return len(string.split(',')) > 1
+        return len(string) > 0 and len(string.split(',')) == 1
 
     def is_isbn(self, isbn):
         ''' 
         Check validity of string 
         Should not contain comma(s)
+        Should not be an empty input
         Should be 10 or 13 digits long
         Should adhere to ISBN digit formatting
         If invalid print error message and return boolean False
         Ask user to type a valid isbn
         '''
 
-        # Check for commas
+        # Check for commas or empty input
         # Return a boolean
-        if self.contains_comma(isbn):
+        if not self.is_valid_string(isbn):
             return {
                 'valid': False,
-                'message': "[ISBN is invalid! ISBN should not contain a comma] "
+                'message': "[ISBN should not contain a comma or be empty] "
             }
 
         # ISBN can only be 10 or 13 digits long
