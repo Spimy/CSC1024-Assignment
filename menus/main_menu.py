@@ -1,5 +1,6 @@
 from utils import Book, BaseMenu
 from .example_menu import ExampleMenu
+from .display_menu import DisplayMenu
 
 
 class MainMenu(BaseMenu):
@@ -32,7 +33,8 @@ class MainMenu(BaseMenu):
             title='Main Menu',
             header=self.header,
             sub_menus=[
-                ExampleMenu(root=self)
+                ExampleMenu(root=self),
+                DisplayMenu(root=self)
             ]
         )
         self._load_books()
