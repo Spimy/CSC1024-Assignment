@@ -1,5 +1,6 @@
-from utils import Book, BaseMenu
+from utils import Book, BaseMenu, Validator
 from .example_menu import ExampleMenu
+from .add_menu import AddMenu
 
 
 class MainMenu(BaseMenu):
@@ -27,12 +28,16 @@ class MainMenu(BaseMenu):
     # This list should be written to the file when the program ends
     book_list = []  # List of Book objects
 
+    # Validator instanced used to validate user inputs
+    validator = Validator()
+
     def __init__(self):
         super().__init__(
             title='Main Menu',
             header=self.header,
             sub_menus=[
-                ExampleMenu(root=self)
+                ExampleMenu(root=self),
+                AddMenu(root=self)
             ]
         )
         self._load_books()
