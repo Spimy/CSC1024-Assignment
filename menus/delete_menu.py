@@ -1,4 +1,5 @@
 from sqlite3 import Cursor
+from typing import Self
 from utils import BaseMenu
 
 
@@ -24,13 +25,27 @@ class DeleteMenu(BaseMenu):
         for i in range(len(self.root.book_list)):
             print(f'[{i + 1}] Book: {self.root.book_list[i].title}')
 
-    def delete_book(book):
-        c = Cursor()
-        with c.connection:
-            c.execute("DELETE FROM books WHERE title=? and list=?", (book.list, book.title))
-            rows = c.rowcount
-            c.connection.close
-            return rows
+        while True:
+            isbn = input("Enter ISBN of book you wish to edit: ")
+            list:[1, 2, 3, 4, 5, 6, 7]
+            result = list.count()
 
+
+            
+            
+    def delete_book(book_list, book_title):
+        for book in range(len(book_list["Books"])):
+         if book_title in book_list["Books"][book]["Book's Title"]:
+            print("Are you sure you want delete this book?: ")
+        identifier = input()
+        identifiers = ['y','n']
+        while identifier not in identifiers:
+            print("Please answer with y or n")
+            print("Are you sure you want to delete this book?: ")
+            identifier = input()
+        if identifier == 'y':
+            book.list["Books"][book].pop(book)
+            return f"{book.title} is deleted from books library"
+        
         input('Hit enter to go back to main menu...')
-        self.root.display().selection()
+        Self.root.display().selection()
