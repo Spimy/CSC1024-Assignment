@@ -1,6 +1,5 @@
 from utils import BaseMenu
 
-
 class DisplayMenu(BaseMenu):
     header = \
         '''
@@ -22,18 +21,34 @@ __________               __     .____    ._____.
 
     def selection(self):
         headers = ["ISBN", "Author", "Title", "Publisher", "Genre", "Year Published", "Date Purchased", "Status"]
-        print("|  " + "  |  ".join(headers) + "  |")
-        for idx, i in enumerate(range(1, len(self.root.book_list))):
+        data = []
+
+        for i in range(len(self.root.book_list)):
             isbn = self.root.book_list[i].isbn
-            title = self.root.book_list[i].title
             author = self.root.book_list[i].author
+            title = self.root.book_list[i].title
             publisher = self.root.book_list[i].publisher
             genre = self.root.book_list[i].genre
-            year = self.root.book_list[i].year_published
-            date = self.root.book_list[i].date_purchased
+            year_published = self.root.book_list[i].year_published
+            date_purchased = self.root.book_list[i].date_purchased
             status = self.root.book_list[i].status
-            print(f"  {isbn}  |  {author}  |  {title}  |  {publisher}  |  {genre}  |  {year}  |  {date}  |  {status}  |")
             print()
 
+            data.append([isbn, author, title, publisher, genre, year_published, date_purchased, status ])
+
         
-    
+        column_widths = [max(len(str(item)) for item in column) for column in zip(headers, *data)]
+
+        header_line = " | ".join(f"{header:^{width}}" for header, width in zip(headers, column_widths))
+        print(header_line)
+        print("-" * len(header_line))
+
+        for row in data:
+            row_line = " | ".join(f"{item:<{width}}" for item, width in zip(row, column_widths))
+            print(row_line)
+
+        input("\nPress Enter to return to the main menu...")
+        self.root.display().selection()
+
+            
+                
