@@ -69,48 +69,50 @@ __________               __     .____    ._____.
         #prompts user to input whether they want to search or return to main menu
         user_choice = input("Search Books[Y] or Return to Main Menu[N]:  ").lower()
 
-        #if choices are incorrect, question will loop continously
+# if choices are incorrect, question will loop continuously
         while user_choice not in ['y', 'n']:
             user_choice = input("Invalid Input, Search Books[Y] or Exit to Main Menu[N]: ").lower()
 
         if user_choice == 'y':
             while True:
-                search_term = input("Search book by ISBN, AUTHOR, or TITLE(Type 'EXIT' to return to main menu):  ").lower()
+                search_term = input("Search book by ISBN, AUTHOR, or TITLE (Type 'EXIT' to return to main menu): ").lower()
                 searched_books = []
 
-                #if user enters exit, program will return to main menu
-                if search_term =='exit'.lower():
+                # if user enters exit, program will return to main menu
+                if search_term == 'exit':
                     self.root.display().selection()
 
-                #for every row in data, if there are any terms matching the items in rows, add the entire row to a new list
+                # for every row in data, check if search term matches ISBN, AUTHOR, or TITLE
                 for row in data:
-                    if any(search_term in str(item).lower() for item in row):
+                    isbn, author, title, status = row[:4]  #to allow search function for elements ISBN, AUTHOR, TITLE ONLY
+
+                    # check if the search term is in ISBN, AUTHOR, or TITLE
+                    if search_term in isbn.lower() or search_term in author.lower() or search_term in title.lower():
                         searched_books.append(row)
 
-                #checks whether search_books list is empty,
+                # checks whether searched_books list is not empty
                 if len(searched_books) > 0:
                     print("\nSearch Results:")
-
-                    #print headers with '-' to make it look cleaner
+                    
+                    # print headers with '-' to make it look cleaner
                     print(header_line)
                     print("-" * len(header_line))
 
-                    #for the book found in the new list called searched_books
+                    # for the book found in the new list called searched_books
                     for book in searched_books:
-                        
-                        #to arrange all the "|" nicely within the list
-                        #zip to pair the book with its own respective column_widths
+                        # to arrange all the "|" nicely within the list
+                        # zip to pair the book with its own respective column_widths
                         print(" | ".join(f"{item:<{width}}" for item, width in zip(book, column_widths)))
 
-                    #print lines underneath so it looks cleaner
+                    # print lines underneath so it looks cleaner
                     print("-" * len(header_line))
-                          
+
                 else:
                     print("No books found with the given search term.")
-                    #continues the program if no books are found
+                    # continues the program if no books are found
                     continue
 
-        #if user enters n, program will return to main menu                     
-        if user_choice.lower() == 'n':
+        # if user enters 'n', program will return to the main menu
+        if user_choice == 'n':
             self.root.display().selection()
 
