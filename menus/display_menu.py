@@ -1,4 +1,14 @@
 from utils import BaseMenu
+import sys
+
+class Colors:
+    # ANSI escape codes for colors
+    HEADER = '\033[95m' #Purple/Pink
+    OKBLUE = '\033[94m' #Blue
+    OKGREEN = '\033[92m'#Green
+    WARNING = '\033[93m'#Yellow
+    FAIL = '\033[91m'   #Red
+    ENDC = '\033[0m'    #End Colour
 
 class DisplayMenu(BaseMenu):
     header = \
@@ -19,95 +29,177 @@ __________               __     .____    ._____.
         # If you do not need intellisense anymore, this line should be removed
         self.root = root
 
-    def display_data(self, data, column_widths):
-        # Display each row of data using for loop
-        for row in data:
-            self.display_row(row, column_widths)
+    #Start of program
+    def load_books(self, book_list):
+        '''
+        Load books from the book list database into a format suitable for display.
+        '''
+        # empty list to store books
+        data = []
+        # iterate through the list and add each books to the data list
+        for book in book_list:
+            data.append([book.isbn, book.author, book.title, book.publisher, book.genre, book.year_published, book.date_purchased, book.status])
 
-    def display_row(self, row, column_widths):
-        # Create a formatted string for a single row by pairing each item in row within their own respective column
-        row_line = " | ".join(f"{item:<{width}}" for item, width in zip(row, column_widths))
-        print(row_line)
-
-    def tabulated_table(self, header_line, data, column_widths):
-        # Display the header line and table body
-        print(header_line)
-        print("-" * len(header_line))
-        
-        # Calls the function to display every data in a table
-        self.display_data(data, column_widths)
-
-        print("-" * len(header_line))
-
-    def searched_results(self, search_term, data, column_widths, header_line):
-        #empty list to store search functions
-        searched_books = []
-
-        if search_term:
-            # Search for the given term in ISBN, AUTHOR, or TITLE
-            for row in data:
-                isbn, author, title = row[:3]
-                if search_term in isbn.lower() or search_term in author.lower() or search_term in title.lower():
-                    searched_books.append(row)
-
-            if searched_books:
-                # Display search results if there are matches
-                print("\nSearch Results:")
-                print(header_line)
-                print("-" * len(header_line))
-                self.display_data(searched_books, column_widths)
-                print("-" * len(header_line))
-            else:
-                print("No books found with the given search term.")
-        else:
-            print("Please search for a book by ISBN, Author, or Title.")
-
+        # Returns new data with all books information
+        return data
+    
     def selection(self):
+        '''
+        Main function to display the tabulated table and initiate book search if requested.
+        '''
         headers = ["ISBN", "Author", "Title", "Publisher", "Genre", "Year Published", "Date Purchased", "Status"]
-        # Load all new book data from function load_data()
-        data = self.load_data()
+        # Calls the function load_data to get the book list
+        data = self.load_books(self.root.book_list)
 
-        # Asterisk to unpack the data
-        # Calculate maximum length of each item in their column
-        # zip headers and column width to pair 
-        # (^) to center each headers with their own column width
-        column_widths = [max(len(str(item)) for item in column) for column in zip(headers, *data)] #CALCULATING COLUMN WIDTH ONLY
-        header_line = " | ".join(f"{header:^{width}}" for header, width in zip(headers, column_widths)) #ONLY FOR HEADERS
+        # CALCULATIONS to find maximum length of each item in every column
+        # Group headers and their respective datas(Asterisk to unpack data)
+        column_widths = [max(len(str(item)) for item in column) for column in zip(headers, *data)]
 
-        # Calls the function to tabulate the table
-        self.tabulated_table(header_line, data, column_widths)
+        # Group the headers and the calculated column widths
+        # (^) to centre headers within respective column widths
+        header_line = " | ".join(f"{header:^{width}}" for header, width in zip(headers, column_widths))
 
-        # Prompts user to search or return to main menu
-        user_choice = input("Search Books[Y] or Return to Main Menu[N]: ").lower()
+        # Calls function to start displaying the table and search function
+        self.display_and_search(header_line, data, column_widths)
+        return
+    
+    def display_and_search(self, header_line, data, column_widths):
+        '''
+        Display the tabulated table and prompt user to search for book.
+        '''
+        while True:
+            try:
+                # Calls function to display tabulated table
+                self.display_table(header_line, data, column_widths)
 
-        #handles if the input are not correct
-        while user_choice not in ['y', 'n']:
-            user_choice = input("Invalid Input, Search Books[Y] or Exit to Main Menu[N]: ").lower()
+                print()
 
-        if user_choice == 'y':
-            while True:
-                search_term = input("Search book by ISBN, AUTHOR, or TITLE (Type 'EXIT' to return to the main menu): ").lower()
-                if search_term == 'exit':
-                    # Return to the main menu if the user chooses to exit the search
+                user_choice = input("Do you want to search for books[Y/N]: ").lower()
+
+                # To handle errors if user does not answer 'Y' or 'N'
+                while user_choice not in ['y', 'n']:
+                    user_choice = input("Invalid Input, Do you want to search for books[Y/N]: ").lower()
+
+                if user_choice == 'y':
+                    while True:
+                        print()
+                        search_term = input("Search book by ISBN, AUTHOR, or TITLE (Type 'EXIT' to return to the main menu): ").lower()
+                        print()
+
+                        # if user inputs exit, program will return to main menu
+                        if search_term == 'exit':
+                            self.root.display().selection()
+                            break
+
+                        # Call the function to initiate search for books
+                        self.search_books(search_term, data, column_widths, header_line)
+
+                # if user inputs n, program will return to main menu
+                elif user_choice == 'n':
                     self.root.display().selection()
                     break
 
-                #
-                self.searched_results(search_term, data, column_widths, header_line)
+            except KeyboardInterrupt:
+                print("\nKeyboardInterrupt caught")
+                continue
 
-        elif user_choice == 'n':
-            # Return to the main menu if the user chooses not to search
-            self.root.display().selection()
+    
+    def header_and_separator(self, header_line):
+        '''
+        Print headers and separator line.
+        '''
+        print(header_line)
+        print("-" * len(header_line))
 
-            return
+    def display_data(self, data, column_widths):
+        '''
+        Format and print each row of data according to specified column widths.
+        '''
+
+        # Loop
+        for row in data:
+
+            # Create a list of formatted strings for each item in the row except the last one
+            # This formatting is done for each string(isbn, author, title, etc...)
+            # List will contain everything apart from Status column
+            formatted_row = [f"{item:<{width}}" for item, width in zip(row[:-1], column_widths[:-1])]
+            
+            # Calls the function to display the colours for status column
+            status_colored = self.color_status(row[-1])
+
+            # After adding colours, append every Status with the colours back into the columns
+            formatted_row.append(f"{status_colored:<{column_widths[-1]}}")
+
+            # Joins every string together as one with '|' as a seperator
+            row_line = " | ".join(formatted_row)
+            print(row_line)
+
+    def color_status(self, status):
+        '''
+        Function that takes a string as an argument and returns it with appropriate colors based on its value.
+        '''
+        if status.lower() == 'to-read':
+            return (f"{Colors.FAIL}{status}{Colors.ENDC}") # Prints 'to-read' status in red colour
         
-    #Start of function
-    def load_data(self):
-        # Load data from the root's book_list and format it into a list
-        data = []
-        for i in range(len(self.root.book_list)): #adds every information in book_list into data
-            book = self.root.book_list[i]
-            data.append([book.isbn, book.author, book.title, book.publisher, book.genre, book.year_published, book.date_purchased, book.status])
+        elif status.lower() == 'reading':
+            return (f"{Colors.WARNING}{status}{Colors.ENDC}")   # Prints 'reading' status in yellow colour
+        
+        elif status.lower() == 'read':
+            return (f"{Colors.OKGREEN}{status}{Colors.ENDC}")   # Prints 'read' status in green colour
+        else:
+            return status
 
-        #new data called will contain all book information
-        return data
+    def display_table(self, header_line, data, column_widths):
+        '''
+        Display the tabulated table.
+        '''
+
+        self.header_and_separator(header_line)
+
+        # Call function to display the tabulated data
+        self.display_data(data, column_widths)
+        print("-" * len(header_line))
+
+    def search_books(self, search_term, data, column_widths, header_line):
+        '''
+        Search for books based on ISBN, AUTHOR, and TITLE.
+        '''
+
+        # Empty list to store the row/s of books searched
+        searched_books = []
+
+        # Split the search_term into separate components
+        search_components = search_term.split(',')
+
+        # If search term is not empty and has three components
+        if search_components and len(search_components) == 3:
+            isbn, author, title = search_components  # Separate components
+
+            # Loop through rows in the database
+            for row in data:
+                # Extract ISBN, AUTHOR, and TITLE from the row
+                row_isbn, row_author, row_title = row[:3]
+
+                # Check if all components match exactly
+                if isbn.lower() in row_isbn.lower() and author.lower() in row_author.lower() and title.lower() in row_title.lower():
+                    searched_books.append(row)
+
+            # If the list is not empty, display the search results
+            if searched_books:
+                print("Search Results:")
+                print()
+                self.header_and_separator(header_line)
+                self.display_data(searched_books, column_widths)
+                print("-" * len(header_line))
+            else:
+                print("No books found with the given search term. Please search in the exact format:(ISBN,AUTHOR,TITLE) with ',' and no spaces.")
+        else:
+            print("Please enter all three components (ISBN, AUTHOR, and TITLE) for the search.")
+
+
+
+
+
+
+
+
