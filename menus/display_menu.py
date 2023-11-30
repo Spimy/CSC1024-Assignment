@@ -1,5 +1,4 @@
 from utils import BaseMenu
-import sys
 
 class Colors:
     # ANSI escape codes for colors
@@ -83,16 +82,22 @@ __________               __     .____    ._____.
                 if user_choice == 'y':
                     while True:
                         print()
-                        search_term = input("Search book by ISBN, AUTHOR, or TITLE (Type 'EXIT' to return to the main menu): ").lower()
+                        search_isbn = input("Input ISBN:  ").lower()
+                        search_author = input("Input AUTHOR name:  ").lower()
+                        search_title = input("Input TITLE name:  ").lower()
                         print()
+            
+                        # Call the function to initiate search for books
+                        self.search_books(search_isbn, search_author, search_title, data, column_widths, header_line)
+                        
+                        result = input("Do you wish to search for more books[Y/N]:  ").lower()
+                        while result not in ["y", "n"]:
+                            result = input("Invalid Input, do you wish to continue searching?[Y/N]: ")
 
-                        # if user inputs exit, program will return to main menu
-                        if search_term == 'exit':
+                        if result != 'y':
                             self.root.display().selection()
                             break
 
-                        # Call the function to initiate search for books
-                        self.search_books(search_term, data, column_widths, header_line)
 
                 # if user inputs n, program will return to main menu
                 elif user_choice == 'n':
@@ -104,9 +109,9 @@ __________               __     .____    ._____.
                 continue
 
     
-    def header_and_separator(self, header_line):
+    def print_header(self, header_line):
         '''
-        Print headers and separator line.
+        Print headers.
         '''
         print(header_line)
         print("-" * len(header_line))
@@ -154,13 +159,13 @@ __________               __     .____    ._____.
         Display the tabulated table.
         '''
 
-        self.header_and_separator(header_line)
+        self.print_header(header_line)
 
         # Call function to display the tabulated data
         self.display_data(data, column_widths)
         print("-" * len(header_line))
 
-    def search_books(self, search_term, data, column_widths, header_line):
+    def search_books(self, search_isbn, search_author, search_title, data, column_widths, header_line):
         '''
         Search for books based on ISBN, AUTHOR, and TITLE.
         '''
@@ -168,38 +173,28 @@ __________               __     .____    ._____.
         # Empty list to store the row/s of books searched
         searched_books = []
 
-        # Split the search_term into separate components
-        search_components = search_term.split(',')
+        # Loop through rows in the database
+        for row in data:
 
-        # If search term is not empty and has three components
-        if search_components and len(search_components) == 3:
-            isbn, author, title = search_components  # Separate components
+            # Extract ISBN, AUTHOR, and TITLE from the row
+            row_isbn, row_author, row_title = row[:3]
 
-            # Loop through rows in the database
-            for row in data:
-                # Extract ISBN, AUTHOR, and TITLE from the row
-                row_isbn, row_author, row_title = row[:3]
+            # Check if the search terms match
+            isbn_match = search_isbn.lower() in row_isbn.lower()
+            author_match = search_author.lower() in row_author.lower()
+            title_match = search_title.lower() in row_title.lower()
 
-                # Check if all components match exactly
-                if isbn.lower() in row_isbn.lower() and author.lower() in row_author.lower() and title.lower() in row_title.lower():
-                    searched_books.append(row)
+            # If any of the search terms match, add the row to the results
+            if isbn_match or author_match or title_match:
+                searched_books.append(row)
 
-            # If the list is not empty, display the search results
-            if searched_books:
-                print("Search Results:")
-                print()
-                self.header_and_separator(header_line)
-                self.display_data(searched_books, column_widths)
-                print("-" * len(header_line))
-            else:
-                print("No books found with the given search term. Please search in the exact format:(ISBN,AUTHOR,TITLE) with ',' and no spaces.")
+        # If the list is not empty, display the search results
+        if searched_books:
+            self.display()
+            print("Search Results:")
+            print()
+            self.print_header(header_line)
+            self.display_data(searched_books, column_widths)
+            print("-" * len(header_line))
         else:
-            print("Please enter all three components (ISBN, AUTHOR, and TITLE) for the search.")
-
-
-
-
-
-
-
-
+            print("No books found with the given search term.")
