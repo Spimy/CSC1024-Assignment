@@ -148,12 +148,13 @@ class UpdateMenu(BaseMenu):
             edit_type = None 
             while edit_type not in ["ISBN", "Author", "Title", "Publisher", "Genre", "Year of Publishing", "Date of Purchase", "Status"]: 
                 edit_type= input("Please enter what you would like to change: ")
+                edit_type = edit_type.lower()
 
-            if edit_type == "ISBN": 
+            if edit_type == "isbn": 
                 new_isbn = input("Enter the new ISBN here: ")
                 self.root.book_list[list_index].isbn = new_isbn
 
-            elif edit_type == "Author": 
+            elif edit_type == "author": 
                 first_name = input("Please enter author first name: ")
                 surname = input("Please enter author surname: ")
                 first_name = first_name[0].upper() + first_name[1:]
@@ -161,27 +162,27 @@ class UpdateMenu(BaseMenu):
                 new_author = f"{first_name} {surname}"
                 self.root.book_list[list_index].author = new_author 
 
-            elif edit_type == "Title":
+            elif edit_type == "title":
                 new_title = input("Enter the new tiltle here: ")
                 self.root.book_list[list_index].title = new_title
 
-            elif edit_type == "Publisher": 
+            elif edit_type == "publisher": 
                 new_publisher = input("Enter the new publisher here: ")
                 self.root.book_list[list_index].publisher = new_publisher
 
-            elif edit_type == "Genre": 
+            elif edit_type == "genre": 
                 new_genre = input("Enter the new genre here: ")
                 self.root.book_list[list_index].genre = new_genre
 
-            elif edit_type == "Year of Publishing": 
+            elif edit_type == "year of publishing": 
                 new_publishingyear = input("Enter the new year of publishing here: ")
                 self.root.book_list[list_index].year_published = new_publishingyear
 
-            elif edit_type == "Date of Purchase": 
+            elif edit_type == "date of purchase": 
                 new_purchasedate = input("Enter the new year of date of purchase here: ")
                 self.root.book_list[list_index].date_purchased = new_purchasedate
 
-            elif edit_type == "Status": 
+            elif edit_type == "status": 
                 new_status = input("Enter the new status here: ")
                 self.root.book_list[list_index].status = new_status
 
@@ -197,12 +198,13 @@ class UpdateMenu(BaseMenu):
             edit_type = None 
             while edit_type not in ["ISBN", "Author", "Title", "Publisher", "Genre", "Year of Publishing", "Date of Purchase", "Status"]: 
                 edit_type= input("Please enter what you would like to change: ")
+                edit_type = edit_type.lower()
 
-            if edit_type == "ISBN": 
+            if edit_type == "isbn": 
                 new_isbn = input("Enter the new ISBN here: ")
                 self.root.book_list[list_index].isbn = new_isbn
 
-            elif edit_type == "Author": 
+            elif edit_type == "author": 
                 first_name = input("Please enter author first name: ")
                 surname = input("Please enter author surname: ")
                 first_name = first_name[0].upper() + first_name[1:]
@@ -210,27 +212,27 @@ class UpdateMenu(BaseMenu):
                 new_author = f"{first_name} {surname}"
                 self.root.book_list[list_index].author = new_author 
 
-            elif edit_type == "Title":
+            elif edit_type == "title":
                 new_title = input("Enter the new tiltle here: ")
                 self.root.book_list[list_index].title = new_title
 
-            elif edit_type == "Publisher": 
+            elif edit_type == "publisher": 
                 new_publisher = input("Enter the new publisher here: ")
                 self.root.book_list[list_index].publisher = new_publisher
 
-            elif edit_type == "Genre": 
+            elif edit_type == "genre": 
                 new_genre = input("Enter the new genre here: ")
                 self.root.book_list[list_index].genre = new_genre
 
-            elif edit_type == "Year of Publishing": 
+            elif edit_type == "year of publishing": 
                 new_publishingyear = input("Enter the new year of publishing here: ")
                 self.root.book_list[list_index].year_published = new_publishingyear
 
-            elif edit_type == "Date of Purchase": 
+            elif edit_type == "date of purchase": 
                 new_purchasedate = input("Enter the new year of date of purchase here: ")
                 self.root.book_list[list_index].date_purchased = new_purchasedate
 
-            elif edit_type == "Status": 
+            elif edit_type == "status": 
                 new_status = input("Enter the new status here: ")
                 self.root.book_list[list_index].status = new_status
 
