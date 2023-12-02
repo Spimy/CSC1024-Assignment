@@ -1,7 +1,7 @@
 from utils import Book, BaseMenu, Validator
 from .example_menu import ExampleMenu
 from .add_menu import AddMenu
-
+from .update_edit_menu import UpdateMenu
 
 class MainMenu(BaseMenu):
     header = \
@@ -37,7 +37,8 @@ class MainMenu(BaseMenu):
             header=self.header,
             sub_menus=[
                 ExampleMenu(root=self),
-                AddMenu(root=self)
+                AddMenu(root=self),
+                UpdateMenu(root=self)
             ]
         )
         self._load_books()
