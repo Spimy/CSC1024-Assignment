@@ -34,18 +34,18 @@ __________               __     .____    ._____.
         '''
         headers = ["ISBN", "Author", "Title", "Publisher", "Genre", "Year Published", "Date Purchased", "Status"]
         # Calls the function load_data to get the book list
-        data = self.load_books(self.root.book_list)
+        book_data = self.load_books(self.root.book_list)
 
         # CALCULATIONS to find maximum length of each item in every column
         # Group headers and their respective datas(Asterisk to unpack data)
-        column_widths = [max(len(str(item)) for item in column) for column in zip(headers, *data)]
+        column_widths = [max(len(str(item)) for item in column) for column in zip(headers, *book_data)]
 
         # Group the headers and the calculated column widths
         # (^) to centre headers within respective column widths
         header_line = " | ".join(f"{header:^{width}}" for header, width in zip(headers, column_widths))
 
         # Calls function to start displaying the table and search function
-        self.search_for_books(header_line, data, column_widths)
+        self.search_for_books(header_line, book_data, column_widths)
         return
 
     #Start of program
@@ -54,23 +54,23 @@ __________               __     .____    ._____.
         Load books from the book list database into a format suitable for display.
         '''
         # empty list to store books
-        data = []
+        book_data = []
         # iterate through the list and add each books to the data list
         for book in book_list:
-            data.append([book.isbn, book.author, book.title, book.publisher, book.genre, book.year_published, book.date_purchased, book.status])
+            book_data.append([book.isbn, book.author, book.title, book.publisher, book.genre, book.year_published, book.date_purchased, book.status])
 
         # Returns new data with all books information
-        return data
+        return book_data
     
     
-    def search_for_books(self, header_line, data, column_widths):
+    def search_for_books(self, header_line, book_data, column_widths):
         '''
         a tabulated table will be displayed and it also prompts user whether to search for a book.
         '''
         while True:
             try:
                 # Calls function to display tabulated table
-                self.display_table(header_line, data, column_widths)
+                self.display_table(header_line, book_data, column_widths)
 
                 print()
 
@@ -85,23 +85,23 @@ __________               __     .____    ._____.
                         print()
 
                         # Prompts user for book information
-                        search_isbn = input("Input ISBN numbers:  ").lower()  
-                        search_author = input("Input AUTHOR name:  ").lower()
-                        search_title = input("Input TITLE name:  ").lower()
+                        isbn_search = input("Input International Standard Book Number(ISBN) numbers:  ").lower()  
+                        author_search = input("Input AUTHOR name:  ").lower()
+                        title_search = input("Input TITLE name:  ").lower()
                         print()
 
                         # Call the function to initiate search for books
-                        self.search_results(search_isbn, search_author, search_title, data, column_widths, header_line)
+                        self.search_results(isbn_search, author_search, title_search, book_data, column_widths, header_line)
 
                         # Prompts user if they want to search for more books
-                        result = input("Do you wish to search for more books[Y/N]:  ").lower()
+                        user_search_choice = input("Do you wish to search for more books[Y/N]:  ").lower()
 
                         # Handles the errors if the user does not answer 'Y' or 'N'
-                        while result not in ["y", "n"]:
-                            result = input("Invalid Input, do you wish to continue searching?[Y/N]: ")
+                        while user_search_choice not in ["y", "n"]:
+                            user_search_choice = input("Invalid Input, do you wish to continue searching?[Y/N]: ")
 
                         # Return to main menu after inputting 'n'
-                        if result != 'y':
+                        if user_search_choice != 'y':
                             self.root.display().selection()
                             break
 
@@ -123,13 +123,13 @@ __________               __     .____    ._____.
         print(header_line)
         print("-" * len(header_line))
 
-    def display_data(self, data, column_widths):
+    def display_data(self, book_data, column_widths):
         '''
         Format and print each row of data according to specified column widths.
         '''
 
         # Loop
-        for row in data:
+        for row in book_data:
 
             # Create a list of formatted strings for each item in the row except the last one
             # This formatting is done for each string(isbn, author, title, etc...)
@@ -137,7 +137,7 @@ __________               __     .____    ._____.
             formatted_row = [f"{item:<{width}}" for item, width in zip(row[:-1], column_widths[:-1])]
             
             # Calls the function to display the colours for status column
-            status_colored = self.color_status(row[-1])
+            status_colored = self.get_color_status(row[-1])
 
             # After adding colours, append every Status with the colours back into the columns
             formatted_row.append(f"{status_colored:<{column_widths[-1]}}")
@@ -146,7 +146,7 @@ __________               __     .____    ._____.
             row_line = " | ".join(formatted_row)
             print(row_line)
 
-    def color_status(self, status):
+    def get_color_status(self, status):
         '''
         Takes the status column and returns it with appropriate colors based on its value.
         '''
@@ -161,7 +161,7 @@ __________               __     .____    ._____.
         else:
             return status
 
-    def display_table(self, header_line, data, column_widths):
+    def display_table(self, header_line, book_data, column_widths):
         '''
         Display the tabulated table.
         '''
@@ -169,10 +169,10 @@ __________               __     .____    ._____.
         self.print_header(header_line)
 
         # Call function to display the tabulated data
-        self.display_data(data, column_widths)
+        self.display_data(book_data, column_widths)
         print("-" * len(header_line))
 
-    def search_results(self, search_isbn, search_author, search_title, data, column_widths, header_line):
+    def search_results(self, isbn_search, author_search, title_search, book_data, column_widths, header_line):
         '''
         Search for books based on ISBN, AUTHOR, and TITLE.
         '''
@@ -181,15 +181,15 @@ __________               __     .____    ._____.
         searched_books = []
 
         # Loop through rows in the database
-        for row in data:
+        for row in book_data:
 
             # Extract ISBN, AUTHOR, and TITLE from the row
             row_isbn, row_author, row_title = row[:3]
 
             # Check if the search terms match
-            isbn_match = search_isbn.lower() in row_isbn.lower()            # This part of the code will check if either one is similar and display it
-            author_match = search_author.lower() in row_author.lower()      # For example, even if isbn, author and title are all from different books, it will display all 3
-            title_match = search_title.lower() in row_title.lower()         # To search for a specific book, all 3 information must be accurate
+            isbn_match = isbn_search.lower() in row_isbn.lower()            # This part of the code will check if either one is similar and display it
+            author_match = author_search.lower() in row_author.lower()      # For example, even if isbn, author and title are all from different books, it will display all 3
+            title_match = title_search.lower() in row_title.lower()         # To search for a specific book, all 3 information must be accurate and
 
             # If any of the search terms match, add the row to the results
             if isbn_match or author_match or title_match:
