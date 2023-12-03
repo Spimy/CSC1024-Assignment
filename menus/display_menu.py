@@ -92,7 +92,9 @@ __________               __     .____    ._____.
                         print()
 
                         # Call the function to initiate search for books
-                        results = self.search_results(book_data, column_widths, header_line)
+                        results = self.search_books(
+                            book_data, column_widths, header_line
+                        )
 
                         if len(results) > 0:
                             self.display()  # To clear the terminal
@@ -100,7 +102,8 @@ __________               __     .____    ._____.
                             print('Search Results:')
                             print()
 
-                            self.display_table(header_line, results, column_widths)
+                            self.display_table(
+                                header_line, results, column_widths)
                         else:
                             print('No books found with the given search term.')
 
@@ -175,7 +178,7 @@ __________               __     .____    ._____.
 
         print("-" * len(header_line))
 
-    def search_results(self, book_data, column_widths, header_line):
+    def search_books(self, book_data, column_widths, header_line):
         '''
         Search for books based on ISBN, AUTHOR, and TITLE.
         '''
