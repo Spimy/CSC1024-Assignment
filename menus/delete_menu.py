@@ -31,20 +31,20 @@ class DeleteMenu(BaseMenu):
                 print(f'Book with ISBN "{isbn}" not found.')
 
             cont = ''
-            while cont.upper() not in ('Y', 'N'):
-                cont = input("Do you wish to delete another book (Y/N)?: ")
+            while cont not in ('Y', 'N'):
+                cont = input(
+                    "Do you wish to delete another book (Y/N)?: "
+                ).upper()
 
-            if cont.upper() == "Y":
+            if cont == "Y":
                 self.display()
 
-            elif cont.upper() == "N":
+            elif cont == "N":
                 self.root.display().selection()
                 break
-        
 
     def find_book_index(self, target_isbn):
         for index, book in enumerate(self.root.book_list):
             if book.isbn == target_isbn:
                 return index
         return -1  # Return -1 if the ISBN is not found in the list
-
