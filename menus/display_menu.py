@@ -92,7 +92,7 @@ __________               __     .____    ._____.
 
     def display_table(self, book_data):
         '''
-        Display the tabulated table.
+        Display the tabulated book details.
         '''
         headers = [
             'ISBN', 'Author', 'Title', 'Publisher',  'Genre', 'Year Published', 'Date Purchased', 'Status'
