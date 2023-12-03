@@ -51,9 +51,12 @@ __________               __     .____    ._____.
             f'{header:^{width}}' for header, width in zip(headers, column_widths)
         )
 
-        # Calls function to start displaying the table and search function
+        # Display all books in the database
+        self.display_table(header_line, book_data, column_widths)
+        print()
+
+        # Start search functionality
         self.search_for_books(header_line, book_data, column_widths)
-        return
 
     # Start of program
     def load_books(self, book_list):
@@ -77,11 +80,6 @@ __________               __     .____    ._____.
         '''
         while True:
             try:
-                # Calls function to display tabulated table
-                self.display_table(header_line, book_data, column_widths)
-
-                print()
-
                 user_choice = input(
                     'Do you want to search for books [Y/N]: '
                 ).lower()
@@ -92,46 +90,45 @@ __________               __     .____    ._____.
                         'Invalid Input, Do you want to search for books [Y/N]: '
                     ).lower()
 
-                if user_choice == 'y':
-                    while True:
-                        print()
-
-                        # Call the function to initiate search for books
-                        results = self.search_books(
-                            book_data, column_widths, header_line
-                        )
-
-                        if len(results) > 0:
-                            self.display()  # To clear the terminal
-
-                            print('Search Results:')
-                            print()
-
-                            self.display_table(
-                                header_line, results, column_widths)
-                        else:
-                            print('No books found with the given search term.')
-
-                        # Prompts user if they want to search for more books
-                        user_search_choice = input(
-                            'Do you wish to search for more books [Y/N]: '
-                        ).lower()
-
-                        # Handles the errors if the user does not answer 'Y' or 'N'
-                        while user_search_choice not in ('y', 'n'):
-                            user_search_choice = input(
-                                'Invalid Input, do you wish to continue searching? [Y/N]: '
-                            )
-
-                        # Return to main menu after inputting 'n'
-                        if user_search_choice != 'y':
-                            self.root.display().selection()
-                            break
-
-                # if user inputs n, program will return to main menu
-                elif user_choice == 'n':
+                if user_choice == 'n':
                     self.root.display().selection()
                     break
+
+                while True:
+                    print()
+
+                    # Call the function to initiate search for books
+                    results = self.search_books(
+                        book_data, column_widths, header_line
+                    )
+
+                    if len(results) > 0:
+                        self.display()  # To clear the terminal
+
+                        print('Search Results:')
+                        print()
+
+                        self.display_table(
+                            header_line, results, column_widths
+                        )
+                    else:
+                        print('No books found with the given search term.')
+
+                    # Prompts user if they want to search for more books
+                    user_search_choice = input(
+                        'Do you wish to search for more books [Y/N]: '
+                    ).lower()
+
+                    # Handles the errors if the user does not answer 'Y' or 'N'
+                    while user_search_choice not in ('y', 'n'):
+                        user_search_choice = input(
+                            'Invalid Input, do you wish to continue searching? [Y/N]: '
+                        )
+
+                    # Return to main menu after inputting 'n'
+                    if user_search_choice == 'n':
+                        self.root.display().selection()
+                        break
 
             except KeyboardInterrupt:
                 print('\nKeyboardInterrupt caught')
