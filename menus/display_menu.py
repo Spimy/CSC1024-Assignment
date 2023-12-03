@@ -56,7 +56,13 @@ __________               __     .____    ._____.
         print()  # Print empty line
 
         # Start search functionality
-        self.search_for_books(header_line, book_data, column_widths)
+        continue_search = True
+        while continue_search:
+            continue_search = self.search_for_books(
+                header_line, book_data, column_widths
+            )
+
+        self.root.display().selection()
 
     # Start of program
     def load_books(self, book_list):
@@ -78,59 +84,44 @@ __________               __     .____    ._____.
         '''
         A tabulated table will be displayed and it also prompts user whether to search for a book.
         '''
-        while True:
-            try:
+        try:
+            user_choice = input(
+                'Do you want to search for books [Y/N]: '
+            ).lower()
+
+            # To handle errors if user does not answer 'Y' or 'N'
+            while user_choice not in ('y', 'n'):
                 user_choice = input(
-                    'Do you want to search for books [Y/N]: '
+                    'Invalid Input, Do you want to search for books [Y/N]: '
                 ).lower()
 
-                # To handle errors if user does not answer 'Y' or 'N'
-                while user_choice not in ('y', 'n'):
-                    user_choice = input(
-                        'Invalid Input, Do you want to search for books [Y/N]: '
-                    ).lower()
+            if user_choice == 'n':
+                return False
 
-                if user_choice == 'n':
-                    self.root.display().selection()
-                    break
+            print()
 
-                while True:
-                    print()
+            # Call the function to initiate search for books
+            results = self.search_books(
+                book_data, column_widths, header_line
+            )
 
-                    # Call the function to initiate search for books
-                    results = self.search_books(
-                        book_data, column_widths, header_line
-                    )
+            if len(results) > 0:
+                self.display()  # To clear the terminal
 
-                    if len(results) > 0:
-                        self.display()  # To clear the terminal
+                print('Search Results:')
+                print()
 
-                        print('Search Results:')
-                        print()
+                self.display_table(header_line, results, column_widths)
+            else:
+                print('No books found with the given search term.')
 
-                        self.display_table(header_line, results, column_widths)
-                    else:
-                        print('No books found with the given search term.')
+            print()
 
-                    # Prompts user if they want to search for more books
-                    user_search_choice = input(
-                        'Do you wish to search for more books [Y/N]: '
-                    ).lower()
+            return True
 
-                    # Handles the errors if the user does not answer 'Y' or 'N'
-                    while user_search_choice not in ('y', 'n'):
-                        user_search_choice = input(
-                            'Invalid Input, do you wish to continue searching? [Y/N]: '
-                        )
-
-                    # Return to main menu after inputting 'n'
-                    if user_search_choice == 'n':
-                        self.root.display().selection()
-                        break
-
-            except KeyboardInterrupt:
-                print('\nKeyboardInterrupt caught')
-                self.root._exit()
+        except KeyboardInterrupt:
+            print('\nKeyboardInterrupt caught')
+            self.root._exit()
 
     def get_color_status(self, status):
         '''
