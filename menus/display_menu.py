@@ -34,8 +34,10 @@ __________               __     .____    ._____.
         '''
         Main function to display the tabulated table and initiate book search if requested.
         '''
-        headers = ["ISBN", "Author", "Title", "Publisher",
-                   "Genre", "Year Published", "Date Purchased", "Status"]
+        headers = [
+            'ISBN', 'Author', 'Title', 'Publisher',  'Genre', 'Year Published', 'Date Purchased', 'Status'
+        ]
+
         # Calls the function load_data to get the book list
         book_data = self.load_books(self.root.book_list)
 
@@ -46,8 +48,8 @@ __________               __     .____    ._____.
 
         # Group the headers and the calculated column widths
         # (^) to centre headers within respective column widths
-        header_line = " | ".join(
-            f"{header:^{width}}" for header, width in zip(headers, column_widths))
+        header_line = ' | '.join(
+            f'{header:^{width}}' for header, width in zip(headers, column_widths))
 
         # Calls function to start displaying the table and search function
         self.search_for_books(header_line, book_data, column_widths)
@@ -80,12 +82,12 @@ __________               __     .____    ._____.
                 print()
 
                 user_choice = input(
-                    "Do you want to search for books[Y/N]: ").lower()
+                    'Do you want to search for books [Y/N]: ').lower()
 
                 # To handle errors if user does not answer 'Y' or 'N'
-                while user_choice not in ['y', 'n']:
+                while user_choice not in ('y', 'n'):
                     user_choice = input(
-                        "Invalid Input, Do you want to search for books[Y/N]: ").lower()
+                        'Invalid Input, Do you want to search for books [Y/N]: ').lower()
 
                 if user_choice == 'y':
                     while True:
@@ -109,13 +111,13 @@ __________               __     .____    ._____.
 
                         # Prompts user if they want to search for more books
                         user_search_choice = input(
-                            "Do you wish to search for more books[Y/N]: "
+                            'Do you wish to search for more books [Y/N]: '
                         ).lower()
 
                         # Handles the errors if the user does not answer 'Y' or 'N'
-                        while user_search_choice not in ["y", "n"]:
+                        while user_search_choice not in ('y', 'n'):
                             user_search_choice = input(
-                                "Invalid Input, do you wish to continue searching?[Y/N]: ")
+                                'Invalid Input, do you wish to continue searching? [Y/N]: ')
 
                         # Return to main menu after inputting 'n'
                         if user_search_choice != 'y':
@@ -128,7 +130,7 @@ __________               __     .____    ._____.
                     break
 
             except KeyboardInterrupt:
-                print("\nKeyboardInterrupt caught")
+                print('\nKeyboardInterrupt caught')
                 self.display()
                 continue
 
@@ -138,15 +140,15 @@ __________               __     .____    ._____.
         '''
         if status.lower() == 'to-read':
             # Prints 'to-read' status in red colour
-            return (f"{Colors.FAIL}{status}{Colors.ENDC}")
+            return (f'{Colors.FAIL}{status}{Colors.ENDC}')
 
         elif status.lower() == 'reading':
             # Prints 'reading' status in yellow colour
-            return (f"{Colors.WARNING}{status}{Colors.ENDC}")
+            return (f'{Colors.WARNING}{status}{Colors.ENDC}')
 
         elif status.lower() == 'read':
             # Prints 'read' status in green colour
-            return (f"{Colors.OKGREEN}{status}{Colors.ENDC}")
+            return (f'{Colors.OKGREEN}{status}{Colors.ENDC}')
         else:
             return status
 
@@ -156,27 +158,27 @@ __________               __     .____    ._____.
         '''
 
         print(header_line)
-        print("-" * len(header_line))
+        print('-' * len(header_line))
 
         for row in book_data:
 
             # Create a list of formatted strings for each item in the row except the last one
             # This formatting is done for each string(isbn, author, title, etc...)
             # List will contain everything apart from Status column
-            formatted_row = [f"{item:<{width}}" for item,
+            formatted_row = [f'{item:<{width}}' for item,
                              width in zip(row[:-1], column_widths[:-1])]
 
             # Calls the function to display the colours for status column
             status_colored = self.get_color_status(row[-1])
 
             # After adding colours, append every Status with the colours back into the columns
-            formatted_row.append(f"{status_colored:<{column_widths[-1]}}")
+            formatted_row.append(f'{status_colored:<{column_widths[-1]}}')
 
             # Joins every string together as one with '|' as a seperator
-            row_line = " | ".join(formatted_row)
+            row_line = ' | '.join(formatted_row)
             print(row_line)
 
-        print("-" * len(header_line))
+        print('-' * len(header_line))
 
     def search_books(self, book_data, column_widths, header_line):
         '''
@@ -186,11 +188,9 @@ __________               __     .____    ._____.
         # Empty list to store the row/s of books searched
         searched_books = []
 
-        isbn_search = input(
-            'Enter International Standard Book Number(ISBN) numbers: '
-        ).lower()
-        author_search = input('Enter AUTHOR name: ').lower()
-        title_search = input('Enter TITLE name: ').lower()
+        isbn_search = input('Enter ISBN: ').lower()
+        author_search = input('Enter author name: ').lower()
+        title_search = input('Enter book title: ').lower()
 
         print()
 
