@@ -2,6 +2,9 @@ from utils import BaseMenu
 
 
 class Color:
+    '''
+    Enum class for console colours
+    '''
     # ANSI escape codes for colors
     GREEN = '\033[92m'  # Green
     YELLOW = '\033[93m'  # Yellow
