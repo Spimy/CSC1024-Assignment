@@ -63,7 +63,7 @@ class AddMenu(BaseMenu):
                 validator=self.root.validator.is_valid_date
             )
             status = self.validator_input(
-                display_string="Enter Book Status ('to-read', 'reading', 'read'):",
+                display_string="Enter Book Status ('to-read', 'reading', 'read'): ",
                 validator=self.root.validator.is_allowed_status,
                 error_msg='Invalid Status'
             )
