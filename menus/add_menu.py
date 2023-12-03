@@ -75,7 +75,6 @@ class AddMenu(BaseMenu):
             genre = genre.title()
 
             # Create new book
-            # Concatenate first_name and surname using f string
             book = Book(
                 isbn, author, title, publisher, genre, year_published, date_purchased, status
             )
