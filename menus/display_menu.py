@@ -43,13 +43,15 @@ __________               __     .____    ._____.
 
         # CALCULATIONS to find maximum length of each item in every column
         # Group headers and their respective datas(Asterisk to unpack data)
-        column_widths = [max(len(str(item)) for item in column)
-                         for column in zip(headers, *book_data)]
+        column_widths = [
+            max(len(str(item)) for item in column) for column in zip(headers, *book_data)
+        ]
 
         # Group the headers and the calculated column widths
         # (^) to centre headers within respective column widths
         header_line = ' | '.join(
-            f'{header:^{width}}' for header, width in zip(headers, column_widths))
+            f'{header:^{width}}' for header, width in zip(headers, column_widths)
+        )
 
         # Calls function to start displaying the table and search function
         self.search_for_books(header_line, book_data, column_widths)
@@ -64,15 +66,16 @@ __________               __     .____    ._____.
         book_data = []
         # iterate through the list and add each books to the data list
         for book in book_list:
-            book_data.append([book.isbn, book.author, book.title, book.publisher,
-                             book.genre, book.year_published, book.date_purchased, book.status])
+            book_data.append([
+                book.isbn, book.author, book.title, book.publisher, book.genre, book.year_published, book.date_purchased, book.status
+            ])
 
         # Returns new data with all books information
         return book_data
 
     def search_for_books(self, header_line, book_data, column_widths):
         '''
-        a tabulated table will be displayed and it also prompts user whether to search for a book.
+        A tabulated table will be displayed and it also prompts user whether to search for a book.
         '''
         while True:
             try:
@@ -82,12 +85,14 @@ __________               __     .____    ._____.
                 print()
 
                 user_choice = input(
-                    'Do you want to search for books [Y/N]: ').lower()
+                    'Do you want to search for books [Y/N]: '
+                ).lower()
 
                 # To handle errors if user does not answer 'Y' or 'N'
                 while user_choice not in ('y', 'n'):
                     user_choice = input(
-                        'Invalid Input, Do you want to search for books [Y/N]: ').lower()
+                        'Invalid Input, Do you want to search for books [Y/N]: '
+                    ).lower()
 
                 if user_choice == 'y':
                     while True:
@@ -117,7 +122,8 @@ __________               __     .____    ._____.
                         # Handles the errors if the user does not answer 'Y' or 'N'
                         while user_search_choice not in ('y', 'n'):
                             user_search_choice = input(
-                                'Invalid Input, do you wish to continue searching? [Y/N]: ')
+                                'Invalid Input, do you wish to continue searching? [Y/N]: '
+                            )
 
                         # Return to main menu after inputting 'n'
                         if user_search_choice != 'y':
@@ -165,8 +171,9 @@ __________               __     .____    ._____.
             # Create a list of formatted strings for each item in the row except the last one
             # This formatting is done for each string(isbn, author, title, etc...)
             # List will contain everything apart from Status column
-            formatted_row = [f'{item:<{width}}' for item,
-                             width in zip(row[:-1], column_widths[:-1])]
+            formatted_row = [
+                f'{item:<{width}}' for item, width in zip(row[:-1], column_widths[:-1])
+            ]
 
             # Calls the function to display the colours for status column
             status_colored = self.get_color_status(row[-1])
