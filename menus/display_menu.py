@@ -127,19 +127,11 @@ __________               __     .____    ._____.
         '''
         Takes the status column and returns it with appropriate colors based on its value.
         '''
-        if status.lower() == 'to-read':
-            # Prints 'to-read' status in red colour
-            return (f'{Color.RED}{status}{Color.ENDC}')
-
-        elif status.lower() == 'reading':
-            # Prints 'reading' status in yellow colour
-            return (f'{Color.YELLOW}{status}{Color.ENDC}')
-
-        elif status.lower() == 'read':
-            # Prints 'read' status in green colour
-            return (f'{Color.GREEN}{status}{Color.ENDC}')
-        else:
-            return status
+        match(status.lower()):
+            case 'to-read': return (f'{Color.RED}{status}{Color.ENDC}')
+            case 'reading': return (f'{Color.YELLOW}{status}{Color.ENDC}')
+            case 'read': return (f'{Color.GREEN}{status}{Color.ENDC}')
+            case _: return status
 
     def display_table(self, header_line, book_data, column_widths):
         '''
