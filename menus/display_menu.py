@@ -76,44 +76,39 @@ __________               __     .____    ._____.
         '''
         A tabulated table will be displayed and it also prompts user whether to search for a book.
         '''
-        try:
+        user_choice = input(
+            'Do you want to search for books [Y/N]: '
+        ).lower()
+
+        # To handle errors if user does not answer 'Y' or 'N'
+        while user_choice not in ('y', 'n'):
             user_choice = input(
-                'Do you want to search for books [Y/N]: '
+                'Invalid Input, Do you want to search for books [Y/N]: '
             ).lower()
 
-            # To handle errors if user does not answer 'Y' or 'N'
-            while user_choice not in ('y', 'n'):
-                user_choice = input(
-                    'Invalid Input, Do you want to search for books [Y/N]: '
-                ).lower()
+        if user_choice == 'n':
+            return False
 
-            if user_choice == 'n':
-                return False
+        print()
 
+        # Call the function to initiate search for books
+        results = self.search_books(
+            book_data, column_widths, header_line
+        )
+
+        if len(results) > 0:
+            self.display()  # To clear the terminal
+
+            print('Search Results:')
             print()
 
-            # Call the function to initiate search for books
-            results = self.search_books(
-                book_data, column_widths, header_line
-            )
+            self.display_table(header_line, results, column_widths)
+        else:
+            print('No books found with the given search term.')
 
-            if len(results) > 0:
-                self.display()  # To clear the terminal
+        print()
 
-                print('Search Results:')
-                print()
-
-                self.display_table(header_line, results, column_widths)
-            else:
-                print('No books found with the given search term.')
-
-            print()
-
-            return True
-
-        except KeyboardInterrupt:
-            print('\nKeyboardInterrupt caught')
-            self.root._exit()
+        return True
 
     def get_color_status(self, status):
         '''
