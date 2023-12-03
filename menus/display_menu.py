@@ -137,7 +137,7 @@ __________               __     .____    ._____.
 
         print('-' * len(header_line))
 
-    def search_books(self, book_data, column_widths, header_line):
+    def search_books(self, book_data):
         '''
         Search for books based on ISBN, AUTHOR, and TITLE.
         '''
