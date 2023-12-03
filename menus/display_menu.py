@@ -62,9 +62,7 @@ __________               __     .____    ._____.
                 break
 
             # Search for books
-            results = self.search_books(
-                book_data, column_widths, header_line
-            )
+            results = self.search_books(book_data)
 
             # Tabulate the results and print them if there are results
             if len(results) > 0:
