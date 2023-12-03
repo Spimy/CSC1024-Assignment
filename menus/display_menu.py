@@ -47,7 +47,7 @@ __________               __     .____    ._____.
         self.display_table(header_line, book_data, column_widths)
         print()  # Print empty line
 
-        # Start search functionality
+        # Start search loop
         while True:
             continue_search = ''
 
