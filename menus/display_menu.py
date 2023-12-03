@@ -53,7 +53,7 @@ __________               __     .____    ._____.
 
         # Display all books in the database
         self.display_table(header_line, book_data, column_widths)
-        print()
+        print()  # Print empty line
 
         # Start search functionality
         self.search_for_books(header_line, book_data, column_widths)
@@ -108,9 +108,7 @@ __________               __     .____    ._____.
                         print('Search Results:')
                         print()
 
-                        self.display_table(
-                            header_line, results, column_widths
-                        )
+                        self.display_table(header_line, results, column_widths)
                     else:
                         print('No books found with the given search term.')
 
@@ -133,7 +131,7 @@ __________               __     .____    ._____.
             except KeyboardInterrupt:
                 print('\nKeyboardInterrupt caught')
                 self.display()
-                continue
+                self.root._exit()
 
     def get_color_status(self, status):
         '''
