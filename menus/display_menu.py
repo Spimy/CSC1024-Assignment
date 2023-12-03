@@ -74,7 +74,7 @@ __________               __     .____    ._____.
 
     def search_for_books(self, header_line, book_data, column_widths):
         '''
-        A tabulated table will be displayed and it also prompts user whether to search for a book.
+        Prompt user whether to search for books or not and ask user to enter necessary details if search
         '''
         user_choice = input(
             'Do you want to search for books [Y/N]: '
