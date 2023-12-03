@@ -1,13 +1,11 @@
 from utils import BaseMenu
 
 
-class Colors:
+class Color:
     # ANSI escape codes for colors
-    HEADER = '\033[95m'  # Purple/Pink
-    OKBLUE = '\033[94m'  # Blue
-    OKGREEN = '\033[92m'  # Green
-    WARNING = '\033[93m'  # Yellow
-    FAIL = '\033[91m'  # Red
+    GREEN = '\033[92m'  # Green
+    YELLOW = '\033[93m'  # Yellow
+    RED = '\033[91m'  # Red
     ENDC = '\033[0m'  # End Colour
 
 
@@ -146,15 +144,15 @@ __________               __     .____    ._____.
         '''
         if status.lower() == 'to-read':
             # Prints 'to-read' status in red colour
-            return (f'{Colors.FAIL}{status}{Colors.ENDC}')
+            return (f'{Color.RED}{status}{Color.ENDC}')
 
         elif status.lower() == 'reading':
             # Prints 'reading' status in yellow colour
-            return (f'{Colors.WARNING}{status}{Colors.ENDC}')
+            return (f'{Color.YELLOW}{status}{Color.ENDC}')
 
         elif status.lower() == 'read':
             # Prints 'read' status in green colour
-            return (f'{Colors.OKGREEN}{status}{Colors.ENDC}')
+            return (f'{Color.GREEN}{status}{Color.ENDC}')
         else:
             return status
 
