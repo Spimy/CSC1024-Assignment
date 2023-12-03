@@ -42,19 +42,206 @@ class UpdateMenu(BaseMenu):
         self.root = root
 
     def selection(self):
-        # Start coding from here
-        '''
-        Check the ISBN or Author & Title 
-
-        > If matching records are found, the user is prompted to enter
-        new information for the book 
-
-        > User shouls be able to handle either single or multiple books at once
-
-        ** Use while loop to allow user to be able to change value again 
-        '''
-
         # Menu to display options 
+        while True: 
+             # To test if the input is valid
+            try: 
+                print("Please choose which information you would like to enter")
+                print("[1] ISBN \n[2] Author and title \n[3] Exit menu")
+                choice = int(input("Please choose either option 1 ,option 2, or option 3: "))
+            except: 
+                print("Invalid input! Please try again")
+                choice = None
+
+            if (choice == 1) or (choice == 2) or (choice == 3): 
+                break 
+
+        # Finding the index 
+        if choice == 1: 
+            index = self.isbn_index()
+        elif choice == 2: 
+            index = self.author_tiltle_index()
+        print(index)
+
+        # Make update to the information
+        self.list_update(index)
+
+        
+        # To return to the main menu 
+        input('Hit enter to go back to main menu...')
+        self.root.display().selection()
+
+
+
+    def isbn_index(self): 
+        while True:
+            isbn = input(
+                f"{self.error_flags['isbn']['message'] if not self.error_flags['isbn']['valid'] else ''}Enter the International Standard Book Number (ISBN): "
+            )
+
+            # User may input isbn with dashes or spaces
+            # This should be removed before function is run
+            isbn = isbn.replace("-", "").replace(" ", "").upper()
+
+            # Function from validator.py should check validity of isbn
+            self.error_flags['isbn'] = self.root.validator.is_isbn(isbn)
+
+            # If valid then no need to ask for input again
+            if self.error_flags['isbn']['valid']:
+                # Search for the index of the book based on the ISBN 
+                for index, book in enumerate(self.root.book_list):
+                    if book.isbn == isbn:
+                        return index
+            else: 
+                print("Author and Titile does not exist or hasn't been register, please try again.")
+            
+
+    def author_tiltle_index(self): 
+        while True: 
+            # User input Author & Title and check validity
+
+            # Author First Name 
+            while True:
+                first_name = input(
+                    f"{'[First Name should not consist a comma(s) or be empty] ' if self.error_flags['first_name'] else ''}Enter the Author's First Name: "
+                )
+
+                # Guard Clause - if first_name is valid then break
+                # If not valid - set error_flag to true
+                if self.root.validator.is_valid_string(first_name):
+                    break
+
+                self.error_flags['first_name'] = True
+
+            # Author Surname 
+            while True:
+                surname = input(
+                    f"{'[Surname should not consist a comma(s) or be empty] ' if self.error_flags['surname'] else ''}Enter the Author's Surname: "
+                )
+
+                # Guard Clause - if surname is valid then break
+                # If not valid - set error_flag to true
+                if self.root.validator.is_valid_string(surname):
+                    break
+
+                self.error_flags['surname'] = True
+
+            # Allow user to input Title name
+            while True:
+                title = input(
+                    f"{'[Title should not consist a comma(s) or be empty] ' if self.error_flags['title'] else ''}Enter the Title of the Book: "
+                )
+
+                # Guard Clause - if title is valid then break
+                # If not valid - set error_flag to true
+                if self.root.validator.is_valid_string(title):
+                    break
+
+                self.error_flags['title'] = True
+
+            # Format the Author + Title
+            first_name = first_name[0].upper() + first_name[1:]
+            surname = surname[0].upper() + surname[1:]
+            name = f"{first_name} {surname}"
+            title = title.title()
+            
+    
+            for index, book in enumerate(self.root.book_list):
+                if (book.author == name) and (book.title == title):
+                    return index
+            print("Author and Titile does not exist or hasn't been register, please try again.")
+
+    def list_update(self, index): 
+        # Display book that has been selected
+        print("Here is information regarding the selected book:")
+        print(self.root.book_list[index].to_string())
+        print()
+        print("Please choose what you want to edit: \n[1] ISBN \n[2] Author \n[3] Title \n[4] Publisher \n[5] Genre \n[6] Year of Publishing \n[7] Date of Purchase \n[8] Status")
+        edit_type = None 
+        while edit_type not in [1,2,3,4,5,6,7,8]: 
+            try: 
+                edit_type= int(input("Please enter what you would like to change:"))
+            except: 
+                print("Invalid input! Please try again")
+                pass
+        
+        # Change the information of the selected category
+        if edit_type == 1: 
+            new_isbn = input(
+                f"{self.error_flags['isbn']['message'] if not self.error_flags['isbn']['valid'] else ''}Enter the International Standard Book Number (ISBN): "
+            )
+
+            # User may input isbn with dashes or spaces
+            # This should be removed before function is run
+            isbn = isbn.replace("-", "").replace(" ", "").upper()
+
+            # Function from validator.py should check validity of isbn
+            self.error_flags['isbn'] = self.root.validator.is_isbn(isbn)
+            self.root.book_list[index].isbn = new_isbn
+
+        elif edit_type == 2: 
+            # Author First Name 
+            while True:
+                first_name = input(
+                    f"{'[First Name should not consist a comma(s) or be empty] ' if self.error_flags['first_name'] else ''}Enter the Author's First Name: "
+                )
+
+                # Guard Clause - if first_name is valid then break
+                # If not valid - set error_flag to true
+                if self.root.validator.is_valid_string(first_name):
+                    break
+
+                self.error_flags['first_name'] = True
+
+            while True:
+                surname = input(
+                    f"{'[Surname should not consist a comma(s) or be empty] ' if self.error_flags['surname'] else ''}Enter the Author's Surname: "
+                )
+
+                # Guard Clause - if surname is valid then break
+                # If not valid - set error_flag to true
+                if self.root.validator.is_valid_string(surname):
+                    break
+            
+            first_name = first_name[0].upper() + first_name[1:]
+            surname = surname[0].upper() + surname[1:]
+            new_author = f"{first_name} {surname}"
+            self.root.book_list[index].author = new_author 
+
+        elif edit_type == 3:
+            new_title = input("Enter the new tiltle here: ")
+            self.root.book_list[index].title = new_title
+
+        elif edit_type == 4: 
+            new_publisher = input("Enter the new publisher here: ")
+            self.root.book_list[index].publisher = new_publisher
+
+        elif edit_type == 5: 
+            new_genre = input("Enter the new genre here: ")
+            self.root.book_list[index].genre = new_genre
+
+        elif edit_type == 6: 
+            new_publishingyear = input("Enter the new year of publishing here: ")
+            self.root.book_list[index].year_published = new_publishingyear
+
+        elif edit_type == 7: 
+            new_purchasedate = input("Enter the new year of date of purchase here: ")
+            self.root.book_list[index].date_purchased = new_purchasedate
+
+        elif edit_type == 8: 
+            new_status = input("Enter the new status here: ")
+            self.root.book_list[index].status = new_status
+
+        # Display Updated Information 
+        print("The information has been updated!")
+        print(self.root.book_list[index].to_string())
+
+
+                       
+
+
+'''
+        # Menu to display options
         while True: 
              # To test if the input is valid
             try: 
@@ -138,11 +325,17 @@ class UpdateMenu(BaseMenu):
         # Search list for the user to edit
         # Search for matching ISBN in list 
         if choice == 1: 
-            for index, book in enumerate(self.root.book_list): 
-                if book.isbn == isbn:
-                    list_index = index
-            # Display the information stored
-            print(self.root.book_list[index].to_string()) 
+            while True: 
+            
+
+                # To display book details if found or to show that book cannot be found 
+                if index != -1:
+                    print("Here is informatio regarding the selected book:")
+                    print(self.root.book_list[index].to_string()) 
+                    break
+                else:
+                    print(f'Book with ISBN "{isbn}" not found.')
+
 
             print("Please choose what you want to edit: \nISBN \nAuthor \nTitle \nPublisher \nGenre \nYear of Publishing \nDate of Purchase \nStatus")
             edit_type = None 
@@ -246,11 +439,9 @@ class UpdateMenu(BaseMenu):
 
 
 
+'''
 
 
-# To return to the main menu 
-        input('Hit enter to go back to main menu...')
-        self.root.display().selection()
 
 
 # self.root.book_list[0].isbn == inputisbn
