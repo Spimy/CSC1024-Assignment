@@ -77,7 +77,7 @@ class AddMenu(BaseMenu):
             # Create new book
             # Concatenate first_name and surname using f string
             book = Book(
-                isbn, f"{first_name} {surname}", title, publisher, genre, year_published, date_purchased, status
+                isbn, author, title, publisher, genre, year_published, date_purchased, status
             )
             self.root.book_list.append(book)
 
