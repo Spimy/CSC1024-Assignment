@@ -130,7 +130,6 @@ __________               __     .____    ._____.
 
             except KeyboardInterrupt:
                 print('\nKeyboardInterrupt caught')
-                self.display()
                 self.root._exit()
 
     def get_color_status(self, status):
