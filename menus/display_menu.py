@@ -24,27 +24,11 @@ __________               __     .____    ._____.
         '''
         Main function to display the tabulated table and initiate book search if requested.
         '''
-        headers = [
-            'ISBN', 'Author', 'Title', 'Publisher',  'Genre', 'Year Published', 'Date Purchased', 'Status'
-        ]
-
         # Calls the function load_data to get the book list
         book_data = self.load_books(self.root.book_list)
 
-        # CALCULATIONS to find maximum length of each item in every column
-        # Group headers and their respective datas(Asterisk to unpack data)
-        column_widths = [
-            max(len(str(item)) for item in column) for column in zip(headers, *book_data)
-        ]
-
-        # Group the headers and the calculated column widths
-        # (^) to centre headers within respective column widths
-        header_line = ' | '.join(
-            f'{header:^{width}}' for header, width in zip(headers, column_widths)
-        )
-
         # Display all books in the database
-        self.display_table(header_line, book_data, column_widths)
+        self.display_table(book_data)
         print()  # Print empty line
 
         # Start search loop
@@ -71,7 +55,7 @@ __________               __     .____    ._____.
                 print('Search Results:')
                 print()
 
-                self.display_table(header_line, results, column_widths)
+                self.display_table(results)
             else:
                 print('No books found with the given search term.')
 
@@ -106,10 +90,25 @@ __________               __     .____    ._____.
             case 'read': return (f'{Color.GREEN}{status}{Color.ENDC}')
             case _: return status
 
-    def display_table(self, header_line, book_data, column_widths):
+    def display_table(self, book_data):
         '''
         Display the tabulated table.
         '''
+        headers = [
+            'ISBN', 'Author', 'Title', 'Publisher',  'Genre', 'Year Published', 'Date Purchased', 'Status'
+        ]
+
+        # CALCULATIONS to find maximum length of each item in every column
+        # Group headers and their respective datas(Asterisk to unpack data)
+        column_widths = [
+            max(len(str(item)) for item in column) for column in zip(headers, *book_data)
+        ]
+
+        # Group the headers and the calculated column widths
+        # (^) to centre headers within respective column widths
+        header_line = ' | '.join(
+            f'{header:^{width}}' for header, width in zip(headers, column_widths)
+        )
 
         print(header_line)
         print('-' * len(header_line))
