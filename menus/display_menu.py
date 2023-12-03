@@ -91,20 +91,23 @@ __________               __     .____    ._____.
                     while True:
                         print()
 
-                        # Prompts user for book information
-                        isbn_search = input(
-                            "Input International Standard Book Number(ISBN) numbers:  ").lower()
-                        author_search = input("Input AUTHOR name:  ").lower()
-                        title_search = input("Input TITLE name:  ").lower()
-                        print()
-
                         # Call the function to initiate search for books
-                        self.search_results(
-                            isbn_search, author_search, title_search, book_data, column_widths, header_line)
+                        results = self.search_results(book_data, column_widths, header_line)
+
+                        if len(results) > 0:
+                            self.display()  # To clear the terminal
+
+                            print('Search Results:')
+                            print()
+
+                            self.display_table(header_line, results, column_widths)
+                        else:
+                            print('No books found with the given search term.')
 
                         # Prompts user if they want to search for more books
                         user_search_choice = input(
-                            "Do you wish to search for more books[Y/N]:  ").lower()
+                            "Do you wish to search for more books[Y/N]: "
+                        ).lower()
 
                         # Handles the errors if the user does not answer 'Y' or 'N'
                         while user_search_choice not in ["y", "n"]:
@@ -172,13 +175,21 @@ __________               __     .____    ._____.
 
         print("-" * len(header_line))
 
-    def search_results(self, isbn_search, author_search, title_search, book_data, column_widths, header_line):
+    def search_results(self, book_data, column_widths, header_line):
         '''
         Search for books based on ISBN, AUTHOR, and TITLE.
         '''
 
         # Empty list to store the row/s of books searched
         searched_books = []
+
+        isbn_search = input(
+            'Enter International Standard Book Number(ISBN) numbers: '
+        ).lower()
+        author_search = input('Enter AUTHOR name: ').lower()
+        title_search = input('Enter TITLE name: ').lower()
+
+        print()
 
         # Loop through rows in the database
         for row in book_data:
@@ -198,14 +209,4 @@ __________               __     .____    ._____.
             if isbn_match or author_match or title_match:
                 searched_books.append(row)
 
-        # If the list is not empty, display the search results
-        if searched_books:
-            self.display()  # To clear the terminal
-
-            print("Search Results:")
-            print()
-
-            self.display_table(header_line, searched_books, column_widths)
-
-        else:
-            print("No books found with the given search term.")
+        return searched_books
