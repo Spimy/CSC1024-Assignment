@@ -86,13 +86,13 @@ class AddMenu(BaseMenu):
 
             # Allow user to add another book or go back to main menu
             cont = ''
-            while cont.upper() not in ('Y', 'N'):
-                cont = input("Do you wish to add another book (Y/N)?: ")
+            while cont not in ('Y', 'N'):
+                cont = input("Do you wish to add another book (Y/N)?: ").upper()
 
-            if cont.upper() == "Y":
+            if cont == "Y":
                 self.display()
 
-            elif cont.upper() == "N":
+            elif cont == "N":
                 self.root.display().selection()
                 break
 
