@@ -68,12 +68,11 @@ class AddMenu(BaseMenu):
                 error_msg='Invalid Status'
             )
 
-            # Capitalise first letters of some lettered attributes
-            first_name = first_name[0].upper() + first_name[1:]
-            surname = surname[0].upper() + surname[1:]
-            title = title[0].upper() + title[1:]
-            publisher = publisher[0].upper() + publisher[1:]
-            genre = genre[0].upper() + genre[1:]
+            # Convert inputs to title casing
+            author = f'{first_name} {surname}'.title()
+            title = title.title()
+            publisher = publisher.title()
+            genre = genre.title()
 
             # Create new book
             # Concatenate first_name and surname using f string
