@@ -147,8 +147,9 @@ class UpdateMenu(BaseMenu):
             
     
             for index, book in enumerate(self.root.book_list):
-                if (book.author == name) and (book.title == title):
-                    return index
+                if ((book.author == name) and (book.title == title)):
+                     
+                        return index
             print("Author and Titile does not exist or hasn't been register, please try again.")
 
     def list_update(self, index): 
@@ -167,42 +168,12 @@ class UpdateMenu(BaseMenu):
         
         # Change the information of the selected category
         if edit_type == 1: 
-            new_isbn = input(
-                f"{self.error_flags['isbn']['message'] if not self.error_flags['isbn']['valid'] else ''}Enter the International Standard Book Number (ISBN): "
-            )
-
-            # User may input isbn with dashes or spaces
-            # This should be removed before function is run
-            isbn = isbn.replace("-", "").replace(" ", "").upper()
-
-            # Function from validator.py should check validity of isbn
-            self.error_flags['isbn'] = self.root.validator.is_isbn(isbn)
+            new_isbn = input("Enter the new ISBN here: ")
             self.root.book_list[index].isbn = new_isbn
 
         elif edit_type == 2: 
-            # Author First Name 
-            while True:
-                first_name = input(
-                    f"{'[First Name should not consist a comma(s) or be empty] ' if self.error_flags['first_name'] else ''}Enter the Author's First Name: "
-                )
-
-                # Guard Clause - if first_name is valid then break
-                # If not valid - set error_flag to true
-                if self.root.validator.is_valid_string(first_name):
-                    break
-
-                self.error_flags['first_name'] = True
-
-            while True:
-                surname = input(
-                    f"{'[Surname should not consist a comma(s) or be empty] ' if self.error_flags['surname'] else ''}Enter the Author's Surname: "
-                )
-
-                # Guard Clause - if surname is valid then break
-                # If not valid - set error_flag to true
-                if self.root.validator.is_valid_string(surname):
-                    break
-            
+            first_name = input("Please enter author first name: ")
+            surname = input("Please enter author surname: ")
             first_name = first_name[0].upper() + first_name[1:]
             surname = surname[0].upper() + surname[1:]
             new_author = f"{first_name} {surname}"
@@ -235,8 +206,6 @@ class UpdateMenu(BaseMenu):
         # Display Updated Information 
         print("The information has been updated!")
         print(self.root.book_list[index].to_string())
-
-
                        
 
 
@@ -428,17 +397,6 @@ class UpdateMenu(BaseMenu):
             elif edit_type == "status": 
                 new_status = input("Enter the new status here: ")
                 self.root.book_list[list_index].status = new_status
-
-
-
-
-    # Display updated information 
-
-        print("Your update has been made, here's the updated information: ")
-        print(self.root.book_list[index].to_string()) 
-
-
-
 '''
 
 
