@@ -152,6 +152,9 @@ class Validator:
         status_list = ('to-read', 'reading', 'read')
         return status.lower() in status_list
 
+    def is_valid_confirmation(self, confirmation):
+        return confirmation.lower() in ('y', 'n')
+
     def input(self, display_string, validator, error_msg=''):
         '''
         Prompt user for input and validate it before returning a value
