@@ -93,24 +93,19 @@ class BaseMenu:
         option = 0
 
         # Flag to check if it has errored before to avoid displaying the same error message multiple times
-        errored = False
+        display = display_string
 
         while option < 1 or option > len(self.sub_menus) + 1:
             try:
                 # Try converting the input into an integer
-                option = int(input(display_string))
+                option = int(input(display))
             except ValueError:
-                # If it failed to convert then handle the error
-                if not errored:
-                    # Set the errored flag to indicate that it had already errored
-                    errored = True
-                    # Update the display string to show the error message
-                    display_string = f'[Must be an integer] {display_string}'
+                display = f'[Must be an integer] {display_string}'
                 continue
-
-            # Update display string to show the range
-            # This will only show if the input was out ouf range as if it is within range, the loop will not restart
-            display_string = f'[Must be within 1-{len(self.sub_menus) + 1}] {display_string}'
+            else:
+                # Update display string to show the range
+                # This will only show if the input was out ouf range as if it is within range, the loop will not restart
+                display = f'[Must be within 1-{len(self.sub_menus) + 1}] {display_string}'
 
         return option
 
