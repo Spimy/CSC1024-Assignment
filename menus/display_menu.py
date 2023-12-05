@@ -20,7 +20,7 @@ __________               __     .____    ._____.
         # If you do not need intellisense anymore, this line should be removed
         self.root = root
 
-    def selection(self):
+    def execute(self):
         '''
         Main function to display the tabulated table and initiate book search if requested.
         '''
@@ -59,7 +59,7 @@ __________               __     .____    ._____.
             print()
 
         # Go back to main menu if broken out of the search loop
-        self.root.display().selection()
+        self.root.display().execute()
 
     # Start of program
     def load_books(self, book_list):

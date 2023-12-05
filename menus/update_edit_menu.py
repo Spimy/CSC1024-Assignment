@@ -138,7 +138,7 @@ class UpdateMenu(BaseMenu):
         ).upper()
 
         if cont == 'Y':
-            self.display().selection()
+            self.display().execute()
 
         elif cont == 'N':
-            self.root.display().selection()
+            self.root.display().execute()

@@ -18,7 +18,7 @@ class AddMenu(BaseMenu):
         # If you do not need intellisense anymore, this line should be removed
         self.root = root
 
-    def selection(self):
+    def execute(self):
         '''
         Allow user to input all book details and add it to the list
         Check for errors and allow user to re-input details if needed
@@ -95,5 +95,5 @@ class AddMenu(BaseMenu):
                 self.display()
 
             elif cont == 'N':
-                self.root.display().selection()
+                self.root.display().execute()
                 break

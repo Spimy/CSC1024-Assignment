@@ -22,7 +22,7 @@ class AuthorTitleEditMenu(BaseMenu):
         # If you do not need intellisense anymore, this line should be removed
         self.root = root
 
-    def selection(self):
+    def execute(self):
         index = self.root.find_book_index(
             author=input("Enter the Author's Name: "),
             title=input('Enter the Book Title: ')

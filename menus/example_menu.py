@@ -19,9 +19,9 @@ class ExampleMenu(BaseMenu):
         # If you do not need intellisense anymore, this line should be removed
         self.root = root
 
-    def selection(self):
+    def execute(self):
         for i in range(len(self.root.book_list)):
             print(f'[{i + 1}] Book: {self.root.book_list[i].title}')
 
         input('Hit enter to go back to main menu...')
-        self.root.display().selection()
+        self.root.display().execute()

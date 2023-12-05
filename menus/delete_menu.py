@@ -18,7 +18,7 @@ class DeleteMenu(BaseMenu):
         # If you do not need intellisense anymore, this line should be removed
         self.root = root
 
-    def selection(self):
+    def execute(self):
         while True:
             isbn = input("Enter ISBN of book you wish to delete: ")
             index = self.root.find_book_index(isbn=isbn)
@@ -42,5 +42,5 @@ class DeleteMenu(BaseMenu):
                 self.display()
 
             elif cont == 'N':
-                self.root.display().selection()
+                self.root.display().execute()
                 break

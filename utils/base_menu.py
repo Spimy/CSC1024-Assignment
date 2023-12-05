@@ -109,10 +109,10 @@ class BaseMenu:
 
         return option
 
-    def selection(self):
+    def execute(self):
         '''
         Used to select submenus by default. 
-        Can be overridden in child classes to be functional instead of further selection
+        Can be overridden in child classes to be functional instead of further execute
         '''
 
         # If the menu is funtional, then do nothing except mention that the method is not implemented
@@ -120,7 +120,7 @@ class BaseMenu:
         if len(self.sub_menus) == 0:
             print('Method not implemented yet...')
             input('Hit enter to go back to the previous menu...')
-            self.previous_menu.display().selection()
+            self.previous_menu.display().execute()
             return self  # Return self so method calls can be chained
 
         # Ask for user input to select option
@@ -133,13 +133,13 @@ class BaseMenu:
                 self._exit(code=0)
 
             # If it is not a root menu, go back to previous menu
-            self.previous_menu.display().selection()
+            self.previous_menu.display().execute()
 
         # Set the previous menu of the selected menu to current menu
         self.sub_menus[option - 1].previous_menu = self
 
         # Display the selected menu
-        self.sub_menus[option - 1].display().selection()
+        self.sub_menus[option - 1].display().execute()
 
         # Return self so method calls can be chained
         return self
