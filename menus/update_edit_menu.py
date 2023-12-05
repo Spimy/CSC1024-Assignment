@@ -124,3 +124,15 @@ class UpdateMenu(BaseMenu):
         # Display Updated Information
         print('The information has been updated!')
         print(str(self.root.book_list[index]))
+
+        # Allow user to edit another book or go back to main menu
+        cont = Validator.input(
+            display_string='Do you wish to delete another book (Y/N)?: ',
+            validator=Validator.is_valid_confirmation
+        ).upper()
+
+        if cont == 'Y':
+            self.display().selection()
+
+        elif cont == 'N':
+            self.root.display().selection()
