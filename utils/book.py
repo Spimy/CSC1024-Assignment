@@ -21,5 +21,5 @@ class Book:
         book = book_string.split(',')
         return Book(*book)
 
-    def to_string(self):
+    def __str__(self):
         return f'{self.isbn},{self.author},{self.title},{self.publisher},{self.genre},{self.year_published},{self.date_purchased},{self.status}'
