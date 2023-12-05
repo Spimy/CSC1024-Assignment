@@ -12,27 +12,6 @@ class UpdateMenu(BaseMenu):
                                   |_|                                     
         '''
 
-    error_flags = {
-        'isbn': {
-            'valid': False,
-            'message': ''
-        },
-        'first_name': False,
-        'surname': False,
-        'title': False,
-        'publisher': False,
-        'genre': False,
-        'year_published': {
-            'valid': False,
-            'message': ''
-        },
-        'date_purchased': {
-            'valid': False,
-            'message': ''
-        },
-        'status': False
-    }
-
     def __init__(self, root):
         super().__init__(title='Update & Edit Books', header=self.header, root=root)
 
