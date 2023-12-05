@@ -81,7 +81,7 @@ class UpdateMenu(BaseMenu):
                 display_string='Enter the new Title of the Book: ',
                 validator=self.root.validator.is_valid_string,
                 error_msg='Title should not consist a comma(s) or be empty'
-            )
+            ).title()
             self.root.book_list[index].title = new_title
 
         elif edit_type == 4:
@@ -89,7 +89,7 @@ class UpdateMenu(BaseMenu):
                 display_string='Enter the new Publisher: ',
                 validator=self.root.validator.is_valid_string,
                 error_msg='Publisher should not consist a comma(s) or be empty'
-            )
+            ).title()
             self.root.book_list[index].publisher = new_publisher
 
         elif edit_type == 5:
@@ -97,7 +97,7 @@ class UpdateMenu(BaseMenu):
                 display_string='Enter the new Genre: ',
                 validator=self.root.validator.is_valid_string,
                 error_msg='Genre should not consist a comma(s) or be empty'
-            )
+            ).title()
             self.root.book_list[index].genre = new_genre
 
         elif edit_type == 6:
