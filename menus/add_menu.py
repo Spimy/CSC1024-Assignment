@@ -25,44 +25,44 @@ class AddMenu(BaseMenu):
         '''
 
         while True:
-            isbn = self.validator_input(
+            isbn = self.root.validator.input(
                 display_string='Enter the International Standard Book Number (ISBN): ',
                 validator=self.root.validator.is_isbn
             )
-            first_name = self.validator_input(
+            first_name = self.root.validator.input(
                 display_string="Enter the Author's First Name: ",
                 validator=self.root.validator.is_valid_string,
                 error_msg='First Name should not consist a comma(s) or be empty'
             )
-            surname = self.validator_input(
+            surname = self.root.validator.input(
                 display_string="Enter the Author's Surname: ",
                 validator=self.root.validator.is_valid_string,
                 error_msg='Surname should not consist a comma(s) or be empty'
             )
-            title = self.validator_input(
+            title = self.root.validator.input(
                 display_string="Enter the Title of the Book: ",
                 validator=self.root.validator.is_valid_string,
                 error_msg='Title should not consist a comma(s) or be empty'
             )
-            publisher = self.validator_input(
+            publisher = self.root.validator.input(
                 display_string="Enter the Publisher: ",
                 validator=self.root.validator.is_valid_string,
                 error_msg='Publisher should not consist a comma(s) or be empty'
             )
-            genre = self.validator_input(
+            genre = self.root.validator.input(
                 display_string="Enter the Genre: ",
                 validator=self.root.validator.is_valid_string,
                 error_msg='Genre should not consist a comma(s) or be empty'
             )
-            year_published = self.validator_input(
+            year_published = self.root.validator.input(
                 display_string='Enter the Year Published: ',
                 validator=self.root.validator.is_valid_year
             )
-            date_purchased = self.validator_input(
+            date_purchased = self.root.validator.input(
                 display_string='Enter the Date Purchased: ',
                 validator=self.root.validator.is_valid_date
             )
-            status = self.validator_input(
+            status = self.root.validator.input(
                 display_string="Enter Book Status ('to-read', 'reading', 'read'): ",
                 validator=self.root.validator.is_allowed_status,
                 error_msg='Invalid Status'
@@ -87,7 +87,9 @@ class AddMenu(BaseMenu):
             # Allow user to add another book or go back to main menu
             cont = ''
             while cont not in ('Y', 'N'):
-                cont = input("Do you wish to add another book (Y/N)?: ").upper()
+                cont = input(
+                    "Do you wish to add another book (Y/N)?: "
+                ).upper()
 
             if cont == "Y":
                 self.display()
@@ -95,31 +97,3 @@ class AddMenu(BaseMenu):
             elif cont == "N":
                 self.root.display().selection()
                 break
-
-    def validator_input(self, display_string, validator, error_msg=''):
-        '''
-        Prompt user for input and validate it before returning a value
-        display_string - string to display when asking for user input
-        validator - callback function to use to validate user input
-        error_msg - optional parameter, the error message to display when validator returns a boolean
-        '''
-        display = display_string
-
-        while True:
-            user_input = input(display)
-            validator_result = validator(user_input)
-
-            # Handle validation for when the validator returns a dictionary
-            if type(validator_result) is dict:
-                if not validator_result['valid']:
-                    display = f'{validator_result["message"]} {display_string}'
-                    continue
-
-                return user_input
-
-            # Handle validation for when the validator returns a boolean
-            if not validator_result:
-                display = f'[{error_msg}] {display_string}'
-                continue
-
-            return user_input

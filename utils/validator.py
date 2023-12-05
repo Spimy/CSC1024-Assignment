@@ -151,3 +151,31 @@ class Validator:
     def is_allowed_status(self, status):
         status_list = ('to-read', 'reading', 'read')
         return status.lower() in status_list
+
+    def input(self, display_string, validator, error_msg=''):
+        '''
+        Prompt user for input and validate it before returning a value
+        display_string - string to display when asking for user input
+        validator - callback function to use to validate user input
+        error_msg - optional parameter, the error message to display when validator returns a boolean
+        '''
+        display = display_string
+
+        while True:
+            user_input = input(display)
+            validator_result = validator(user_input)
+
+            # Handle validation for when the validator returns a dictionary
+            if type(validator_result) is dict:
+                if not validator_result['valid']:
+                    display = f'{validator_result["message"]} {display_string}'
+                    continue
+
+                return user_input
+
+            # Handle validation for when the validator returns a boolean
+            if not validator_result:
+                display = f'[{error_msg}] {display_string}'
+                continue
+
+            return user_input
