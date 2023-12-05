@@ -52,6 +52,8 @@ class UpdateMenu(BaseMenu):
             error_msg='Must be within 1-8'
         ))
 
+        print()
+
         # Change the information of the selected category
         if edit_type == 1:
             new_isbn = Validator.input(
@@ -122,8 +124,12 @@ class UpdateMenu(BaseMenu):
             self.root.book_list[index].status = new_status
 
         # Display Updated Information
+        print()
+
         print('The information has been updated!')
         print(str(self.root.book_list[index]))
+
+        print()
 
         # Allow user to edit another book or go back to main menu
         cont = Validator.input(
