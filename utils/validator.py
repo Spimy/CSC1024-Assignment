@@ -175,7 +175,10 @@ class Validator:
 
             # Handle validation for when the validator returns a boolean
             if not validator_result:
-                display = f'[{error_msg}] {display_string}'
+                if error_msg != '':
+                    display = f'[{error_msg}] {display_string}'
+                else:
+                    display = display_string
                 continue
 
             return user_input
