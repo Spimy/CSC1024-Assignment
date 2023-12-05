@@ -28,10 +28,12 @@ class DeleteMenu(BaseMenu):
             )
 
             if index != -1:
-                print(f'Successfully deleted book with the ISBN "{isbn}."')
+                print(f'Successfully deleted book with the ISBN "{isbn}".')
                 del self.root.book_list[index]
             else:
                 print(f'Book with ISBN "{isbn}" not found.')
+
+            print()
 
             # Allow user to delete another book or go back to main menu
             cont = self.root.validator.input(
