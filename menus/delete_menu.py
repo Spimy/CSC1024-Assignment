@@ -21,9 +21,7 @@ class DeleteMenu(BaseMenu):
     def selection(self):
         while True:
             isbn = input("Enter ISBN of book you wish to delete: ")
-            index = self.root.find_book_index(
-                isbn=isbn
-            )
+            index = self.root.find_book_index(isbn=isbn)
 
             if index != -1:
                 print(f'Successfully deleted book with the ISBN "{isbn}".')
