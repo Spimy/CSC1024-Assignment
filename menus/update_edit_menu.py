@@ -45,14 +45,11 @@ class UpdateMenu(BaseMenu):
         print('[7] Date of Purchase')
         print('[8] Status')
 
-        edit_type = None
-        while edit_type not in [1, 2, 3, 4, 5, 6, 7, 8]:
-            try:
-                edit_type = int(
-                    input('Please enter what you would like to change:'))
-            except:
-                print('Invalid input! Please try again')
-                pass
+        edit_type = int(self.root.validator.input(
+            display_string='Enter what you would like to change: ',
+            validator=lambda x: x.isdigit() and int(x) in range(1, 9),
+            error_msg='Must be within 1-8'
+        ))
 
         # Change the information of the selected category
         if edit_type == 1:
