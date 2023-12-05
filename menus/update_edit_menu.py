@@ -72,7 +72,6 @@ class UpdateMenu(BaseMenu):
                 author=input("Enter the Author's Name: "),
                 title=input('Enter the Book Title: ')
             )
-        print(index)
 
         # Make update to the information
         self.list_update(index)
