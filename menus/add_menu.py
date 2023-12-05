@@ -85,13 +85,13 @@ class AddMenu(BaseMenu):
             print()
 
             # Allow user to add another book or go back to main menu
-            cont = ''
-            while cont not in ('Y', 'N'):
-                cont = input(
-                    'Do you wish to add another book (Y/N)?: '
-                ).upper()
+            cont = self.root.validator.input(
+                display_string='Do you wish to add another book (Y/N)?: ',
+                validator=self.root.validator.is_valid_confirmation
+            ).upper()
 
             if cont == 'Y':
+                # Clear the console and display the header again
                 self.display()
 
             elif cont == 'N':

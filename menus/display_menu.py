@@ -33,16 +33,13 @@ __________               __     .____    ._____.
 
         # Start search loop
         while True:
-            continue_search = ''
-
-            # Check if user wants to search for books
-            while continue_search not in ('y', 'n'):
-                continue_search = input(
-                    'Do you want to search for books (Y/N)?: '
-                ).lower()
+            continue_search = self.root.validator.input(
+                display_string='Do you wish to search for books (Y/N)?: ',
+                validator=self.root.validator.is_valid_confirmation
+            ).upper()
 
             # If user does not want to search for books then exit the search loop
-            if continue_search == 'n':
+            if continue_search == 'N':
                 break
 
             # Search for books
