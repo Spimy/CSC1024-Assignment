@@ -1,4 +1,4 @@
-from utils import BaseMenu, Color
+from utils import BaseMenu, Color, Validator
 
 
 class DisplayMenu(BaseMenu):
@@ -33,9 +33,9 @@ __________               __     .____    ._____.
 
         # Start search loop
         while True:
-            continue_search = self.root.validator.input(
+            continue_search = Validator.input(
                 display_string='Do you wish to search for books (Y/N)?: ',
-                validator=self.root.validator.is_valid_confirmation
+                validator=Validator.is_valid_confirmation
             ).upper()
 
             # If user does not want to search for books then exit the search loop

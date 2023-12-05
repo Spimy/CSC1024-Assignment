@@ -1,4 +1,4 @@
-from utils import BaseMenu, Book
+from utils import BaseMenu, Book, Validator
 
 
 class AddMenu(BaseMenu):
@@ -25,46 +25,46 @@ class AddMenu(BaseMenu):
         '''
 
         while True:
-            isbn = self.root.validator.input(
+            isbn = Validator.input(
                 display_string='Enter the International Standard Book Number (ISBN): ',
-                validator=self.root.validator.is_isbn
+                validator=Validator.is_isbn
             )
-            first_name = self.root.validator.input(
+            first_name = Validator.input(
                 display_string="Enter the Author's First Name: ",
-                validator=self.root.validator.is_valid_string,
+                validator=Validator.is_valid_string,
                 error_msg='First Name should not consist a comma(s) or be empty'
             )
-            surname = self.root.validator.input(
+            surname = Validator.input(
                 display_string="Enter the Author's Surname: ",
-                validator=self.root.validator.is_valid_string,
+                validator=Validator.is_valid_string,
                 error_msg='Surname should not consist a comma(s) or be empty'
             )
-            title = self.root.validator.input(
+            title = Validator.input(
                 display_string='Enter the Title of the Book: ',
-                validator=self.root.validator.is_valid_string,
+                validator=Validator.is_valid_string,
                 error_msg='Title should not consist a comma(s) or be empty'
             )
-            publisher = self.root.validator.input(
+            publisher = Validator.input(
                 display_string='Enter the Publisher: ',
-                validator=self.root.validator.is_valid_string,
+                validator=Validator.is_valid_string,
                 error_msg='Publisher should not consist a comma(s) or be empty'
             )
-            genre = self.root.validator.input(
+            genre = Validator.input(
                 display_string='Enter the Genre: ',
-                validator=self.root.validator.is_valid_string,
+                validator=Validator.is_valid_string,
                 error_msg='Genre should not consist a comma(s) or be empty'
             )
-            year_published = self.root.validator.input(
+            year_published = Validator.input(
                 display_string='Enter the Year Published: ',
-                validator=self.root.validator.is_valid_year
+                validator=Validator.is_valid_year
             )
-            date_purchased = self.root.validator.input(
+            date_purchased = Validator.input(
                 display_string='Enter the Date Purchased: ',
-                validator=self.root.validator.is_valid_date
+                validator=Validator.is_valid_date
             )
-            status = self.root.validator.input(
+            status = Validator.input(
                 display_string="Enter Book Status ('to-read', 'reading', 'read'): ",
-                validator=self.root.validator.is_allowed_status,
+                validator=Validator.is_allowed_status,
                 error_msg='Invalid Status'
             )
 
@@ -85,9 +85,9 @@ class AddMenu(BaseMenu):
             print()
 
             # Allow user to add another book or go back to main menu
-            cont = self.root.validator.input(
+            cont = Validator.input(
                 display_string='Do you wish to add another book (Y/N)?: ',
-                validator=self.root.validator.is_valid_confirmation
+                validator=Validator.is_valid_confirmation
             ).upper()
 
             if cont == 'Y':

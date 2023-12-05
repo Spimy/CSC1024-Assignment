@@ -1,4 +1,4 @@
-from utils import BaseMenu, Utils
+from utils import BaseMenu, Utils, Validator
 
 
 class DeleteMenu(BaseMenu):
@@ -35,9 +35,9 @@ class DeleteMenu(BaseMenu):
             print()
 
             # Allow user to delete another book or go back to main menu
-            cont = self.root.validator.input(
+            cont = Validator.input(
                 display_string='Do you wish to delete another book (Y/N)?: ',
-                validator=self.root.validator.is_valid_confirmation
+                validator=Validator.is_valid_confirmation
             ).upper()
 
             if cont == 'Y':

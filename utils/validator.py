@@ -2,7 +2,12 @@ from datetime import datetime
 
 
 class Validator:
-    def is_valid_string(self, string):
+    '''
+    Validator static utility class for validating user inputs
+    '''
+
+    @staticmethod
+    def is_valid_string(string):
         '''
         Check if string is empty
         Check if string contains a comma
@@ -11,7 +16,8 @@ class Validator:
         '''
         return len(string) > 0 and len(string.split(',')) == 1
 
-    def is_isbn(self, isbn):
+    @staticmethod
+    def is_isbn(isbn):
         ''' 
         Check validity of string 
         Should not contain comma(s)
@@ -24,7 +30,7 @@ class Validator:
 
         # Check for commas or empty input
         # Return a boolean
-        if not self.is_valid_string(isbn):
+        if not Validator.is_valid_string(isbn):
             return {
                 'valid': False,
                 'message': "[ISBN should not contain a comma or be empty] "
@@ -100,7 +106,8 @@ class Validator:
             'message': ''
         }
 
-    def is_valid_date(self, date_string):
+    @staticmethod
+    def is_valid_date(date_string):
         '''
         Check if string is a valid date in the format: DD-MM-YYYY
         Date cannot be greater than current date
@@ -124,7 +131,8 @@ class Validator:
             'message': ''
         }
 
-    def is_valid_year(self, year_string):
+    @staticmethod
+    def is_valid_year(year_string):
         '''
         Check if string is a valid year
         Year cannot be greater than current year
@@ -148,13 +156,16 @@ class Validator:
             'message': ''
         }
 
-    def is_allowed_status(self, status):
+    @staticmethod
+    def is_allowed_status(status):
         return status.lower() in ('to-read', 'reading', 'read')
 
-    def is_valid_confirmation(self, confirmation):
+    @staticmethod
+    def is_valid_confirmation(confirmation):
         return confirmation.lower() in ('y', 'n')
 
-    def input(self, display_string, validator, error_msg=''):
+    @staticmethod
+    def input(display_string, validator, error_msg=''):
         '''
         Prompt user for input and validate it before returning a value
         display_string - string to display when asking for user input
