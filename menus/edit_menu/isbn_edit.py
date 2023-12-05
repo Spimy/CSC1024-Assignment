@@ -1,4 +1,4 @@
-from utils import BaseMenu, Utils
+from utils import BaseMenu
 
 
 class IsbnEditMenu(BaseMenu):
@@ -20,11 +20,8 @@ class IsbnEditMenu(BaseMenu):
         self.root = root
 
     def selection(self):
-        index = Utils.find_book_index(
-            book_list=self.root.book_list,
-            isbn=input(
-                'Enter the International Standard Book Number (ISBN): '
-            )
+        index = self.root.find_book_index(
+            isbn=input('Enter the International Standard Book Number (ISBN): ')
         )
 
         self.previous_menu.list_update(index)

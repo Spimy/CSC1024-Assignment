@@ -1,4 +1,4 @@
-from utils import BaseMenu, Utils, Validator
+from utils import BaseMenu, Validator
 from .edit_menu import IsbnEditMenu, AuthorTitleEditMenu
 
 

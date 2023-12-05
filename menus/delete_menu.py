@@ -1,4 +1,4 @@
-from utils import BaseMenu, Utils, Validator
+from utils import BaseMenu, Validator
 
 
 class DeleteMenu(BaseMenu):
@@ -21,8 +21,7 @@ class DeleteMenu(BaseMenu):
     def selection(self):
         while True:
             isbn = input("Enter ISBN of book you wish to delete: ")
-            index = Utils.find_book_index(
-                book_list=self.root.book_list,
+            index = self.root.find_book_index(
                 isbn=isbn
             )
 

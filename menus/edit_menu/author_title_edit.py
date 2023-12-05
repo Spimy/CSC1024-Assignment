@@ -1,4 +1,4 @@
-from utils import BaseMenu, Utils
+from utils import BaseMenu
 
 
 class AuthorTitleEditMenu(BaseMenu):
@@ -23,8 +23,7 @@ class AuthorTitleEditMenu(BaseMenu):
         self.root = root
 
     def selection(self):
-        index = Utils.find_book_index(
-            book_list=self.root.book_list,
+        index = self.root.find_book_index(
             author=input("Enter the Author's Name: "),
             title=input('Enter the Book Title: ')
         )
