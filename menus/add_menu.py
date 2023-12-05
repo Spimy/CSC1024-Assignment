@@ -40,17 +40,17 @@ class AddMenu(BaseMenu):
                 error_msg='Surname should not consist a comma(s) or be empty'
             )
             title = self.root.validator.input(
-                display_string="Enter the Title of the Book: ",
+                display_string='Enter the Title of the Book: ',
                 validator=self.root.validator.is_valid_string,
                 error_msg='Title should not consist a comma(s) or be empty'
             )
             publisher = self.root.validator.input(
-                display_string="Enter the Publisher: ",
+                display_string='Enter the Publisher: ',
                 validator=self.root.validator.is_valid_string,
                 error_msg='Publisher should not consist a comma(s) or be empty'
             )
             genre = self.root.validator.input(
-                display_string="Enter the Genre: ",
+                display_string='Enter the Genre: ',
                 validator=self.root.validator.is_valid_string,
                 error_msg='Genre should not consist a comma(s) or be empty'
             )
@@ -81,19 +81,19 @@ class AddMenu(BaseMenu):
             self.root.book_list.append(book)
 
             # Reassure user that book has been added
-            print("Book has successfully been added!")
+            print('Book has successfully been added!')
             print()
 
             # Allow user to add another book or go back to main menu
             cont = ''
             while cont not in ('Y', 'N'):
                 cont = input(
-                    "Do you wish to add another book (Y/N)?: "
+                    'Do you wish to add another book (Y/N)?: '
                 ).upper()
 
-            if cont == "Y":
+            if cont == 'Y':
                 self.display()
 
-            elif cont == "N":
+            elif cont == 'N':
                 self.root.display().selection()
                 break
