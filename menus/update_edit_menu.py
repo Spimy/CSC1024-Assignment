@@ -55,7 +55,7 @@ class UpdateMenu(BaseMenu):
                 print('Invalid input! Please try again')
                 choice = None
 
-            if (choice == 1) or (choice == 2) or (choice == 3):
+            if choice in (1, 2, 3):
                 break
 
         # Finding the index
