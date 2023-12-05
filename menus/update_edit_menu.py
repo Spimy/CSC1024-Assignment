@@ -34,8 +34,7 @@ class UpdateMenu(BaseMenu):
     }
 
     def __init__(self, root):
-        super().__init__(title='Update & Edit Books', header=self.header, root=root
-                         )
+        super().__init__(title='Update & Edit Books', header=self.header, root=root)
 
         # NOTE: This is done purely for intellisense to work
         # If you do not need intellisense anymore, this line should be removed
@@ -46,12 +45,14 @@ class UpdateMenu(BaseMenu):
         while True:
             # To test if the input is valid
             try:
-                print("Please choose which information you would like to enter")
-                print("[1] ISBN \n[2] Author and title \n[3] Exit menu")
-                choice = int(
-                    input("Please choose either option 1 ,option 2, or option 3: "))
+                print('Please choose which information you would like to enter')
+                print('[1] ISBN')
+                print('[2] Author and title')
+                print('[3] Back')
+
+                choice = int(input("Select option: "))
             except:
-                print("Invalid input! Please try again")
+                print('Invalid input! Please try again')
                 choice = None
 
             if (choice == 1) or (choice == 2) or (choice == 3):
@@ -92,7 +93,8 @@ class UpdateMenu(BaseMenu):
                         return index
             else:
                 print(
-                    "Author and Titile does not exist or hasn't been register, please try again.")
+                    "Author and Title does not exist or hasn't been register, please try again."
+                )
 
     def author_tiltle_index(self):
         while True:
@@ -148,22 +150,33 @@ class UpdateMenu(BaseMenu):
 
                     return index
             print(
-                "Author and Titile does not exist or hasn't been register, please try again.")
+                "Author and Title does not exist or hasn't been register, please try again."
+            )
 
     def list_update(self, index):
         # Display book that has been selected
-        print("Here is information regarding the selected book:")
+        print('Here is information regarding the selected book:')
         print(self.root.book_list[index].to_string())
+
         print()
-        print(
-            "Please choose what you want to edit: \n[1] ISBN \n[2] Author \n[3] Title \n[4] Publisher \n[5] Genre \n[6] Year of Publishing \n[7] Date of Purchase \n[8] Status")
+
+        print('Please choose what you want to edit:')
+        print('[1] ISBN')
+        print('[2] Author')
+        print('[3] Title')
+        print('[4] Publisher')
+        print('[5] Genre')
+        print('[6] Year Published')
+        print('[7] Date of Purchase')
+        print('[8] Status')
+
         edit_type = None
         while edit_type not in [1, 2, 3, 4, 5, 6, 7, 8]:
             try:
                 edit_type = int(
-                    input("Please enter what you would like to change:"))
+                    input('Please enter what you would like to change:'))
             except:
-                print("Invalid input! Please try again")
+                print('Invalid input! Please try again')
                 pass
 
         # Change the information of the selected category
@@ -191,7 +204,7 @@ class UpdateMenu(BaseMenu):
 
         elif edit_type == 3:
             new_title = self.root.validator.input(
-                display_string="Enter the new Title of the Book: ",
+                display_string='Enter the new Title of the Book: ',
                 validator=self.root.validator.is_valid_string,
                 error_msg='Title should not consist a comma(s) or be empty'
             )
@@ -199,7 +212,7 @@ class UpdateMenu(BaseMenu):
 
         elif edit_type == 4:
             new_publisher = self.root.validator.input(
-                display_string="Enter the new Publisher: ",
+                display_string='Enter the new Publisher: ',
                 validator=self.root.validator.is_valid_string,
                 error_msg='Publisher should not consist a comma(s) or be empty'
             )
@@ -207,7 +220,7 @@ class UpdateMenu(BaseMenu):
 
         elif edit_type == 5:
             new_genre = self.root.validator.input(
-                display_string="Enter the new Genre: ",
+                display_string='Enter the new Genre: ',
                 validator=self.root.validator.is_valid_string,
                 error_msg='Genre should not consist a comma(s) or be empty'
             )
@@ -236,7 +249,7 @@ class UpdateMenu(BaseMenu):
             self.root.book_list[index].status = new_status
 
         # Display Updated Information
-        print("The information has been updated!")
+        print('The information has been updated!')
         print(self.root.book_list[index].to_string())
 
 
