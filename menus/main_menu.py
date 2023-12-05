@@ -63,7 +63,7 @@ class MainMenu(BaseMenu):
             file.write(
                 '\n'.join([str(book) for book in self.book_list])
             )
-        super(MainMenu, self)._exit(code=code)
+        super()._exit(code=code)
 
     def find_book_index(self, **kwargs):
         '''
