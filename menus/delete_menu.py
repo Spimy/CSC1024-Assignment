@@ -1,4 +1,4 @@
-from utils import BaseMenu
+from utils import BaseMenu, Utils
 
 
 class DeleteMenu(BaseMenu):
@@ -22,7 +22,10 @@ class DeleteMenu(BaseMenu):
     def selection(self):
         while True:
             isbn = input("Enter ISBN of book you wish to delete: ")
-            index = self.find_book_index(isbn)
+            index = Utils.find_book_index(
+                book_list=self.root.book_list,
+                isbn=isbn
+            )
 
             if index != -1:
                 print(f'Successfully deleted book with the ISBN "{isbn}."')
@@ -42,9 +45,3 @@ class DeleteMenu(BaseMenu):
             elif cont == "N":
                 self.root.display().selection()
                 break
-
-    def find_book_index(self, target_isbn):
-        for index, book in enumerate(self.root.book_list):
-            if book.isbn == target_isbn:
-                return index
-        return -1  # Return -1 if the ISBN is not found in the list

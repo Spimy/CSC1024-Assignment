@@ -1,4 +1,4 @@
-from utils import BaseMenu
+from utils import BaseMenu, Utils
 
 
 class UpdateMenu(BaseMenu):
@@ -60,9 +60,18 @@ class UpdateMenu(BaseMenu):
 
         # Finding the index
         if choice == 1:
-            index = self.isbn_index()
+            index = Utils.find_book_index(
+                book_list=self.root.book_list,
+                isbn=input(
+                    'Enter the International Standard Book Number (ISBN): '
+                )
+            )
         elif choice == 2:
-            index = self.author_tiltle_index()
+            index = Utils.find_book_index(
+                book_list=self.root.book_list,
+                author=input("Enter the Author's Name: "),
+                title=input('Enter the Book Title: ')
+            )
         print(index)
 
         # Make update to the information
@@ -71,87 +80,6 @@ class UpdateMenu(BaseMenu):
         # To return to the main menu
         input('Hit enter to go back to main menu...')
         self.root.display().selection()
-
-    def isbn_index(self):
-        while True:
-            isbn = input(
-                f"{self.error_flags['isbn']['message'] if not self.error_flags['isbn']['valid'] else ''}Enter the International Standard Book Number (ISBN): "
-            )
-
-            # User may input isbn with dashes or spaces
-            # This should be removed before function is run
-            isbn = isbn.replace("-", "").replace(" ", "").upper()
-
-            # Function from validator.py should check validity of isbn
-            self.error_flags['isbn'] = self.root.validator.is_isbn(isbn)
-
-            # If valid then no need to ask for input again
-            if self.error_flags['isbn']['valid']:
-                # Search for the index of the book based on the ISBN
-                for index, book in enumerate(self.root.book_list):
-                    if book.isbn == isbn:
-                        return index
-            else:
-                print(
-                    "Author and Title does not exist or hasn't been register, please try again."
-                )
-
-    def author_tiltle_index(self):
-        while True:
-            # User input Author & Title and check validity
-
-            # Author First Name
-            while True:
-                first_name = input(
-                    f"{'[First Name should not consist a comma(s) or be empty] ' if self.error_flags['first_name'] else ''}Enter the Author's First Name: "
-                )
-
-                # Guard Clause - if first_name is valid then break
-                # If not valid - set error_flag to true
-                if self.root.validator.is_valid_string(first_name):
-                    break
-
-                self.error_flags['first_name'] = True
-
-            # Author Surname
-            while True:
-                surname = input(
-                    f"{'[Surname should not consist a comma(s) or be empty] ' if self.error_flags['surname'] else ''}Enter the Author's Surname: "
-                )
-
-                # Guard Clause - if surname is valid then break
-                # If not valid - set error_flag to true
-                if self.root.validator.is_valid_string(surname):
-                    break
-
-                self.error_flags['surname'] = True
-
-            # Allow user to input Title name
-            while True:
-                title = input(
-                    f"{'[Title should not consist a comma(s) or be empty] ' if self.error_flags['title'] else ''}Enter the Title of the Book: "
-                )
-
-                # Guard Clause - if title is valid then break
-                # If not valid - set error_flag to true
-                if self.root.validator.is_valid_string(title):
-                    break
-
-                self.error_flags['title'] = True
-
-            # Format the Author + Title
-            first_name = first_name[0].upper() + first_name[1:]
-            surname = surname[0].upper() + surname[1:]
-            name = f"{first_name} {surname}"
-            title = title.title()
-
-            for index, book in enumerate(self.root.book_list):
-                if ((book.author == name) and (book.title == title)):
-
-                    return index
-            print(
-                "Author and Title does not exist or hasn't been register, please try again."
-            )
 
     def list_update(self, index):
         # Display book that has been selected
