@@ -1,5 +1,6 @@
 from utils import Book, BaseMenu, Validator
 from .example_menu import ExampleMenu
+from .display_menu import DisplayMenu
 from .add_menu import AddMenu
 from .delete_menu import DeleteMenu
 
@@ -38,6 +39,7 @@ class MainMenu(BaseMenu):
             header=self.header,
             sub_menus=[
                 ExampleMenu(root=self),
+                DisplayMenu(root=self),
                 AddMenu(root=self),
                 DeleteMenu(root=self)
             ]
