@@ -42,14 +42,14 @@ class UpdateMenu(BaseMenu):
 
     def selection(self):
         # Menu to display options
-        while True:
-            # To test if the input is valid
-            try:
-                print('Please choose which information you would like to enter')
-                print('[1] ISBN')
-                print('[2] Author and title')
-                print('[3] Back')
+        print('Please choose which information you would like to enter')
+        print('[1] ISBN')
+        print('[2] Author and title')
+        print('[3] Back')
 
+        # To test if the input is valid
+        while True:
+            try:
                 choice = int(input("Select option: "))
             except:
                 print('Invalid input! Please try again')
