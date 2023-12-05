@@ -31,7 +31,7 @@ class UpdateMenu(BaseMenu):
     def list_update(self, index):
         # Display book that has been selected
         print('Here is information regarding the selected book:')
-        print(self.root.book_list[index].to_string())
+        print(str(self.root.book_list[index]))
 
         print()
 
@@ -125,4 +125,4 @@ class UpdateMenu(BaseMenu):
 
         # Display Updated Information
         print('The information has been updated!')
-        print(self.root.book_list[index].to_string())
+        print(str(self.root.book_list[index]))

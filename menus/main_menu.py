@@ -64,6 +64,6 @@ class MainMenu(BaseMenu):
         '''
         with open('books_23020043.txt', 'w') as file:
             file.write(
-                '\n'.join([book.to_string() for book in self.book_list])
+                '\n'.join([str(book) for book in self.book_list])
             )
         super(MainMenu, self)._exit(code=code)
