@@ -149,8 +149,7 @@ class Validator:
         }
 
     def is_allowed_status(self, status):
-        status_list = ('to-read', 'reading', 'read')
-        return status.lower() in status_list
+        return status.lower() in ('to-read', 'reading', 'read')
 
     def is_valid_confirmation(self, confirmation):
         return confirmation.lower() in ('y', 'n')
