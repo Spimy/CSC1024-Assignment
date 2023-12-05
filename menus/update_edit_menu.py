@@ -1,4 +1,5 @@
 from utils import BaseMenu, Utils
+from .edit_menu import IsbnEditMenu, AuthorTitleEditMenu
 
 
 class UpdateMenu(BaseMenu):
@@ -13,51 +14,19 @@ class UpdateMenu(BaseMenu):
         '''
 
     def __init__(self, root):
-        super().__init__(title='Update & Edit Books', header=self.header, root=root)
+        super().__init__(
+            title='Update & Edit Books',
+            header=self.header,
+            root=root,
+            sub_menus=[
+                IsbnEditMenu(root=root),
+                AuthorTitleEditMenu(root=root)
+            ]
+        )
 
         # NOTE: This is done purely for intellisense to work
         # If you do not need intellisense anymore, this line should be removed
         self.root = root
-
-    def selection(self):
-        # Menu to display options
-        print('Please choose which information you would like to enter')
-        print('[1] ISBN')
-        print('[2] Author and title')
-        print('[3] Back')
-
-        # To test if the input is valid
-        while True:
-            try:
-                choice = int(input("Select option: "))
-            except:
-                print('Invalid input! Please try again')
-                choice = None
-
-            if choice in (1, 2, 3):
-                break
-
-        # Finding the index
-        if choice == 1:
-            index = Utils.find_book_index(
-                book_list=self.root.book_list,
-                isbn=input(
-                    'Enter the International Standard Book Number (ISBN): '
-                )
-            )
-        elif choice == 2:
-            index = Utils.find_book_index(
-                book_list=self.root.book_list,
-                author=input("Enter the Author's Name: "),
-                title=input('Enter the Book Title: ')
-            )
-
-        # Make update to the information
-        self.list_update(index)
-
-        # To return to the main menu
-        input('Hit enter to go back to main menu...')
-        self.root.display().selection()
 
     def list_update(self, index):
         # Display book that has been selected
