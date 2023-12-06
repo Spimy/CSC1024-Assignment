@@ -175,7 +175,7 @@ class Validator:
         display = display_string
 
         while True:
-            user_input = input(display)
+            user_input = input(display).strip()
             validator_result = validator(user_input)
 
             # Handle validation for when the validator returns a dictionary
