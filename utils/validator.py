@@ -67,7 +67,7 @@ class Validator:
 
             # Last character of an ISBN 10 Numbers can be an X
             # X is considered to have the value of 10
-            if isbn[-1].upper() == 'X':
+            if isbn[-1] == 'X':
                 total += 10
             else:
                 total += int(isbn[-1])
