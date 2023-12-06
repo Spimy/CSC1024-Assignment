@@ -60,7 +60,7 @@ class UpdateMenu(BaseMenu):
             book[edit_type - 1] = Validator.input(
                 display_string='Enter the new International Standard Book Number (ISBN): ',
                 validator=lambda x: Validator.is_valid_isbn(x, self.root)
-            )
+            ).replace('-', '').replace(' ', '').upper()
             self.root.book_list[index].isbn = book[edit_type - 1]
 
         elif edit_type == 2:
