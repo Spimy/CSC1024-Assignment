@@ -25,7 +25,7 @@ __________               __     .____    ._____.
         Main function to display the tabulated table and initiate book search if requested.
         '''
         # Flatten the book list to contain only lists of book attributes
-        flattened_book_list = self.root.flatten_book_list(self.root.book_list)
+        flattened_book_list = self.root.flatten_book_list()
 
         # Display all books in the database
         DisplayHelper.display_table(flattened_book_list)
