@@ -23,10 +23,18 @@ class AuthorTitleEditMenu(BaseMenu):
         self.root = root
 
     def execute(self):
-        index = self.root.find_book_index(
-            author=input("Enter the Author's Name: "),
-            title=input('Enter the Book Title: ')
-        )
+        while True:
+            index = self.root.find_book_index(
+                author=input("Enter the Author's Name: "),
+                title=input('Enter the Book Title: ')
+            )
+
+            # If index is not -1 then that means a book was found so exit the loop
+            if index != -1:
+                break
+
+            print('No book found from the Author and Title provided.')
+            print()
 
         while True:
             self.previous_menu.list_update(index)

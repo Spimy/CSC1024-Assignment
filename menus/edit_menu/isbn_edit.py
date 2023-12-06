@@ -20,9 +20,19 @@ class IsbnEditMenu(BaseMenu):
         self.root = root
 
     def execute(self):
-        index = self.root.find_book_index(
-            isbn=input('Enter the International Standard Book Number (ISBN): ')
-        )
+        while True:
+            index = self.root.find_book_index(
+                isbn=input(
+                    'Enter the International Standard Book Number (ISBN): '
+                )
+            )
+
+            # If index is not -1 then that means a book was found so exit the loop
+            if index != -1:
+                break
+
+            print('No book found from the IBSN provided.')
+            print()
 
         while True:
             self.previous_menu.list_update(index)
