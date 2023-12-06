@@ -28,6 +28,8 @@ class Validator:
         If invalid print error message and return boolean False
         Ask user to type a valid isbn
         '''
+        # Remove all dashes and spaces between numbers
+        isbn = isbn.replace('-', '').replace(' ', '').upper()
 
         # Check for commas or empty input
         # Return a boolean
