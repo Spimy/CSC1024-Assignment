@@ -131,15 +131,3 @@ class UpdateMenu(BaseMenu):
         DisplayHelper.display_table([book])
 
         print()
-
-        # Allow user to edit another book or go back to main menu
-        cont = Validator.input(
-            display_string='Do you wish to edit another book (Y/N)?: ',
-            validator=Validator.is_valid_confirmation
-        ).upper()
-
-        if cont == 'Y':
-            self.display().execute()
-
-        elif cont == 'N':
-            self.root.display().execute()

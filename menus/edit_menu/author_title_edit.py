@@ -28,4 +28,18 @@ class AuthorTitleEditMenu(BaseMenu):
             title=input('Enter the Book Title: ')
         )
 
-        self.previous_menu.list_update(index)
+        while True:
+            self.previous_menu.list_update(index)
+
+            # Allow user to edit the book again or go back to the previous menu
+            cont = Validator.input(
+                display_string='Do you wish to edit the book again (Y/N)?: ',
+                validator=Validator.is_valid_confirmation
+            ).upper()
+
+            if cont == 'Y':
+                self.display()
+
+            elif cont == 'N':
+                self.previous_menu.display().execute()
+                break
