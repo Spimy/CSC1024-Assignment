@@ -1,4 +1,4 @@
-from utils import BaseMenu, Validator
+from utils import BaseMenu, Validator, DisplayHelper
 from .edit_menu import IsbnEditMenu, AuthorTitleEditMenu
 
 
@@ -32,7 +32,8 @@ class UpdateMenu(BaseMenu):
         print()
 
         print('Here is information regarding the selected book:')
-        print(str(self.root.book_list[index]))
+        book = self.root.flatten_book_list()[index]
+        DisplayHelper.display_table([book])
 
         print()
 
@@ -56,11 +57,11 @@ class UpdateMenu(BaseMenu):
 
         # Change the information of the selected category
         if edit_type == 1:
-            new_isbn = Validator.input(
+            book[edit_type - 1] = Validator.input(
                 display_string='Enter the new International Standard Book Number (ISBN): ',
                 validator=Validator.is_isbn
             )
-            self.root.book_list[index].isbn = new_isbn
+            self.root.book_list[index].isbn = book[edit_type - 1]
 
         elif edit_type == 2:
             first_name = Validator.input(
@@ -74,60 +75,60 @@ class UpdateMenu(BaseMenu):
                 error_msg='Surname should not consist a comma(s) or be empty'
             )
 
-            new_author = f"{first_name.title()} {surname.title()}"
-            self.root.book_list[index].author = new_author
+            book[edit_type - 1] = f"{first_name.title()} {surname.title()}"
+            self.root.book_list[index].author = book[edit_type - 1]
 
         elif edit_type == 3:
-            new_title = Validator.input(
+            book[edit_type - 1] = Validator.input(
                 display_string='Enter the new Title of the Book: ',
                 validator=Validator.is_valid_string,
                 error_msg='Title should not consist a comma(s) or be empty'
             ).title()
-            self.root.book_list[index].title = new_title
+            self.root.book_list[index].title = book[edit_type - 1]
 
         elif edit_type == 4:
-            new_publisher = Validator.input(
+            book[edit_type - 1] = Validator.input(
                 display_string='Enter the new Publisher: ',
                 validator=Validator.is_valid_string,
                 error_msg='Publisher should not consist a comma(s) or be empty'
             ).title()
-            self.root.book_list[index].publisher = new_publisher
+            self.root.book_list[index].publisher = book[edit_type - 1]
 
         elif edit_type == 5:
-            new_genre = Validator.input(
+            book[edit_type - 1] = Validator.input(
                 display_string='Enter the new Genre: ',
                 validator=Validator.is_valid_string,
                 error_msg='Genre should not consist a comma(s) or be empty'
             ).title()
-            self.root.book_list[index].genre = new_genre
+            self.root.book_list[index].genre = book[edit_type - 1]
 
         elif edit_type == 6:
-            new_year_published = Validator.input(
+            book[edit_type - 1] = Validator.input(
                 display_string='Enter the new Year Published: ',
                 validator=Validator.is_valid_year
             )
-            self.root.book_list[index].year_published = new_year_published
+            self.root.book_list[index].year_published = book[edit_type - 1]
 
         elif edit_type == 7:
-            new_date_purchased = Validator.input(
+            book[edit_type - 1] = Validator.input(
                 display_string='Enter the new Date Purchased: ',
                 validator=Validator.is_valid_date
             )
-            self.root.book_list[index].date_purchased = new_date_purchased
+            self.root.book_list[index].date_purchased = book[edit_type - 1]
 
         elif edit_type == 8:
-            new_status = Validator.input(
+            book[edit_type - 1] = Validator.input(
                 display_string="Enter new Book Status ('to-read', 'reading', 'read'): ",
                 validator=Validator.is_allowed_status,
                 error_msg='Invalid Status'
             )
-            self.root.book_list[index].status = new_status
+            self.root.book_list[index].status = book[edit_type - 1]
 
         # Display Updated Information
         print()
 
         print('The information has been updated!')
-        print(str(self.root.book_list[index]))
+        DisplayHelper.display_table([book])
 
         print()
 
