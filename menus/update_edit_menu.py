@@ -134,7 +134,7 @@ class UpdateMenu(BaseMenu):
 
         # Allow user to edit another book or go back to main menu
         cont = Validator.input(
-            display_string='Do you wish to delete another book (Y/N)?: ',
+            display_string='Do you wish to edit another book (Y/N)?: ',
             validator=Validator.is_valid_confirmation
         ).upper()
 
