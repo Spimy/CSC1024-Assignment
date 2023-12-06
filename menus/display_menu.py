@@ -24,11 +24,11 @@ __________               __     .____    ._____.
         '''
         Main function to display the tabulated table and initiate book search if requested.
         '''
-        # Calls the function load_data to get the book list
-        book_data = self.load_books(self.root.book_list)
+        # Flatten the book list to contain only lists of book attributes
+        flattened_book_list = self.root.flatten_book_list(self.root.book_list)
 
         # Display all books in the database
-        self.display_table(book_data)
+        self.display_table(flattened_book_list)
         print()  # Print empty line
 
         # Start search loop
@@ -43,7 +43,7 @@ __________               __     .____    ._____.
                 break
 
             # Search for books
-            results = self.search_books(book_data)
+            results = self.search_books(flattened_book_list)
 
             # Tabulate the results and print them if there are results
             if len(results) > 0:
@@ -61,12 +61,6 @@ __________               __     .____    ._____.
         # Go back to main menu if broken out of the search loop
         self.root.display().execute()
 
-    def load_books(self, book_list):
-        '''
-        Return list of attributes for each book
-        '''
-        return [list(book) for book in book_list]
-
     def get_color_status(self, status):
         '''
         Takes the status column and returns it with appropriate colors based on its value.
@@ -77,7 +71,7 @@ __________               __     .____    ._____.
             case 'read': return (f'{Color.GREEN}{status}{Color.ENDC}')
             case _: return status
 
-    def display_table(self, book_data):
+    def display_table(self, flattened_book_list):
         '''
         Display the tabulated book details.
         '''
@@ -88,7 +82,7 @@ __________               __     .____    ._____.
         # CALCULATIONS to find maximum length of each item in every column
         # Group headers and their respective datas(Asterisk to unpack data)
         column_widths = [
-            max(len(str(item)) for item in column) for column in zip(headers, *book_data)
+            max(len(str(item)) for item in column) for column in zip(headers, *flattened_book_list)
         ]
 
         # Group the headers and the calculated column widths
@@ -100,7 +94,7 @@ __________               __     .____    ._____.
         print(header_line)
         print('-' * len(header_line))
 
-        for row in book_data:
+        for row in flattened_book_list:
 
             # Create a list of formatted strings for each item in the row except the last one
             # This formatting is done for each string(isbn, author, title, etc...)
@@ -121,7 +115,7 @@ __________               __     .____    ._____.
 
         print('-' * len(header_line))
 
-    def search_books(self, book_data):
+    def search_books(self, flattened_book_list):
         '''
         Search for books based on ISBN, AUTHOR, and TITLE.
         '''
@@ -136,7 +130,7 @@ __________               __     .____    ._____.
         print()
 
         # Loop through rows in the database
-        for row in book_data:
+        for row in flattened_book_list:
 
             # Extract ISBN, AUTHOR, and TITLE from the row
             row_isbn, row_author, row_title = row[:3]

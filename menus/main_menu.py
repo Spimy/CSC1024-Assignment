@@ -86,3 +86,6 @@ class MainMenu(BaseMenu):
             num_match = 0
 
         return -1
+
+    def flatten_book_list(self):
+        return [list(book) for book in self.book_list]
