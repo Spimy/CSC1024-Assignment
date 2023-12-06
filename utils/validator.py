@@ -23,6 +23,7 @@ class Validator:
         Should not contain comma(s)
         Should not be an empty input
         Should be 10 or 13 digits long
+        Check if ISBN already exists in the list
         Should adhere to ISBN digit formatting
         If invalid print error message and return boolean False
         Ask user to type a valid isbn
@@ -50,7 +51,7 @@ class Validator:
         if root.find_book_index(isbn = isbn) != -1:
             return {
                 'valid': False,
-                'message': "[Oops, book already exists!] "
+                'message': "Oops, book already exists!"
             }
 
         # Check if isbn is equal to 10
