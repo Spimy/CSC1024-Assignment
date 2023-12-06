@@ -1,4 +1,4 @@
-from utils import BaseMenu, Color, Validator
+from utils import BaseMenu, Validator, DisplayHelper
 
 
 class DisplayMenu(BaseMenu):
@@ -28,7 +28,7 @@ __________               __     .____    ._____.
         flattened_book_list = self.root.flatten_book_list(self.root.book_list)
 
         # Display all books in the database
-        self.display_table(flattened_book_list)
+        DisplayHelper.display_table(flattened_book_list)
         print()  # Print empty line
 
         # Start search loop
@@ -52,7 +52,7 @@ __________               __     .____    ._____.
                 print('Search Results:')
                 print()
 
-                self.display_table(results)
+                DisplayHelper.display_table(results)
             else:
                 print('No books found with the given search term.')
 
@@ -60,60 +60,6 @@ __________               __     .____    ._____.
 
         # Go back to main menu if broken out of the search loop
         self.root.display().execute()
-
-    def get_color_status(self, status):
-        '''
-        Takes the status column and returns it with appropriate colors based on its value.
-        '''
-        match(status.lower()):
-            case 'to-read': return (f'{Color.RED}{status}{Color.ENDC}')
-            case 'reading': return (f'{Color.YELLOW}{status}{Color.ENDC}')
-            case 'read': return (f'{Color.GREEN}{status}{Color.ENDC}')
-            case _: return status
-
-    def display_table(self, flattened_book_list):
-        '''
-        Display the tabulated book details.
-        '''
-        headers = [
-            'ISBN', 'Author', 'Title', 'Publisher',  'Genre', 'Year Published', 'Date Purchased', 'Status'
-        ]
-
-        # CALCULATIONS to find maximum length of each item in every column
-        # Group headers and their respective datas(Asterisk to unpack data)
-        column_widths = [
-            max(len(str(item)) for item in column) for column in zip(headers, *flattened_book_list)
-        ]
-
-        # Group the headers and the calculated column widths
-        # (^) to centre headers within respective column widths
-        header_line = ' | '.join(
-            f'{header:^{width}}' for header, width in zip(headers, column_widths)
-        )
-
-        print(header_line)
-        print('-' * len(header_line))
-
-        for row in flattened_book_list:
-
-            # Create a list of formatted strings for each item in the row except the last one
-            # This formatting is done for each string(isbn, author, title, etc...)
-            # List will contain everything apart from Status column
-            formatted_row = [
-                f'{item:<{width}}' for item, width in zip(row[:-1], column_widths[:-1])
-            ]
-
-            # Calls the function to display the colours for status column
-            status_colored = self.get_color_status(row[-1])
-
-            # After adding colours, append every Status with the colours back into the columns
-            formatted_row.append(f'{status_colored:<{column_widths[-1]}}')
-
-            # Joins every string together as one with '|' as a seperator
-            row_line = ' | '.join(formatted_row)
-            print(row_line)
-
-        print('-' * len(header_line))
 
     def search_books(self, flattened_book_list):
         '''
