@@ -17,7 +17,7 @@ class Validator:
         return len(string) > 0 and len(string.split(',')) == 1
 
     @staticmethod
-    def is_isbn(isbn, root):
+    def is_valid_isbn(isbn, root):
         ''' 
         Check validity of string 
         Should not contain comma(s)
@@ -45,10 +45,10 @@ class Validator:
                 'valid': False,
                 'message': "ISBN should only contain 10 or 13 digits"
             }
-        
+
         # Check if isbn is in self.root.book_list
 
-        if root.find_book_index(isbn = isbn) != -1:
+        if root.find_book_index(isbn=isbn) != -1:
             return {
                 'valid': False,
                 'message': "Oops, book already exists!"

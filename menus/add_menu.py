@@ -27,7 +27,7 @@ class AddMenu(BaseMenu):
         while True:
             isbn = Validator.input(
                 display_string='Enter the International Standard Book Number (ISBN): ',
-                validator=lambda x: Validator.is_isbn(x, self.root)
+                validator=lambda x: Validator.is_valid_isbn(x, self.root)
             )
             first_name = Validator.input(
                 display_string="Enter the Author's First Name: ",
