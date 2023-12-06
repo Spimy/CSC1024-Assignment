@@ -61,21 +61,11 @@ __________               __     .____    ._____.
         # Go back to main menu if broken out of the search loop
         self.root.display().execute()
 
-    # Start of program
     def load_books(self, book_list):
         '''
-        Load books from the book list database into a format suitable for display.
+        Return list of attributes for each book
         '''
-        # empty list to store books
-        book_data = []
-        # iterate through the list and add each books to the data list
-        for book in book_list:
-            book_data.append([
-                book.isbn, book.author, book.title, book.publisher, book.genre, book.year_published, book.date_purchased, book.status
-            ])
-
-        # Returns new data with all books information
-        return book_data
+        return [list(book) for book in book_list]
 
     def get_color_status(self, status):
         '''
