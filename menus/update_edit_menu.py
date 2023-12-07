@@ -18,6 +18,7 @@ class UpdateMenu(BaseMenu):
             header=self.header,
             root=root,
             sub_menus=[
+                # This are in the sub menu edit_menu
                 IsbnEditMenu(root=root),
                 AuthorTitleEditMenu(root=root)
             ]
