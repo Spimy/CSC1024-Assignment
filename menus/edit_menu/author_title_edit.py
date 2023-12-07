@@ -1,4 +1,4 @@
-from utils import BaseMenu
+from utils import BaseMenu, Validator
 
 
 class AuthorTitleEditMenu(BaseMenu):
