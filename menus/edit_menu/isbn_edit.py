@@ -13,7 +13,7 @@ class IsbnEditMenu(BaseMenu):
         '''
 
     def __init__(self, root):
-        super().__init__(title='ISBN', header=self.header, root=root)
+        super().__init__(title='Edit by ISBN', header=self.header, root=root)
 
         # NOTE: This is done purely for intellisense to work
         # If you do not need intellisense anymore, this line should be removed
