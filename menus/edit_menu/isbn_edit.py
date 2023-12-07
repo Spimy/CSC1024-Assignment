@@ -24,7 +24,7 @@ class IsbnEditMenu(BaseMenu):
             index = self.root.find_book_index(
                 isbn=input(
                     'Enter the International Standard Book Number (ISBN): '
-                )
+                ).replace('-', '').replace(' ', '').upper()
             )
 
             # If index is not -1 then that means a book was found so exit the loop
