@@ -11,3 +11,6 @@
 9781646091690,Daiki Kobayashi,Ragna Crimson,Square Enix,Action Dark Fantasy,2017,09-3-2022,reading
 9780670887972,Barry Moser,The Holy Bible: King James Version,Viking Studio,Religious,1999,07-12-2023,reading
 9781593275990,Al Sweigart,Automate The Boring Stuff With Python,No Starch Press,Education,2015,12-08-2019,read
+9780875848716,Dave Ulrich,Results-Based Leadership,Harvard Business School Press,Leadership,1999,23-06-2000,to-read
+0875847986,Bart Victor,Invented Here,Harvard Business School Press,Knowledge Management,1998,10-05-2012,reading
+9781591397991,David A. Lax,3D Negotiation,Harvard Business School Press,Negotiation,2006,07-01-2007,reading
