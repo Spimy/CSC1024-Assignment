@@ -14,7 +14,7 @@
 9780875848716,Dave Ulrich,Results-Based Leadership,Harvard Business School Press,Leadership,1999,23-06-2000,to-read
 0875847986,Bart Victor,Invented Here,Harvard Business School Press,Knowledge Management,1998,10-05-2012,reading
 9781591397991,David A. Lax,3D Negotiation,Harvard Business School Press,Negotiation,2006,07-01-2007,reading
-9780316312295,Wataru Watari,Yahari Ore no Seishun Love Comedy wa Machigatteiru. Vol.1,Yen On,Romance,2016,05-02-2018,read
+9780316312295,Wataru Watari,OreGairu Vol.1,Yen On,Romance,2016,05-02-2018,read
 9780316371247,Reki Kawahara,Sword Art Online,Yen On,Isekai,2014,05-04-2015,read
 9781455700905,Stanley A. PlotKin,Vaccines,Elsevier Saunders,Medicine,2013,01-01-2015,reading
 9780073041698,Anthony Saunders,Financial Markets and Institutions,Stephen M.Patterson,Finance,1949,12-12-2022,read
