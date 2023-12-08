@@ -54,10 +54,13 @@ class AddMenu(BaseMenu):
                 display_string='Enter the Year Published: ',
                 validator=Validator.is_valid_year
             )
+
             date_purchased = Validator.input(
                 display_string='Enter the Date Purchased: ',
-                validator=Validator.is_valid_date
+                validator=lambda x: 
+                    Validator.is_valid_date_purchased(x, year_published)
             )
+
             status = Validator.input(
                 display_string="Enter Book Status ('to-read', 'reading', 'read'): ",
                 validator=Validator.is_allowed_status,

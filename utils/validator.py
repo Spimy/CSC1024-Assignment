@@ -118,7 +118,7 @@ class Validator:
         }
 
     @staticmethod
-    def is_valid_date(date_string):
+    def is_valid_date_purchased(date_string, year_published):
         '''
         Check if string is a valid date in the format: DD-MM-YYYY
         Date cannot be greater than current date
@@ -135,6 +135,12 @@ class Validator:
             return {
                 'valid': False,
                 'message': 'Date cannot be greater than current date'
+            }
+
+        if date.date().year < int(year_published):
+            return {
+                'valid': False,
+                'message': 'Time traveler spotted?'
             }
 
         return {
