@@ -24,10 +24,6 @@ class UpdateMenu(BaseMenu):
             ]
         )
 
-        # NOTE: This is done purely for intellisense to work
-        # If you do not need intellisense anymore, this line should be removed
-        self.root = root
-
     def list_update(self, index):
         # Display book that has been selected
         print()

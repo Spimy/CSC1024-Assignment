@@ -14,10 +14,6 @@ class DeleteMenu(BaseMenu):
     def __init__(self, root):
         super().__init__(title='Delete Books', header=self.header, root=root)
 
-        # NOTE: This is done purely for intellisense to work
-        # If you do not need intellisense anymore, this line should be removed
-        self.root = root
-
     def execute(self):
         while True:
             isbn = input("Enter ISBN of book you wish to delete: ")
