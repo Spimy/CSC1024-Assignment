@@ -1,3 +1,4 @@
+from .color import Color
 from datetime import datetime
 
 
@@ -198,7 +199,7 @@ class Validator:
             # Handle validation for when the validator returns a dictionary
             if type(validator_result) is dict:
                 if not validator_result['valid']:
-                    display = f'[{validator_result["message"]}] {display_string}'
+                    display = f'{Color.RED}[{validator_result["message"]}]{Color.ENDC} {display_string}'
                     continue
 
                 return user_input
@@ -206,7 +207,7 @@ class Validator:
             # Handle validation for when the validator returns a boolean
             if not validator_result:
                 if error_msg != '':
-                    display = f'[{error_msg}] {display_string}'
+                    display = f'{Color.RED}[{error_msg}]{Color.ENDC} {display_string}'
                 else:
                     display = display_string
                 continue

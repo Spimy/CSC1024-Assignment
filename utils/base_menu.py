@@ -1,5 +1,5 @@
 import os
-
+from .color import Color
 
 class BaseMenu:
     '''
@@ -100,12 +100,12 @@ class BaseMenu:
                 # Try converting the input into an integer
                 option = int(input(display))
             except ValueError:
-                display = f'[Must be an integer] {display_string}'
+                display = f'{Color.RED}[Must be an integer]{Color.ENDC} {display_string}'
                 continue
             else:
                 # Update display string to show the range
                 # This will only show if the input was out ouf range as if it is within range, the loop will not restart
-                display = f'[Must be within 1-{len(self.sub_menus) + 1}] {display_string}'
+                display = f'{Color.RED}[Must be within 1-{len(self.sub_menus) + 1}]{Color.ENDC} {display_string}'
 
         return option
 
