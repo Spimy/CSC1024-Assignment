@@ -110,7 +110,7 @@ class UpdateMenu(BaseMenu):
             book[edit_type - 1] = Validator.input(
                 display_string='Enter the new Date Purchased: ',
                 validator=lambda x:
-                    Validator.is_valid_date_purchased(x, book[6])
+                    Validator.is_valid_date_purchased(x, book[5])
             )
             self.root.book_list[index].date_purchased = book[edit_type - 1]
 
